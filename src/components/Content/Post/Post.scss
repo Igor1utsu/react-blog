@@ -1,0 +1,51 @@
+@import '../../../styles/imports/variables';
+
+.post {
+    display: flex;
+    padding: 10px;
+    background-color: var(--color2);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: $shadow;
+
+    &__logo-wrapper {
+        width: 33%;   
+        height: auto;
+    }
+
+    &__logo {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    &__title {
+        border-bottom: 1px var(--border-color) solid;
+        font-size: 22px;
+        color: var(--text-color3);
+    }
+
+    &__description {
+        margin-top: 20px;
+        flex: 1;
+        font-size: 16px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
+        flex: 1;
+    }
+}
+
+.application {
+    width: min-content;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    margin-top: 15px;
+
+    & * + * {
+        margin-left: 15px;
+    }
+}

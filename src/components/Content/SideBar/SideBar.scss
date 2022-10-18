@@ -1,0 +1,16 @@
+.sidebar {
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    
+    &-hidde {
+        display: none;
+    }
+
+    &__menu {
+        margin-top: 60px;
+    }
+}
+  
+  

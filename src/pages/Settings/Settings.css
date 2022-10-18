@@ -1,0 +1,19 @@
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px black solid;
+    background-color: rgb(255, 195, 195);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.settings-form-group:nth-child(2) {
+    margin-bottom: 30px;
+}
+
+.settings-input-color {
+    padding: 0;
+    border: 0;
+    margin-left: 20px;
+}

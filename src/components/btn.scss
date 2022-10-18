@@ -1,0 +1,63 @@
+@import '../styles/imports/variables';
+
+.btn {
+    width: max-content;
+    padding: 5px 30px;
+    color: var(--text-color1);
+    background-color: var(--btn-color1);
+    border-radius: 20px;
+    text-decoration: none;
+    border: 0;
+    transition: all 0.1s;
+    box-shadow: $shadow;
+
+    &:hover {
+        background-color: var(--btn-color2);
+        color: var(--text-color1);
+    }
+
+    &--popup {
+        padding: 3px;
+        margin: auto 20px;
+        background-color: transparent;
+        border: 0;
+        border: 1px transparent solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        &:hover {
+            border-color: var(--const-color1);
+            border-radius: 50%;
+        }
+    }
+
+    &--icon {
+        background-color: transparent;
+        border: 0;
+    }
+
+    &--close {
+        background-color: transparent;
+        border: 0;
+        width: min-content;
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    &--login {
+        background-color: transparent;
+        border: 0;
+        color: var(--text-color1);
+        margin-right: 25px;
+
+        &:hover {
+            transform: scale(1.04);
+            text-decoration: underline;
+        }
+    }
+}
+
+
+
+

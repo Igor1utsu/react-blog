@@ -1,0 +1,43 @@
+@import '../../styles/imports/variables';
+
+// iOS Switcher
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+@import '../ios-switcher-master/dist/css/switcher.css';
+
+
+.user-menu {
+    position: absolute;
+    top: 37px;
+    right: 20px;
+    width: 160px;
+    background-color: var(--color2);
+    color: var(--text-color2);
+    border: 1px var(--border-color) solid;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+    user-select: none;
+    transform: translateY(-120%);
+    transition: 0.2s;
+    box-shadow: $shadow;
+
+    &-active {
+      transform: translateY(0);
+    }
+
+    &__avatar {
+      width: 80px;
+      height: 80px;
+      margin: 10px auto;
+      background-color: var(--color1);
+      border-radius: 10px;
+    }
+    
+    &__link {
+      padding: 2px 5px;
+  
+      &--logout {
+        background-color: var(--color3);
+        color: var(--text-color1);
+      }
+    }
+  }

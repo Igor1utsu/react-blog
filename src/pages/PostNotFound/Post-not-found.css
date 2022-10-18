@@ -1,0 +1,21 @@
+.post-not-found {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto auto;
+    padding: 20px 40px;
+    width: 200px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px black solid;
+    background-color: rgb(255, 195, 195);
+    border-radius: 10px;
+}
+
+.post-not-found-title {
+    text-align: center;
+}
