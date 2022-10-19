@@ -1,8 +1,8 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { useState } from "react"
 import "./PostForm.scss"
 import { ReactComponent as CloseIcon } from "../../../assets/svg/close-button.svg"
 import { API } from "../../../utils/api"
-import { iconFilling } from "../../../utils/helpers"
 
 
 export default ({
@@ -10,7 +10,6 @@ export default ({
   selectPost,
   setSelectPost,
   updatePosts,
-  darkTheme
 }) => {
   const [titleInput, setTitleInput] = useState(selectPost ? selectPost.title : '')
   const [descInput, setDescInput] = useState(selectPost ? selectPost.description : '')
@@ -97,7 +96,7 @@ export default ({
         <div className="post-form-header">
           <h2 className="post-form-title">{formInfo.title}</h2>
           <button className="btn--icon" onClick={closeForm}>
-            <CloseIcon className="icon" fill={iconFilling(darkTheme)}/>
+            <CloseIcon className="icon"/>
           </button>
         </div>
         <input

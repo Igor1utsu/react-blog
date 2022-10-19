@@ -8,12 +8,11 @@ import './OpenPost.scss'
 import { API } from '../../utils/api'
 import { useHistory, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { heartFilling, iconFilling } from '../../utils/helpers'
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import { Notifications } from '../../components/Notifications/Notifications'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
 
-export default ({ isFavourites, updatePosts, darkTheme }) => {
+export default ({ isFavourites, updatePosts }) => {
     const [post, setPost] = useState(null)
     const [formData, setFormData] = useState({})
     const { id, title, description, thumbnail, liked } = post || {}
@@ -87,7 +86,7 @@ export default ({ isFavourites, updatePosts, darkTheme }) => {
         <div className="overlay">
             <div className="openpost">
                 <button className="btn--close" onClick={() => history.push(isFavourites ? '/favourites' : '/blog')}>
-                    <CloseIcon className="icon" fill={iconFilling(darkTheme)}/>
+                    <CloseIcon className="icon"/>
                 </button>
                 <div className="openpost__logo-wrapper">
                     <img src={thumbnail || imgPlaceholder} className="openpost__logo"/>
@@ -106,13 +105,13 @@ export default ({ isFavourites, updatePosts, darkTheme }) => {
                     {isEdit ? <button className='btn' onClick={(e) => editSelectPost(e)}>Сохранить</button> : 
                         <nav className="application">
                             <button className="btn--icon" onClick={likeSelectPost}>
-                                <LikeIcon className="icon" fill={heartFilling(liked)}/>
+                                <LikeIcon className={liked ? "icon icon-liked" : "icon"}/>
                             </button>
                             <button className="btn--icon" onClick={deleteSelectPost} >
-                                <TrashIcon className="icon" fill={iconFilling(darkTheme)}/>
+                                <TrashIcon className="icon"/>
                             </button>
                             <button className="btn--icon" onClick={() => setIsEdit(true)}>
-                                <EditIcon className="icon" fill={iconFilling(darkTheme)}/>
+                                <EditIcon className="icon"/>
                             </button>
                         </nav>
                     }

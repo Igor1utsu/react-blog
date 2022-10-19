@@ -5,10 +5,9 @@ import { ReactComponent as TrashIcon } from "../../../assets/svg/trash.svg"
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg"
 import "./Post.scss"
 import { useHistory, useLocation } from 'react-router-dom'
-import { heartFilling, iconFilling } from '../../../utils/helpers'
 
 
-export default ({ id, title, description, thumbnail, liked, likePost, deletePost, editPost, darkTheme }) => {
+export default ({ id, title, description, thumbnail, liked, likePost, deletePost, editPost }) => {
         const history = useHistory()
         const location = useLocation()
         const isLoggedIn = localStorage.getItem("isLoggedIn")
@@ -24,13 +23,13 @@ export default ({ id, title, description, thumbnail, liked, likePost, deletePost
                     {isLoggedIn && 
                       <nav className="application" onClick={(e) => {e.stopPropagation()}}>
                         <button className="btn--icon" onClick={likePost}>
-                          <LikeIcon className="icon" fill={heartFilling(liked, darkTheme)}/>
+                          <LikeIcon className={liked ? "icon icon-liked" : "icon"}/>
                         </button>
                         <button className="btn--icon" onClick={deletePost} >
-                          <TrashIcon className="icon" fill={iconFilling(darkTheme)}/>
+                          <TrashIcon className="icon"/>
                         </button>
                         <button className="btn--icon" onClick={editPost}>
-                          <EditIcon className="icon" fill={iconFilling(darkTheme)}/>
+                          <EditIcon className="icon"/>
                         </button>
                       </nav>
                     }

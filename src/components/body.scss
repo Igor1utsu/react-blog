@@ -17,7 +17,7 @@
 
 .title {
     margin-bottom: 1pc;
-    color: var(--text-color4);
+    color: var(--color-blue);
 }
 
 .form {
@@ -60,22 +60,27 @@
 .icon {
     width: 24px;
     height: 24px;
+    fill: var(--text-color1);
+
+    &-liked {
+        fill: var(--color-heard);
+    }
 }
 
 .menu__link {
     padding: 5px 10px;
     text-decoration: none;
     display: flex;
-    color: var(--text-color3);
+    color: var(--text-color1);
 
     &:hover {
         transform: scale(1.04);
         text-decoration: underline;
-        color: var(--text-color4);
+        color: var(--color-blue);
     }
 
     &--active {
-        color: var(--text-color4);
+        color: var(--color-blue);
         font-weight: 600;
         
         &:hover {

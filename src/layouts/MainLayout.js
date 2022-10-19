@@ -8,7 +8,7 @@ import { Route, Switch } from "react-router-dom";
 import Favourites from "../pages/Favourites/Favourites";
 import Blog from "../pages/Blog/Blog";
 
-export default ({ loginName, setIsLoggedIn, darkTheme, setDarkTheme, popup, setPopup }) => {
+export default ({ loginName, setIsLoggedIn, popup, setPopup }) => {
     return (
         <>
             <Header
@@ -16,8 +16,6 @@ export default ({ loginName, setIsLoggedIn, darkTheme, setDarkTheme, popup, setP
                 setIsLoggedIn={setIsLoggedIn}
                 popup={popup}
                 setPopup={setPopup}
-                darkTheme={darkTheme}
-                setDarkTheme={setDarkTheme}
             />
             
             <main className="main">
@@ -28,10 +26,10 @@ export default ({ loginName, setIsLoggedIn, darkTheme, setDarkTheme, popup, setP
                         />
                         <div className="content">
                             <Switch>
-                                <Route exact path="/blog"><Blog darkTheme={darkTheme}/></Route>
-                                <Route exact path="/blog/:id"><Blog darkTheme={darkTheme}/></Route>
-                                <Route exact path="/favourites"><Favourites darkTheme={darkTheme}/></Route>
-                                <Route exact path="/favourites/:id"><Favourites darkTheme={darkTheme}/></Route>
+                                <Route exact path="/blog"><Blog/></Route>
+                                <Route exact path="/blog/:id"><Blog/></Route>
+                                <Route exact path="/favourites"><Favourites/></Route>
+                                <Route exact path="/favourites/:id"><Favourites/></Route>
                                 <Route exact path="/settings"><Settings/></Route>
                             </Switch>
                         </div>

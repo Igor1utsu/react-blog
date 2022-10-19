@@ -2,7 +2,7 @@
 
 .header {
   background-color: var(--color3);
-  color: var(--text-color1);
+  color: var(--color-light);
   border-bottom: $shadow;
   z-index: 2;
   position: relative;
@@ -46,7 +46,7 @@
       cursor: pointer;
       
       &:hover {
-        border-color: var(--const-color1);
+        border-color: var(--color-light);
       }
     }
 

@@ -3,8 +3,8 @@
 .btn {
     width: max-content;
     padding: 5px 30px;
-    color: var(--text-color1);
-    background-color: var(--btn-color1);
+    color: var(--color-light);
+    background-color: var(--btn-color);
     border-radius: 20px;
     text-decoration: none;
     border: 0;
@@ -12,8 +12,8 @@
     box-shadow: $shadow;
 
     &:hover {
-        background-color: var(--btn-color2);
-        color: var(--text-color1);
+        background-color: var(--color-blue);
+        color: var(--color-light);
     }
 
     &--popup {
@@ -27,7 +27,7 @@
         align-items: center;
         
         &:hover {
-            border-color: var(--const-color1);
+            border-color: var(--color-light);
             border-radius: 50%;
         }
     }
@@ -48,7 +48,7 @@
     &--login {
         background-color: transparent;
         border: 0;
-        color: var(--text-color1);
+        color: var(--color-light);
         margin-right: 25px;
 
         &:hover {

@@ -6,19 +6,18 @@ import { ReactComponent as Logo } from "../../../src/assets/svg/logo.svg"
 import { ReactComponent as PopupMenu } from "../../../src/assets/svg/popup.svg"
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
 import UserMenu from "../UserMenu/UserMenu"
+import { useThemeStyle } from "../../utils/hooks"
 
 
-export default ({ loginName, setIsLoggedIn, popup, setPopup, darkTheme, setDarkTheme }) => {
+export default ({ loginName, setIsLoggedIn, popup, setPopup }) => {
     const location = useLocation()
     const isLoggedIn = localStorage.getItem("isLoggedIn")
     const islocationLogin = location.pathname === '/login'
     const [isVisibleUserMenu, setIsVisibleUserMenu] = useState(false) // Открытие меню Пользователя
     const history = useHistory()
+    const { darkTheme, setDarkTheme } = useThemeStyle()
 
-    const handleChangeTheme = () => {
-      setDarkTheme(!darkTheme)
-    }
-    
+
     return (
       <>
         <header className="header">
@@ -35,7 +34,7 @@ export default ({ loginName, setIsLoggedIn, popup, setPopup, darkTheme, setDarkT
                     </div>
 
                     <div className="form-switcher">
-                      <input type="checkbox" name="switcher-name" id="switcher-id" checked={darkTheme} onChange={handleChangeTheme}/>
+                      <input type="checkbox" name="switcher-name" id="switcher-id" checked={darkTheme} onChange={() => setDarkTheme(!darkTheme)}/>
                       <label className="switcher" htmlFor="switcher-id"></label>
                     </div>
 
@@ -57,8 +56,6 @@ export default ({ loginName, setIsLoggedIn, popup, setPopup, darkTheme, setDarkT
         <UserMenu 
           isVisibleUserMenu={isVisibleUserMenu} 
           setIsLoggedIn={setIsLoggedIn} 
-          darkTheme={darkTheme} 
-          setDarkTheme={setDarkTheme}
         />
       </>
     )

@@ -8,10 +8,9 @@ import { API } from "../../utils/api"
 import OpenPost from "../../pages/OpenPost/OpenPost"
 import { useParams } from "react-router-dom"
 import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
-import { iconFilling } from "../../utils/helpers"
 
 
-export default ({ darkTheme }) => {
+export default () => {
   const { blockPosts, updatePosts, isLoading, isFavourites } = useLoadPosts()
   const [isVisibleForm, setIsVisibleForm] = useState(false)
   const [selectPost, setSelectPost] = useState(null)
@@ -54,7 +53,7 @@ export default ({ darkTheme }) => {
           <div className="search-wrapper">
             <input className="search-input" type="text" placeholder="поиск"></input>
             <button className="btn--icon" onClick={() => alert('пока что не работает :(')}>
-              <SearchIcon className="icon" fill={iconFilling(darkTheme)}/>
+              <SearchIcon className="icon"/>
             </button>
           </div>
         </div>
@@ -73,7 +72,6 @@ export default ({ darkTheme }) => {
                   likePost={() => likePost(index)}     // ID !!!
                   deletePost={() => deletePost(post.id)}
                   editPost={() => editPost(post.id)}
-                  darkTheme={darkTheme}
                 />
               )
             })
@@ -87,13 +85,11 @@ export default ({ darkTheme }) => {
           selectPost={selectPost}
           setSelectPost={setSelectPost}
           updatePosts={updatePosts}
-          darkTheme={darkTheme}
         />}
 
         {params.id && <OpenPost
           isFavourites={isFavourites}
           updatePosts={updatePosts}
-          darkTheme={darkTheme}
         />}
       </>
     )
