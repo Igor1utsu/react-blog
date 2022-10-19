@@ -1,0 +1,19 @@
+.post-not-found {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto auto;
+    padding: 40px 20px;
+    width: 400px;
+    height: min-content;
+    border: 1px var(--border-color);
+    background-color: var(--color2);
+    color: var(--text-color1);
+    border-radius: 10px;
+
+    &__title {
+        text-align: center;
+    }
+}
