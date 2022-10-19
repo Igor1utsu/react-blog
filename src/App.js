@@ -6,9 +6,11 @@ import NoMatch from "./pages/NoMatch/NoMatch"
 import { URLS } from "./utils/constants"
 import "./components/body.scss"
 import "./components/btn.scss"
+import { useThemeStyle } from './utils/hooks'
 
 
 function App() {
+  useThemeStyle()   // загружаем тему оформления
   const [loginName, setLoginName] = useState(localStorage.getItem('login'))   // Логин
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'))    // Статус: login / logout
   const { pathname } = useLocation()
