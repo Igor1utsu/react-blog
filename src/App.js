@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import LoginPage from "./pages/LoginPage/LoginPage"
 import MainLayout from "./layouts/MainLayout"
 import NoMatch from "./pages/NoMatch/NoMatch"
@@ -11,6 +11,7 @@ import "./components/btn.scss"
 function App() {
   const [loginName, setLoginName] = useState(localStorage.getItem('login'))   // Логин
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'))    // Статус: login / logout
+  const { pathname } = useLocation()
 
   const Page = () => {
     return (
@@ -35,6 +36,8 @@ function App() {
 
   return (
     <Switch>
+      <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />     {/*  убираем слеш в конце адрессной строки  */}
+
       <Route exact path="/login">
         {isLoggedIn ? <Redirect to="/blog"/> : <Login/>}
       </Route>
@@ -50,9 +53,9 @@ function App() {
                 />
       })}
 
-      {/* <Route exact path="/">
+      <Route exact path="/">
         <Redirect to="/blog"/>
-      </Route> */}
+      </Route>
       
       <Route path="*">
         <NoMatch/>
