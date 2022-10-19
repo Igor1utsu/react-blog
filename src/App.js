@@ -11,7 +11,6 @@ import "./components/btn.scss"
 function App() {
   const [loginName, setLoginName] = useState(localStorage.getItem('login'))   // Логин
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'))    // Статус: login / logout
-  const [popup, setPopup] = useState(true)      // Popup menu on // off
 
   const Page = () => {
     return (
@@ -19,10 +18,6 @@ function App() {
         loginName={loginName} 
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
-
-        
-        popup={popup}
-        setPopup={setPopup}
       />
     )
   }

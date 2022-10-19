@@ -6,17 +6,17 @@ import { ReactComponent as Logo } from "../../../src/assets/svg/logo.svg"
 import { ReactComponent as PopupMenu } from "../../../src/assets/svg/popup.svg"
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
 import UserMenu from "../UserMenu/UserMenu"
-import { useThemeStyle } from "../../utils/hooks"
+import { useIsHiddeSideBar, useThemeStyle } from "../../utils/hooks"
 
 
-export default ({ loginName, setIsLoggedIn, popup, setPopup }) => {
+export default ({ loginName, setIsLoggedIn }) => {
     const location = useLocation()
     const isLoggedIn = localStorage.getItem("isLoggedIn")
     const islocationLogin = location.pathname === '/login'
     const [isVisibleUserMenu, setIsVisibleUserMenu] = useState(false) // Открытие меню Пользователя
     const history = useHistory()
     const { darkTheme, setDarkTheme } = useThemeStyle()
-
+    const { handleToggleSideBar } = useIsHiddeSideBar()   // скрываем / показываем боковую панель
 
     return (
       <>
@@ -26,7 +26,7 @@ export default ({ loginName, setIsLoggedIn, popup, setPopup }) => {
               {isLoggedIn ? (
                   <>
                     <button className="btn--popup">
-                      <PopupMenu className="header__icon" fill="#fff" onClick={() => setPopup(!popup)}/>
+                      <PopupMenu className="header__icon" fill="#fff" onClick={handleToggleSideBar}/>
                     </button>
                     <div className="header__logo">
                       <Logo className="header__icon" fill="#fff"/>

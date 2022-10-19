@@ -8,22 +8,18 @@ import { Route, Switch } from "react-router-dom";
 import Favourites from "../pages/Favourites/Favourites";
 import Blog from "../pages/Blog/Blog";
 
-export default ({ loginName, setIsLoggedIn, popup, setPopup }) => {
+export default ({ loginName, setIsLoggedIn }) => {
     return (
         <>
             <Header
                 loginName={loginName}
                 setIsLoggedIn={setIsLoggedIn}
-                popup={popup}
-                setPopup={setPopup}
             />
             
             <main className="main">
                 <div className="container">
                     <div className="main__wrapper">
-                        <SideBar
-                            popup={popup}
-                        />
+                        <SideBar/>
                         <div className="content">
                             <Switch>
                                 <Route exact path="/blog"><Blog/></Route>

@@ -1,6 +1,6 @@
 .sidebar {
     min-width: 180px;
-    display: flex;
+    display: var(--display-sidebar);
     flex-direction: column;
     flex: 1;
     

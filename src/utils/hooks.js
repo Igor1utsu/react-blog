@@ -70,3 +70,18 @@ export const useThemeStyle = () => {
     }, [darkTheme])
     return { darkTheme, setDarkTheme }
 }
+
+// скрываем / показываем боковую панель
+export const useIsHiddeSideBar = () => {
+    const [isSidebar, setSidebar] = useState(localStorage.getItem('isHiddenSideBar') ? false : true)      // Sidebar-menu on / off
+
+    const handleToggleSideBar = () => {
+        setSidebar(!isSidebar)      // меняем стейт
+        if (isSidebar) {localStorage.setItem('isHiddenSideBar', 'true')} 
+        else {localStorage.removeItem('isHiddenSideBar')}       // добавляем или удаляем из лок.хранилища
+    }
+
+    document.documentElement?.style.setProperty( "--display-sidebar", isSidebar ? 'flex' : 'none' )    // меняем CSS свойство
+
+    return { isSidebar, handleToggleSideBar }
+}
