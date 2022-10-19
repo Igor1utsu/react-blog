@@ -3,7 +3,7 @@ import { useState } from "react"
 import "./Header.scss"
 import { useHistory, useLocation } from "react-router-dom"
 import { ReactComponent as Logo } from "../../../src/assets/svg/logo.svg"
-import { ReactComponent as PopupMenu } from "../../../src/assets/svg/popup.svg"
+import { ReactComponent as ToggleSideBar } from "../../../src/assets/svg/toogle-sidebar.svg"
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
 import UserMenu from "../UserMenu/UserMenu"
 import { useIsHiddeSideBar, useThemeStyle } from "../../utils/hooks"
@@ -25,8 +25,8 @@ export default ({ loginName, setIsLoggedIn }) => {
             <div className="header__row">
               {isLoggedIn ? (
                   <>
-                    <button className="btn--popup">
-                      <PopupMenu className="header__icon" fill="#fff" onClick={handleToggleSideBar}/>
+                    <button className="btn--toggle-sidebar">
+                      <ToggleSideBar className="header__icon" fill="#fff" onClick={handleToggleSideBar}/>
                     </button>
                     <div className="header__logo">
                       <Logo className="header__icon" fill="#fff"/>
