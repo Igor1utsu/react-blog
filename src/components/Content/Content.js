@@ -76,7 +76,7 @@ export default () => {
               )
             })
           }
-        {isLoggedIn && <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить пост</button>}
+        {isLoggedIn && !isFavourites && <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить пост</button>}      {/* если авторизованны и не в избранном: показываем кнопку */}
         </div>
         
         
