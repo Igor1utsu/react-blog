@@ -17,6 +17,7 @@ export default ({ isFavourites, updatePosts }) => {
     const [formData, setFormData] = useState({})
     const { id, title, description, thumbnail, liked } = post || {}
     const [isEdit, setIsEdit] = useState(false)
+    const isLoggedIn = localStorage.getItem('isLoggedIn')       // авторизация ?
     const history = useHistory()
     const params = useParams()
 
@@ -102,7 +103,8 @@ export default ({ isFavourites, updatePosts }) => {
                         isEdit={isEdit}
                         onValuesChange={onValuesChange}
                     />
-                    {isEdit ? <button className='btn' onClick={(e) => editSelectPost(e)}>Сохранить</button> : 
+                    {isEdit && <button className='btn' onClick={(e) => editSelectPost(e)}>Сохранить</button>}     {/*  если редактируем пост, то показываем кнопку  */}  
+                    {isLoggedIn && !isEdit &&
                         <nav className="application">
                             <button className="btn--icon" onClick={likeSelectPost}>
                                 <LikeIcon className={liked ? "icon icon-liked" : "icon"}/>
@@ -114,7 +116,7 @@ export default ({ isFavourites, updatePosts }) => {
                                 <EditIcon className="icon"/>
                             </button>
                         </nav>
-                    }
+                    }       {/* показываем application только при авториизации, и скрываем когда редактируем */}
                 </div>
             </div>
         </div>
