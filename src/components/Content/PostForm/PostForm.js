@@ -3,13 +3,13 @@ import { useState } from "react"
 import "./PostForm.scss"
 import { ReactComponent as CloseIcon } from "../../../assets/svg/close-button.svg"
 import { API } from "../../../utils/api"
+import { useLoadPosts } from "../../../utils/hooks"
 
 
 export default ({
   setIsVisibleForm, 
   selectPost,
   setSelectPost,
-  updatePosts,
 }) => {
   const [titleInput, setTitleInput] = useState(selectPost ? selectPost.title : '')
   const [descInput, setDescInput] = useState(selectPost ? selectPost.description : '')
@@ -17,6 +17,7 @@ export default ({
   const textBtnCondition = selectPost ? 'Сохранить' : 'Создать'
   const [textBtn, setTextBtn] = useState(textBtnCondition)
   const [colorBtnText, setColorBtnText] = useState('#FFF')
+  const { updatePosts } = useLoadPosts()
 
   const handleChangeTitle = (event) => {
     setTitleInput(event.target.value)

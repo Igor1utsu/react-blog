@@ -11,13 +11,15 @@ import { useEffect, useState } from 'react'
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import { Notifications } from '../../components/Notifications/Notifications'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
+import { useLoadPosts } from '../../utils/hooks'
 
-export default ({ isFavourites, updatePosts }) => {
+export default () => {
     const [post, setPost] = useState(null)
     const [formData, setFormData] = useState({})
     const { id, title, description, thumbnail, liked } = post || {}
     const [isEdit, setIsEdit] = useState(false)
     const isLoggedIn = localStorage.getItem('isLoggedIn')       // авторизация ?
+    const { updatePosts, isFavourites } = useLoadPosts()
     const history = useHistory()
     const params = useParams()
 

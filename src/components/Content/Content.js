@@ -84,13 +84,9 @@ export default () => {
           setIsVisibleForm={setIsVisibleForm}
           selectPost={selectPost}
           setSelectPost={setSelectPost}
-          updatePosts={updatePosts}
         />}
 
-        {params.id && <OpenPost
-          isFavourites={isFavourites}
-          updatePosts={updatePosts}
-        />}
+        {params.id && <OpenPost/>}
       </>
     )
 }
