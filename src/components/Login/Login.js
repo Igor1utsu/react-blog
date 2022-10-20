@@ -34,7 +34,7 @@ export default ({loginName, setLoginName, setIsLoggedIn}) => {
         <div className="login__window">
             <form className="form" onSubmit={submit}>
                 <div className="logo">
-                    <Logo className="logo__icon" fill='#1E90FF'/>
+                    <Logo className="logo__icon"/>
                 </div>
                 <h3 className="login__title">Вход</h3>
                 <input 

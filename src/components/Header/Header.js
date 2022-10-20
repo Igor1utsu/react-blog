@@ -26,10 +26,10 @@ export default ({ loginName, setIsLoggedIn }) => {
               {isLoggedIn ? (
                   <>
                     <button className="btn--toggle-sidebar">
-                      <ToggleSideBar className="header__icon" fill="#fff" onClick={handleToggleSideBar}/>
+                      <ToggleSideBar className="header__icon" onClick={handleToggleSideBar}/>
                     </button>
                     <div className="header__logo">
-                      <Logo className="header__icon" fill="#fff"/>
+                      <Logo className="header__icon"/>
                       <span className="header-logo__title">React</span>
                     </div>
 
@@ -40,7 +40,7 @@ export default ({ loginName, setIsLoggedIn }) => {
 
                     <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)}>
                       <span className="header-login__name">{loginName}</span>
-                      <ArrowDown className="header-login__arrow" fill="#fff"/>
+                      <ArrowDown className="header-login__arrow"/>
                     </div>
                   </>
                 ) : (
