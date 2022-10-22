@@ -8,6 +8,8 @@ import { API } from "../../utils/api"
 import OpenPost from "../../pages/OpenPost/OpenPost"
 import { useParams } from "react-router-dom"
 import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
+import { useSelector } from "react-redux"
+import { selectIsLoggedin } from "../../store/slices/auth"
 
 
 export default () => {
@@ -15,7 +17,7 @@ export default () => {
   const [isVisibleForm, setIsVisibleForm] = useState(false)
   const [selectPost, setSelectPost] = useState(null)
   const params = useParams()
-  const isLoggedIn = localStorage.getItem("isLoggedIn")
+  const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
   
   // Кнопка лайка
   const likePost = (index) => {

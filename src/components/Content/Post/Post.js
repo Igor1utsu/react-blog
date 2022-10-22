@@ -5,12 +5,14 @@ import { ReactComponent as TrashIcon } from "../../../assets/svg/trash.svg"
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg"
 import "./Post.scss"
 import { useHistory, useLocation } from 'react-router-dom'
+import { selectIsLoggedin } from '../../../store/slices/auth'
+import { useSelector } from 'react-redux'
 
 
 export default ({ id, title, description, thumbnail, liked, likePost, deletePost, editPost }) => {
         const history = useHistory()
         const location = useLocation()
-        const isLoggedIn = localStorage.getItem("isLoggedIn")
+        const isLoggedIn = useSelector(selectIsLoggedin)    // загр. состояние авторизации из Redux
         
         return (
                 <div className="post" onClick={() => history.push(`${location.pathname}/${id}`)}>

@@ -7,11 +7,13 @@ import { ReactComponent as ToggleSideBar } from "../../../src/assets/svg/toogle-
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
 import UserMenu from "../UserMenu/UserMenu"
 import { useIsHiddeSideBar, useThemeStyle } from "../../utils/hooks"
+import { useSelector } from "react-redux"
+import { selectIsLoggedin } from "../../store/slices/auth"
 
 
-export default ({ loginName, setIsLoggedIn }) => {
+export default ({ loginName }) => {
     const location = useLocation()
-    const isLoggedIn = localStorage.getItem("isLoggedIn")
+    const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
     const islocationLogin = location.pathname === '/login'
     const [isVisibleUserMenu, setIsVisibleUserMenu] = useState(false) // Открытие меню Пользователя
     const history = useHistory()
@@ -55,7 +57,6 @@ export default ({ loginName, setIsLoggedIn }) => {
         </header>
         <UserMenu 
           isVisibleUserMenu={isVisibleUserMenu} 
-          setIsLoggedIn={setIsLoggedIn} 
         />
       </>
     )

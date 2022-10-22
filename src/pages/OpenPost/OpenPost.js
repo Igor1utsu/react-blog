@@ -12,13 +12,15 @@ import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import { Notifications } from '../../components/Notifications/Notifications'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
 import { useLoadPosts } from '../../utils/hooks'
+import { useSelector } from 'react-redux'
+import { selectIsLoggedin } from '../../store/slices/auth'
 
 export default () => {
     const [post, setPost] = useState(null)
     const [formData, setFormData] = useState({})
     const { id, title, description, thumbnail, liked } = post || {}
     const [isEdit, setIsEdit] = useState(false)
-    const isLoggedIn = localStorage.getItem('isLoggedIn')       // авторизация ?
+    const isLoggedIn = useSelector(selectIsLoggedin)        // извлекаем состояние авторизации из Redux
     const { updatePosts, isFavourites } = useLoadPosts()
     const history = useHistory()
     const params = useParams()
