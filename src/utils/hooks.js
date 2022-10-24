@@ -82,6 +82,7 @@ export const useIsHiddeSideBar = () => {
     }
 
     document.documentElement?.style.setProperty( "--display-sidebar", isSidebar ? 'flex' : 'none' )    // меняем CSS свойство
+    document.documentElement?.style.setProperty( "--display-content", isSidebar ? 'none' : 'block' )    // оптимизация для мобильных устройств
 
     return { isSidebar, handleToggleSideBar }
 }
