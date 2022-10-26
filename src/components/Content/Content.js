@@ -1,30 +1,38 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./Content.scss"
 import Post from "./Post/Post"
 import PostForm from "./PostForm/PostForm"
-import { useLoadPosts } from "../../utils/hooks"
+import { useFavourites } from "../../utils/hooks"
 import { API } from "../../utils/api"
 import OpenPost from "../../pages/OpenPost/OpenPost"
 import { useParams } from "react-router-dom"
 import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { selectIsLoggedin } from "../../store/slices/auth"
+import { loadPosts, updatePosts, selectPostsData } from "../../store/slices/posts"
 
 
 export default () => {
-  const { blockPosts, updatePosts, isLoading, isFavourites } = useLoadPosts()
+  const { postList, isLoading, error } = useSelector(selectPostsData)      // извлекаем информацию о постах из Redux 
+  const isFavourites = useFavourites()                            // загружаем функционал для избранного
   const [isVisibleForm, setIsVisibleForm] = useState(false)
   const [selectPost, setSelectPost] = useState(null)
   const params = useParams()
   const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
+  const dispath = useDispatch()
+  
+
+  useEffect(() => {
+    dispath(loadPosts())      // загружаем посты
+  }, [])
   
   // Кнопка лайка
   const likePost = (index) => {
-    const updateBlockPosts = [...blockPosts]
-    updateBlockPosts[index].liked = !updateBlockPosts[index].liked
-    API.updatePostByID(updateBlockPosts[index])
-      .then(() => updatePosts())
+    const post = {...postList[index]}     // копируем лайкнутый пост из массива
+    post.liked = !post.liked
+    API.updatePostByID(post)          
+      .then(() => dispath( updatePosts() ))
   }
 
   // Кнопка удалить пост
@@ -33,7 +41,7 @@ export default () => {
 
     if (isDelete){
       API.deletePost(postID)
-        .then(() => updatePosts())
+        .then(() => dispath( updatePosts() ))
     }
   }
 
@@ -47,6 +55,7 @@ export default () => {
   }
 
   if (isLoading) return <h2>Loading... </h2>
+  if (error) return <h2>Error</h2>
   
   return (
       <>
@@ -62,7 +71,7 @@ export default () => {
 
         <div className="content__wrapper">
           {
-            blockPosts.map((post, index) => {
+            postList.map((post, index) => {
               return (
                 <Post
                   {...post}

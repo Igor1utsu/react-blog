@@ -3,7 +3,8 @@ import { useState } from "react"
 import "./PostForm.scss"
 import { ReactComponent as CloseIcon } from "../../../assets/svg/close-button.svg"
 import { API } from "../../../utils/api"
-import { useLoadPosts } from "../../../utils/hooks"
+import { useDispatch } from "react-redux"
+import { updatePosts } from "../../../store/slices/posts"
 
 
 export default ({
@@ -17,7 +18,8 @@ export default ({
   const textBtnCondition = selectPost ? 'Сохранить' : 'Создать'
   const [textBtn, setTextBtn] = useState(textBtnCondition)
   const [colorBtnText, setColorBtnText] = useState('#FFF')
-  const { updatePosts } = useLoadPosts()
+  const dispatch = useDispatch()
+
 
   const handleChangeTitle = (event) => {
     setTitleInput(event.target.value)
@@ -43,7 +45,7 @@ export default ({
     setIsVisibleForm(false)
     API.createPost(newPost)
       .catch((er) => errorSendForm(er))
-      .then(() => updatePosts())
+      .then(() => dispatch( updatePosts() ))
   }
 
   // Сохранить редактируемый пост
@@ -60,7 +62,7 @@ export default ({
     setIsVisibleForm(false)
     API.updatePostByID(editablePost)
       .catch((er) => errorSendForm(er))
-      .then(() => updatePosts())
+      .then(() => dispatch( updatePosts() ))
       .then(() => setSelectPost(null))
   }
 

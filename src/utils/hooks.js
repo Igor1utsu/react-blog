@@ -1,38 +1,19 @@
 import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import { useLocation } from "react-router-dom"
-import { API } from "./api"
+import { setFavourites, unsetFavourites } from "../store/slices/posts"
 
 
-export const useLoadPosts = () => {
-    const [blockPosts, setBlockPosts] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
-    const location = useLocation()
-    const isFavourites = location.pathname.includes('favourites')
-
-    // Фильтруем избранные посты
-    const getFilteredPosts = (postData) => {
-        return isFavourites ? postData.filter(p => p.liked) : postData  
-    }
+export const useFavourites = () => {
+    const { pathname } = useLocation()
+    const isFavourites = pathname.includes('favourites')        // проверям наличие favourites в адресной строке
+    const dispath = useDispatch()
 
     useEffect(() => {
-        setIsLoading(true)
-        API.loadPosts( )
-            .then((postData) =>  {
-                const posts = getFilteredPosts(postData)
-                setBlockPosts(posts?.length ? posts : [])
-                setIsLoading(false)
-            })
+        isFavourites ? dispath( setFavourites() ) : dispath( unsetFavourites() )    // изменяем isFavourites в глобальном хранилище
     }, [isFavourites])
 
-    const updatePosts = () => {
-        API.loadPosts()
-            .then((postsData) => {
-                console.log('updatePosts...')
-                const posts = getFilteredPosts(postsData)
-                setBlockPosts(posts?.length ? posts : [])})
-    }
-
-    return { blockPosts, updatePosts, isLoading, isFavourites }
+    return isFavourites
 }
 
 export const useThemeStyle = () => {
@@ -86,3 +67,37 @@ export const useIsHiddeSideBar = () => {
 
     return { isSidebar, handleToggleSideBar }
 }
+
+// старый функционал получения постов
+//
+// export const useLoadPosts = () => {
+//     const [blockPosts, setBlockPosts] = useState([])
+//     const [isLoading, setIsLoading] = useState(false)
+//     const location = useLocation()
+//     const isFavourites = location.pathname.includes('favourites')
+
+//     // Фильтруем избранные посты
+//     const getFilteredPosts = (postData) => {
+//         return isFavourites ? postData.filter(p => p.liked) : postData  
+//     }
+
+//     useEffect(() => {
+//         setIsLoading(true)
+//         API.loadPosts( )
+//             .then((postData) =>  {
+//                 const posts = getFilteredPosts(postData)
+//                 setBlockPosts(posts?.length ? posts : [])
+//                 setIsLoading(false)
+//             })
+//     }, [isFavourites])
+
+//     const updatePosts = () => {
+//         API.loadPosts()
+//             .then((postsData) => {
+//                 console.log('updatePosts...')
+//                 const posts = getFilteredPosts(postsData)
+//                 setBlockPosts(posts?.length ? posts : [])})
+//     }
+
+//     return { blockPosts, updatePosts, isLoading, isFavourites }
+// }

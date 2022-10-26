@@ -11,9 +11,10 @@ import { useEffect, useState } from 'react'
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import { Notifications } from '../../components/Notifications/Notifications'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
-import { useLoadPosts } from '../../utils/hooks'
-import { useSelector } from 'react-redux'
+import { useFavourites } from '../../utils/hooks'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoggedin } from '../../store/slices/auth'
+import { updatePosts } from '../../store/slices/posts'
 
 export default () => {
     const [post, setPost] = useState(null)
@@ -21,9 +22,10 @@ export default () => {
     const { id, title, description, thumbnail, liked } = post || {}
     const [isEdit, setIsEdit] = useState(false)
     const isLoggedIn = useSelector(selectIsLoggedin)        // извлекаем состояние авторизации из Redux
-    const { updatePosts, isFavourites } = useLoadPosts()
     const history = useHistory()
     const params = useParams()
+    const isFavourites = useFavourites()         // загружаем функционал для избранного
+    const dispath = useDispatch()
 
 
     useEffect (() => {
@@ -40,7 +42,7 @@ export default () => {
             .then((res) => res.json())
             .then((data) => {
                 setPost(data)
-                updatePosts()
+                dispath( updatePosts() )
             })
     }
 
@@ -52,7 +54,7 @@ export default () => {
             API.deletePost(id)
                 .then(() => {
                     history.goBack()
-                    updatePosts()
+                    dispath( updatePosts() )
                 })
         }
     }
