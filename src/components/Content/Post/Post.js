@@ -7,10 +7,10 @@ import "./Post.scss"
 import { useHistory, useLocation } from 'react-router-dom'
 import { selectIsLoggedin } from '../../../store/slices/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { likePost } from '../../../store/slices/posts'
+import { likePost, deletePost } from '../../../store/slices/posts'
 
 
-export default ({ id, title, description, thumbnail, liked, deletePost, editPost, post }) => {
+export default ({ id, title, description, thumbnail, liked, editPost, post }) => {
         const history = useHistory()
         const location = useLocation()
         const isLoggedIn = useSelector(selectIsLoggedin)    // загр. состояние авторизации из Redux
@@ -29,7 +29,7 @@ export default ({ id, title, description, thumbnail, liked, deletePost, editPost
                         <button className="btn--icon" onClick={() => dispath( likePost(post) )}>
                           <HeartIcon liked={liked} id={id}/>
                         </button>
-                        <button className="btn--icon" onClick={deletePost} >
+                        <button className="btn--icon" onClick={() => dispath( deletePost(id) )}>
                           <TrashIcon className="icon"/>
                         </button>
                         <button className="btn--icon" onClick={editPost}>

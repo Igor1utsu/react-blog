@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom"
 import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
 import { useDispatch, useSelector } from "react-redux"
 import { selectIsLoggedin } from "../../store/slices/auth"
-import { loadPosts, updatePosts, selectPostsData } from "../../store/slices/posts"
+import { loadPosts, selectPostsData } from "../../store/slices/posts"
 
 
 export default () => {
@@ -26,16 +26,6 @@ export default () => {
   useEffect(() => {
     dispath(loadPosts())      // загружаем посты
   }, [])
-
-  // Кнопка удалить пост
-  const deletePost = (postID) => {
-    const isDelete = window.confirm('Удалить пост?')
-
-    if (isDelete){
-      API.deletePost(postID)
-        .then(() => dispath( updatePosts() ))
-    }
-  }
 
   // Кнопка редактировать пост
   const editPost= (postID) => {
@@ -72,7 +62,6 @@ export default () => {
                   // thumbnail={post.thumbnail}
                   // liked={post.liked}
                   key={post.id}
-                  deletePost={() => deletePost(post.id)}
                   editPost={() => editPost(post.id)}
                   post={post}
                 />

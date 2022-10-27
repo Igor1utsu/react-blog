@@ -53,6 +53,21 @@ export const likePost = createAsyncThunk(
     }
 )
 
+// функция удаления поста
+export const deletePost = createAsyncThunk(
+    'posts/delete',
+    async (postID, { getState }) => {
+        const isDelete = window.confirm('Удалить пост?')
+
+        if (isDelete){
+            await API.deletePost(postID)
+            const { posts } = getState()                // вытаскиваваем стейт из хранилища Redux
+            const dataPosts = await API.loadPosts( posts.isFavourites )     // загружаем посты
+            return dataPosts
+        }
+    }
+)
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
@@ -93,6 +108,13 @@ const postsSlice = createSlice({
             state.pendingLike = false
             console.error('Ошибка! Не возможно обработать Лайк')
         })
+        builder.addCase(deletePost.fulfilled, (state, action) => {
+            state.postList = action.payload
+        })
+        builder.addCase(deletePost.rejected, (state, action) => {
+            console.error('Ошибка! Не возможно удалить пост')
+        })
+
     }
 })
 
