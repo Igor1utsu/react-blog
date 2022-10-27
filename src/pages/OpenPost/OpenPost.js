@@ -1,6 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import imgPlaceholder from '../../../src/assets/place-holder-img.png'
-import { ReactComponent as LikeIcon } from "../../../src/assets/svg/liked.svg"
 import { ReactComponent as TrashIcon } from "../../../src/assets/svg/trash.svg"
 import { ReactComponent as EditIcon } from "../../../src/assets/svg/edit.svg"
 import { ReactComponent as CloseIcon } from "../../../src/assets/svg/close-button.svg"
@@ -15,6 +14,7 @@ import { useFavourites } from '../../utils/hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoggedin } from '../../store/slices/auth'
 import { updatePosts } from '../../store/slices/posts'
+import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
 
 export default () => {
     const [post, setPost] = useState(null)
@@ -113,7 +113,7 @@ export default () => {
                     {isLoggedIn && !isEdit &&
                         <nav className="application">
                             <button className="btn--icon" onClick={likeSelectPost}>
-                                <LikeIcon className={liked ? "icon icon-liked" : "icon"}/>
+                                <HeartIcon liked={liked} id={id}/>
                             </button>
                             <button className="btn--icon" onClick={deleteSelectPost} >
                                 <TrashIcon className="icon"/>

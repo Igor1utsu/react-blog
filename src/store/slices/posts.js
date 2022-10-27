@@ -6,7 +6,8 @@ const initialState = {
     isLoading: false,
     isFavourites: false,
     postList: [],
-    error: false
+    error: false,
+    pendingLike: null       // здесь индикатор ( ID ) поста
 }
 
 // функция загрузки постов
@@ -39,6 +40,19 @@ export const updatePosts = createAsyncThunk(
     }
 )
 
+// функция лайка поста
+export const likePost = createAsyncThunk(
+    'posts/like',
+    async (post, { getState }) => {
+        const copyPost = {...post}
+        copyPost.liked = !copyPost.liked
+        await API.updatePostByID(copyPost)          // отправляем измененный пост на сервер
+        const { posts } = getState()                // вытаскиваваем стейт из хранилища Redux
+        const dataPosts = await API.loadPosts( posts.isFavourites )     // загружаем посты
+        return dataPosts
+    }
+)
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
@@ -67,6 +81,17 @@ const postsSlice = createSlice({
         })
         builder.addCase(updatePosts.rejected, (state, action) => {
             state.error = action.payload
+        })
+        builder.addCase(likePost.pending, (state, action) => {
+            state.pendingLike = action.meta.arg.id              // достаем из мета-данных ID и заносим в стейт
+        })
+        builder.addCase(likePost.fulfilled, (state, action) => {
+            state.postList = action.payload
+            state.pendingLike = null
+        })
+        builder.addCase(likePost.rejected, (state, action) => {
+            state.pendingLike = false
+            console.error('Ошибка! Не возможно обработать Лайк')
         })
     }
 })

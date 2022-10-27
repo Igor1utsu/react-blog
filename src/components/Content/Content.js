@@ -26,14 +26,6 @@ export default () => {
   useEffect(() => {
     dispath(loadPosts())      // загружаем посты
   }, [])
-  
-  // Кнопка лайка
-  const likePost = (index) => {
-    const post = {...postList[index]}     // копируем лайкнутый пост из массива
-    post.liked = !post.liked
-    API.updatePostByID(post)          
-      .then(() => dispath( updatePosts() ))
-  }
 
   // Кнопка удалить пост
   const deletePost = (postID) => {
@@ -80,9 +72,9 @@ export default () => {
                   // thumbnail={post.thumbnail}
                   // liked={post.liked}
                   key={post.id}
-                  likePost={() => likePost(index)}     // ID !!!
                   deletePost={() => deletePost(post.id)}
                   editPost={() => editPost(post.id)}
+                  post={post}
                 />
               )
             })
