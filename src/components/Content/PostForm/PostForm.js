@@ -4,20 +4,13 @@ import "./PostForm.scss"
 import { ReactComponent as CloseIcon } from "../../../assets/svg/close-button.svg"
 import { API } from "../../../utils/api"
 import { useDispatch } from "react-redux"
-import { updatePosts } from "../../../store/slices/posts"
+import { savePost, updatePosts } from "../../../store/slices/posts"
 
 
-export default ({
-  setIsVisibleForm, 
-  selectPost,
-  setSelectPost,
-}) => {
-  const [titleInput, setTitleInput] = useState(selectPost ? selectPost.title : '')
+export default ({ setIsVisibleForm, selectPost, setSelectPost }) => {
+  const [titleInput, setTitleInput] = useState(selectPost ? selectPost.title : '')          // если спустили пост: показываем его данные в импутах
   const [descInput, setDescInput] = useState(selectPost ? selectPost.description : '')
   const [imgSrcInput, setImgSrcInput] = useState(selectPost ? selectPost.thumbnail : '')
-  const textBtnCondition = selectPost ? 'Сохранить' : 'Создать'
-  const [textBtn, setTextBtn] = useState(textBtnCondition)
-  const [colorBtnText, setColorBtnText] = useState('#FFF')
   const dispatch = useDispatch()
 
 
@@ -44,27 +37,23 @@ export default ({
 
     setIsVisibleForm(false)
     API.createPost(newPost)
-      .catch((er) => errorSendForm(er))
       .then(() => dispatch( updatePosts() ))
   }
 
-  // Сохранить редактируемый пост
+  // функция изменения поста
   const editPost = (event) => {
     event.preventDefault()
 
-    const editablePost = {
-      ...selectPost,
+    const dataPost = {
+        ...selectPost,
       title: titleInput,
       description: descInput,
       thumbnail: imgSrcInput
     }
 
+    dispatch( savePost(dataPost) )
     setIsVisibleForm(false)
-    API.updatePostByID(editablePost)
-      .catch((er) => errorSendForm(er))
-      .then(() => dispatch( updatePosts() ))
-      .then(() => setSelectPost(null))
-  }
+}
 
   // Закрыть форму
   const closeForm = (event) => {
@@ -73,20 +62,10 @@ export default ({
     setSelectPost(null)
   }
 
-  // Ошибка при отправки формы
-  const errorSendForm = (er) => {
-    setColorBtnText('#F00')
-    setTextBtn('Ошибка')
-    console.error('ERROR !!!', er)
-    setTimeout(() => {
-      setColorBtnText('#FFF')
-      setTextBtn(textBtnCondition)
-    }, 3000)
-  }
-
   // Форма: Радактировать / Создать
   const formInfo = {
     title: selectPost ? 'Редактировать пост' : 'Создать пост',
+    textBtn: selectPost ? 'Сохранить' : 'Создать',
     btnClick: selectPost ? editPost : createPost
   }
 
@@ -126,7 +105,7 @@ export default ({
           placeholder="Адрес картинки"
           type="text"
           ></input>
-        <button className="btn" type="submit" style={{color: colorBtnText}}>{textBtn}</button>
+        <button className="btn" type="submit">{formInfo.textBtn}</button>
       </form>
     </div>
   )

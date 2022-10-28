@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { likePost, deletePost } from '../../../store/slices/posts'
 
 
-export default ({ id, title, description, thumbnail, liked, editPost, post }) => {
+export default ({ id, title, description, thumbnail, liked, handleEditPost, post }) => {
         const history = useHistory()
         const location = useLocation()
         const isLoggedIn = useSelector(selectIsLoggedin)    // загр. состояние авторизации из Redux
@@ -32,7 +32,7 @@ export default ({ id, title, description, thumbnail, liked, editPost, post }) =>
                         <button className="btn--icon" onClick={() => dispath( deletePost(id) )}>
                           <TrashIcon className="icon"/>
                         </button>
-                        <button className="btn--icon" onClick={editPost}>
+                        <button className="btn--icon" onClick={handleEditPost}>
                           <EditIcon className="icon"/>
                         </button>
                       </nav>

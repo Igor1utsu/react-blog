@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import "./PostData.css"
 
-export const PostTitle = ({ title, isEdit, onValuesChange }) => {
+export const PostTitle = ({ title, isEditForm, onValuesChange }) => {
     const [titleInput, setTitleInput] = useState(title)     // загружаем данные из OpenPost
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export const PostTitle = ({ title, isEdit, onValuesChange }) => {
         setTitleInput(event.target.value)
     }
 
-    return isEdit ? 
+    return isEditForm ? 
         <input 
             className="post-title post-input"
             type="text" 
@@ -23,7 +23,7 @@ export const PostTitle = ({ title, isEdit, onValuesChange }) => {
         <h3 className="openpost__title">{title}</h3>
 }
 
-export const PostDesc = ({ description, isEdit, onValuesChange }) => {
+export const PostDesc = ({ description, isEditForm, onValuesChange }) => {
     const [descInput, setDescInput] = useState(description)     // загружаем данные из OpenPost
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export const PostDesc = ({ description, isEdit, onValuesChange }) => {
         setDescInput(event.target.value)
     }
 
-    return isEdit ? 
+    return isEditForm ? 
         <textarea 
             className="post-description post-input"
             type="textarea" 

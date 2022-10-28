@@ -5,7 +5,6 @@ import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
 import { ReactComponent as EditIcon } from "../../../src/assets/svg/edit.svg"
 import { ReactComponent as CloseIcon } from "../../../src/assets/svg/close-button.svg"
 import './OpenPost.scss'
-import { API } from '../../utils/api'
 import { useHistory, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
@@ -13,7 +12,7 @@ import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
 import { useFavourites } from '../../utils/hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoggedin } from '../../store/slices/auth'
-import { deletePost, likePost, selectPostsData, updatePosts } from '../../store/slices/posts'
+import { deletePost, likePost, savePost, selectPostsData } from '../../store/slices/posts'
 
 export default () => {
     const isLoggedIn = useSelector(selectIsLoggedin)        // извлекаем состояние авторизации из Redux
@@ -23,7 +22,7 @@ export default () => {
     const { postList } = useSelector(selectPostsData)               // извлекае массив из хранилища Redux    
     const post = postList.find(post => post.id === params.id)       // ищим в массиве текущий пост
     const { id, title, description, thumbnail, liked } = post || {}
-    const [isEdit, setIsEdit] = useState(false)
+    const [isEditForm, setIsEditForm] = useState(false)                 // форма редактирования
     const history = useHistory()
     const dispath = useDispatch()  
     
@@ -32,23 +31,19 @@ export default () => {
         setFormData({...formData, ...fielData})
     }
     
-    // Сохранение изменений
-    const editSelectPost = (event) => {
+    // функция изменения поста
+    const editPost = (event) => {
         event.preventDefault()
 
-        const editablePost = {
+        const dataPost = {
             ...post,
-            title: formData.title,
-            description: formData.description,
-            //   thumbnail: imgSrcInput
+            title: formData?.title,
+            description: formData?.description,
+            thumbnail: formData?.imgSrc
         }
 
-        API.updatePostByID(editablePost)
-            //   .catch((er) => errorSendForm(er))
-            .then((data) => {
-            dispath( updatePosts())
-            setIsEdit(false)
-        })
+        dispath( savePost(dataPost) )
+        setIsEditForm(false)
     }
     
     if (!post?.id) return <PostNotFound/>
@@ -65,16 +60,16 @@ export default () => {
                 <div className="openpost__content">
                     <PostTitle 
                         {...post}
-                        isEdit={isEdit}
+                        isEditForm={isEditForm}
                         onValuesChange={onValuesChange}
                     />
                     <PostDesc
                         {...post}
-                        isEdit={isEdit}
+                        isEditForm={isEditForm}
                         onValuesChange={onValuesChange}
                     />
-                    {isEdit && <button className='btn' onClick={(e) => editSelectPost(e)}>Сохранить</button>}     {/*  если редактируем пост, то показываем кнопку  */}  
-                    {isLoggedIn && !isEdit &&
+                    {isEditForm && <button className='btn' onClick={(e) => editPost(e)}>Сохранить</button>}     {/*  если редактируем пост, то показываем кнопку  */}  
+                    {isLoggedIn && !isEditForm &&
                         <nav className="application">
                             <button className="btn--icon" onClick={() => dispath( likePost(post) )}>
                                 <HeartIcon liked={liked} id={id}/>
@@ -82,7 +77,7 @@ export default () => {
                             <button className="btn--icon" onClick={() => dispath( deletePost(id) )} >
                                 <TrashIcon className="icon"/>
                             </button>
-                            <button className="btn--icon" onClick={() => setIsEdit(true)}>
+                            <button className="btn--icon" onClick={() => setIsEditForm(true)}>
                                 <EditIcon className="icon"/>
                             </button>
                         </nav>

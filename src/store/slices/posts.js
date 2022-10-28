@@ -68,6 +68,17 @@ export const deletePost = createAsyncThunk(
     }
 )
 
+// функция сохранения поста
+export const savePost = createAsyncThunk(
+    'posts/save',
+    async (dataPost,  { getState }) => {
+        await API.updatePostByID(dataPost)            // отправляем измененный пост на сервер
+        const { posts } = getState()                // вытаскиваваем стейт из хранилища Redux
+        const dataPosts = await API.loadPosts( posts.isFavourites )     // загружаем посты)
+        return dataPosts
+    }
+)
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
@@ -113,6 +124,12 @@ const postsSlice = createSlice({
         })
         builder.addCase(deletePost.rejected, (state, action) => {
             console.error('Ошибка! Не возможно удалить пост')
+        })
+        builder.addCase(savePost.fulfilled, (state, action) => {
+            state.postList = action.payload
+        })
+        builder.addCase(savePost.rejected, (state, action) => {
+            console.error('Ошибка! Не возможно сохранить пост')
         })
 
     }

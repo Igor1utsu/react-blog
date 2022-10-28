@@ -4,7 +4,6 @@ import "./Content.scss"
 import Post from "./Post/Post"
 import PostForm from "./PostForm/PostForm"
 import { useFavourites } from "../../utils/hooks"
-import { API } from "../../utils/api"
 import OpenPost from "../../pages/OpenPost/OpenPost"
 import { useParams } from "react-router-dom"
 import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
@@ -16,7 +15,7 @@ import { loadPosts, selectPostsData } from "../../store/slices/posts"
 export default () => {
   const { postList, isLoading, error } = useSelector(selectPostsData)      // извлекаем информацию о постах из Redux 
   const isFavourites = useFavourites()                            // загружаем функционал для избранного
-  const [isVisibleForm, setIsVisibleForm] = useState(false)
+  const [isVisibleForm, setIsVisibleForm] = useState(false)       // форма создания / редактрования поста
   const [selectPost, setSelectPost] = useState(null)
   const params = useParams()
   const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
@@ -27,13 +26,10 @@ export default () => {
     dispath(loadPosts())      // загружаем посты
   }, [])
 
-  // Кнопка редактировать пост
-  const editPost= (postID) => {
-    API.getPost(postID)
-      .then((postData) => {
-        setSelectPost(postData)
-        setIsVisibleForm(true)
-      }) 
+  // открытие формы редактирование поста
+  const handleEditPost= (post) => {
+    setSelectPost(post)       // заносим текущий пост в стейт
+    setIsVisibleForm(true)      // открываем форму
   }
 
   if (isLoading) return <h2>Loading... </h2>
@@ -62,7 +58,7 @@ export default () => {
                   // thumbnail={post.thumbnail}
                   // liked={post.liked}
                   key={post.id}
-                  editPost={() => editPost(post.id)}
+                  handleEditPost={() => handleEditPost(post)}
                   post={post}
                 />
               )
