@@ -21,7 +21,7 @@ export default () => {
   const params = useParams()
   const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
   const dispath = useDispatch()
-  
+
 
   useEffect(() => {
     dispath(loadPosts())      // загружаем посты
@@ -78,7 +78,7 @@ export default () => {
           setSelectPost={setSelectPost}
         />}
 
-        {params.id && <OpenPost/>}
+        {params.id && !isLoading && <OpenPost/>}
       </>
     )
 }
