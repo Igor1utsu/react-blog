@@ -2,15 +2,14 @@ import { useEffect, useState } from "react"
 import "./PostData.css"
 
 export const PostTitle = ({ title, isEdit, onValuesChange }) => {
-    const [titleInput, setTitleInput] = useState(title)
+    const [titleInput, setTitleInput] = useState(title)     // загружаем данные из OpenPost
 
     useEffect(() => {
-        setTitleInput(title)
-    }, [title])
+        onValuesChange({title: titleInput})    // передаем дынные из импута в OpenPost
+    }, [titleInput])
     
     const handleChangeTitle = (event) => {
         setTitleInput(event.target.value)
-        onValuesChange({title: titleInput})
     }
 
     return isEdit ? 
@@ -25,15 +24,14 @@ export const PostTitle = ({ title, isEdit, onValuesChange }) => {
 }
 
 export const PostDesc = ({ description, isEdit, onValuesChange }) => {
-    const [descInput, setDescInput] = useState(description)
+    const [descInput, setDescInput] = useState(description)     // загружаем данные из OpenPost
 
     useEffect(() => {
-        setDescInput(description)
-    }, [description])
+        onValuesChange({description: descInput})    // передаем дынные из импута в OpenPost
+    }, [descInput])
     
     const handleChangeDesc = (event) => {
         setDescInput(event.target.value)
-        onValuesChange({description: descInput})
     }
 
     return isEdit ? 
