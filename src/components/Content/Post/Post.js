@@ -10,7 +10,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { likePost, deletePost } from '../../../store/slices/posts'
 
 
-export default ({ id, title, description, thumbnail, liked, handleEditPost, post }) => {
+export default ({ post, handleEditPost }) => {
+        const { id, title, description, thumbnail, liked } = post
         const history = useHistory()
         const location = useLocation()
         const isLoggedIn = useSelector(selectIsLoggedin)    // загр. состояние авторизации из Redux

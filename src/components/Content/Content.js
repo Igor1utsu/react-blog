@@ -52,14 +52,9 @@ export default () => {
             postList.map((post, index) => {
               return (
                 <Post
-                  {...post}
-                  // title={post.title}
-                  // description={post.description}
-                  // thumbnail={post.thumbnail}
-                  // liked={post.liked}
+                  post={post}
                   key={post.id}
                   handleEditPost={() => handleEditPost(post)}
-                  post={post}
                 />
               )
             })
