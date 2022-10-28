@@ -79,6 +79,19 @@ export const savePost = createAsyncThunk(
     }
 )
 
+// функция создания поста
+export const addPost = createAsyncThunk(
+    'posts/add',
+    async (newPost,  { getState }) => {
+        await API.createPost(newPost)            // отправляем пост на сервер
+        const { posts } = getState()                // вытаскиваваем стейт из хранилища Redux
+        const dataPosts = await API.loadPosts( posts.isFavourites )     // загружаем посты)
+        return dataPosts
+    }
+)
+
+
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
@@ -131,7 +144,12 @@ const postsSlice = createSlice({
         builder.addCase(savePost.rejected, (state, action) => {
             console.error('Ошибка! Не возможно сохранить пост')
         })
-
+        builder.addCase(addPost.fulfilled, (state, action) => {
+            state.postList = action.payload
+        })
+        builder.addCase(addPost.rejected, (state, action) => {
+            console.error('Ошибка! Не возможно создать пост')
+        })
     }
 })
 

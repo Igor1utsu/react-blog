@@ -2,9 +2,8 @@
 import { useState } from "react"
 import "./PostForm.scss"
 import { ReactComponent as CloseIcon } from "../../../assets/svg/close-button.svg"
-import { API } from "../../../utils/api"
 import { useDispatch } from "react-redux"
-import { savePost, updatePosts } from "../../../store/slices/posts"
+import { addPost, savePost } from "../../../store/slices/posts"
 
 
 export default ({ setIsVisibleForm, selectPost, setSelectPost }) => {
@@ -24,7 +23,7 @@ export default ({ setIsVisibleForm, selectPost, setSelectPost }) => {
     setImgSrcInput(event.target.value)
   }
 
-  // Создать новый пост
+  // функция создания нового поста
   const createPost = (event) => {
     event.preventDefault()
 
@@ -35,9 +34,8 @@ export default ({ setIsVisibleForm, selectPost, setSelectPost }) => {
       liked: false
     }
 
+    dispatch( addPost(newPost) )
     setIsVisibleForm(false)
-    API.createPost(newPost)
-      .then(() => dispatch( updatePosts() ))
   }
 
   // функция изменения поста
