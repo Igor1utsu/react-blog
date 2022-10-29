@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react"
 import "./PostData.css"
 
-export const PostTitle = ({ title, isEdit, onValuesChange }) => {
-    const [titleInput, setTitleInput] = useState(title)
+export const PostTitle = ({ title, isEditForm, onValuesChange }) => {
+    const [titleInput, setTitleInput] = useState(title)     // загружаем данные из OpenPost
 
     useEffect(() => {
-        setTitleInput(title)
-    }, [title])
+        onValuesChange({title: titleInput})    // передаем дынные из импута в OpenPost
+    }, [titleInput])
     
     const handleChangeTitle = (event) => {
         setTitleInput(event.target.value)
-        onValuesChange({title: titleInput})
     }
 
-    return isEdit ? 
+    return isEditForm ? 
         <input 
             className="post-title post-input"
             type="text" 
@@ -24,19 +23,18 @@ export const PostTitle = ({ title, isEdit, onValuesChange }) => {
         <h3 className="openpost__title">{title}</h3>
 }
 
-export const PostDesc = ({ description, isEdit, onValuesChange }) => {
-    const [descInput, setDescInput] = useState(description)
+export const PostDesc = ({ description, isEditForm, onValuesChange }) => {
+    const [descInput, setDescInput] = useState(description)     // загружаем данные из OpenPost
 
     useEffect(() => {
-        setDescInput(description)
-    }, [description])
+        onValuesChange({description: descInput})    // передаем дынные из импута в OpenPost
+    }, [descInput])
     
     const handleChangeDesc = (event) => {
         setDescInput(event.target.value)
-        onValuesChange({description: descInput})
     }
 
-    return isEdit ? 
+    return isEditForm ? 
         <textarea 
             className="post-description post-input"
             type="textarea" 

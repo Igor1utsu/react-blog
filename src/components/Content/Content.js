@@ -1,51 +1,39 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./Content.scss"
 import Post from "./Post/Post"
 import PostForm from "./PostForm/PostForm"
-import { useLoadPosts } from "../../utils/hooks"
-import { API } from "../../utils/api"
+import { useFavourites } from "../../utils/hooks"
 import OpenPost from "../../pages/OpenPost/OpenPost"
 import { useParams } from "react-router-dom"
 import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
-import { showDeleteConfirm } from "../../utils/showDeleteConfirm"
+import { useDispatch, useSelector } from "react-redux"
+import { selectIsLoggedin } from "../../store/slices/auth"
+import { loadPosts, selectPostsData } from "../../store/slices/posts"
 
 
 export default () => {
-  const { blockPosts, updatePosts, isLoading, isFavourites } = useLoadPosts()
-  const [isVisibleForm, setIsVisibleForm] = useState(false)
+  const { postList, isLoading, error } = useSelector(selectPostsData)      // извлекаем информацию о постах из Redux 
+  const isFavourites = useFavourites()                            // загружаем функционал для избранного
+  const [isVisibleForm, setIsVisibleForm] = useState(false)       // форма создания / редактрования поста
   const [selectPost, setSelectPost] = useState(null)
   const params = useParams()
-  const isLoggedIn = localStorage.getItem("isLoggedIn")
-  
-  // Кнопка лайка
-  const likePost = (index) => {
-    const updateBlockPosts = [...blockPosts]
-    updateBlockPosts[index].liked = !updateBlockPosts[index].liked
-    API.updatePostByID(updateBlockPosts[index])
-      .then(() => updatePosts())
-  }
+  const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
+  const dispath = useDispatch()
 
-  // Кнопка удалить пост
-  const deletePost = (postID) => {
-    const deleteCode = () => {
-      API.deletePost(postID)
-        .then(() => updatePosts())
-    }
 
-    showDeleteConfirm(deleteCode)     // аргументом передаем код удаления в модалку
-  }
+  useEffect(() => {
+    dispath(loadPosts())      // загружаем посты
+  }, [])
 
-  // Кнопка редактировать пост
-  const editPost= (postID) => {
-    API.getPost(postID)
-      .then((postData) => {
-        setSelectPost(postData)
-        setIsVisibleForm(true)
-      }) 
+  // открытие формы редактирование поста
+  const handleEditPost= (post) => {
+    setSelectPost(post)       // заносим текущий пост в стейт
+    setIsVisibleForm(true)      // открываем форму
   }
 
   if (isLoading) return <h2>Loading... </h2>
+  if (error) return <h2>Error</h2>
   
   return (
       <>
@@ -61,18 +49,12 @@ export default () => {
 
         <div className="content__wrapper">
           {
-            blockPosts.map((post, index) => {
+            postList.map((post, index) => {
               return (
                 <Post
-                  {...post}
-                  // title={post.title}
-                  // description={post.description}
-                  // thumbnail={post.thumbnail}
-                  // liked={post.liked}
+                  post={post}
                   key={post.id}
-                  likePost={() => likePost(index)}     // ID !!!
-                  deletePost={() => deletePost(post.id)}
-                  editPost={() => editPost(post.id)}
+                  handleEditPost={() => handleEditPost(post)}
                 />
               )
             })
@@ -87,7 +69,7 @@ export default () => {
           setSelectPost={setSelectPost}
         />}
 
-        {params.id && <OpenPost/>}
+        {params.id && !isLoading && <OpenPost/>}
       </>
     )
 }

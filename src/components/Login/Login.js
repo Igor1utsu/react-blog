@@ -2,11 +2,14 @@ import React, { useRef } from "react"
 import { useState } from "react"
 import "./Login.scss"
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
+import { useDispatch } from "react-redux"
+import { logIn } from "../../store/slices/auth"
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({loginName, setLoginName, setIsLoggedIn}) => {
+export default ({loginName, setLoginName }) => {
     let [name, setName] = useState(loginName)
+    const dispatch = useDispatch()
 
     // Создаем ключ: Логин, Пароль
     const loginRef = useRef()
@@ -20,13 +23,10 @@ export default ({loginName, setLoginName, setIsLoggedIn}) => {
             password: passwordRef.current.value
         }
         
-        // Устанавливаем Логин, статус и стек
-        setLoginName(userData.login)
-        setIsLoggedIn(true)
-        localStorage.setItem('isLoggedIn', true)
-        localStorage.setItem('login', name)
-        
-        window.location.href = '/blog'
+        setLoginName(userData.login)            // заносим login в стейт
+        dispatch(logIn())                       // вызываем функцию авторизации из хранилища Redux
+        localStorage.setItem('login', name)     // заносим login в локальное хранилище
+        window.location.href = '/blog'          // переходим на главную страницу
     }
 
 

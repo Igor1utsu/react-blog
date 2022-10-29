@@ -1,9 +1,10 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import React from 'react';
+import { deletePost } from '../store/slices/posts';
 const { confirm } = Modal;
 
-export const showDeleteConfirm = ( deleteCode ) => {
+export const showDeleteConfirm = ( dispath, id ) => {
     confirm({
         title: 'Удалить пост?',
         icon: <ExclamationCircleOutlined style={{color: "red"}}/>,
@@ -12,7 +13,7 @@ export const showDeleteConfirm = ( deleteCode ) => {
         cancelText: 'Отмена',
         onOk() {
         console.log('OK');
-        deleteCode()
+        dispath ( deletePost(id) )      // запускаем код удаления из Redux
         },
         onCancel() {
         console.log('Cancel');

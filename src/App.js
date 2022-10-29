@@ -8,20 +8,20 @@ import 'antd/dist/antd.css'
 import "./components/body.scss"
 import "./components/btn.scss"
 import { useThemeStyle } from './utils/hooks'
+import { useSelector } from 'react-redux'
+import { selectIsLoggedin } from './store/slices/auth'
 
 
 function App() {
   useThemeStyle()   // загружаем тему оформления
   const [loginName, setLoginName] = useState(localStorage.getItem('login'))   // Логин
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'))    // Статус: login / logout
+  const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
   const { pathname } = useLocation()
 
   const Page = () => {
     return (
       <MainLayout
         loginName={loginName} 
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
       />
     )
   }
@@ -31,8 +31,6 @@ function App() {
       <LoginPage 
         loginName={loginName} 
         setLoginName={setLoginName}
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
       />
     )
   }

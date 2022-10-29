@@ -2,14 +2,17 @@ import { POSTS_URL } from "../data/data"
 
 
 export const API = {
-    loadPosts: ( ) => { 
+    loadPosts: ( isFavourites ) => { 
         return new Promise (function(resolve, reject) {
             fetch(POSTS_URL)
-                .then(response => response.json())
-                .then(data => {
-                    resolve(data)
-                })
-                .catch(er => reject( console.error(er) ))      
+                .then(response => {
+                    if (response.ok) {              // ести статус OK: возвращаем данные
+                        return response.json()
+                            .then(data => {
+                                resolve( isFavourites ? data.filter(p => p.liked) : data )      // фильтруем избранные посты и возвращаем массив
+                            }) 
+                    } else { reject( Error ) }      // или возвращаем ошибку
+                })  
         })
 
     },

@@ -35,3 +35,9 @@
         padding: 0 5px;
     }
 }
+
+@media (max-width: 640px) {
+    .content {
+        display: var(--display-content);
+    }
+}

@@ -8,12 +8,11 @@ import { Route, Switch } from "react-router-dom";
 import Favourites from "../pages/Favourites/Favourites";
 import Blog from "../pages/Blog/Blog";
 
-export default ({ loginName, setIsLoggedIn }) => {
+export default ({ loginName }) => {
     return (
         <>
             <Header
                 loginName={loginName}
-                setIsLoggedIn={setIsLoggedIn}
             />
             
             <main className="main">

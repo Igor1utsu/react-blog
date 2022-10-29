@@ -1,16 +1,22 @@
 /* eslint-disable import/no-anonymous-default-export */
 import imgPlaceholder from '../../../assets/place-holder-img.png'
-import { ReactComponent as LikeIcon } from "../../../assets/svg/liked.svg"
+import { HeartIcon } from '../../HeartIcon/HeartIcon'
 import { ReactComponent as TrashIcon } from "../../../assets/svg/trash.svg"
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg"
 import "./Post.scss"
 import { useHistory, useLocation } from 'react-router-dom'
+import { selectIsLoggedin } from '../../../store/slices/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { likePost } from '../../../store/slices/posts'
+import { showDeleteConfirm } from '../../../utils/showDeleteConfirm'
 
 
-export default ({ id, title, description, thumbnail, liked, likePost, deletePost, editPost }) => {
+export default ({ post, handleEditPost }) => {
+        const { id, title, description, thumbnail, liked } = post
         const history = useHistory()
         const location = useLocation()
-        const isLoggedIn = localStorage.getItem("isLoggedIn")
+        const isLoggedIn = useSelector(selectIsLoggedin)    // загр. состояние авторизации из Redux
+        const dispath = useDispatch()
         
         return (
                 <div className="post" onClick={() => history.push(`${location.pathname}/${id}`)}>
@@ -22,13 +28,13 @@ export default ({ id, title, description, thumbnail, liked, likePost, deletePost
                     <div className="post__description">{description}</div>
                     {isLoggedIn && 
                       <nav className="application" onClick={(e) => {e.stopPropagation()}}>
-                        <button className="btn--icon" onClick={likePost}>
-                          <LikeIcon className={liked ? "icon icon-liked" : "icon"}/>
+                        <button className="btn--icon" onClick={() => dispath( likePost(post) )}>
+                          <HeartIcon liked={liked} id={id}/>
                         </button>
-                        <button className="btn--icon" onClick={deletePost} >
+                        <button className="btn--icon" onClick={() => showDeleteConfirm(dispath, id)}>
                           <TrashIcon className="icon"/>
                         </button>
-                        <button className="btn--icon" onClick={editPost}>
+                        <button className="btn--icon" onClick={handleEditPost}>
                           <EditIcon className="icon"/>
                         </button>
                       </nav>
