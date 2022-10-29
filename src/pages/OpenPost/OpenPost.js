@@ -12,6 +12,7 @@ import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import { Notifications } from '../../components/Notifications/Notifications'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
 import { useLoadPosts } from '../../utils/hooks'
+import { showDeleteConfirm } from '../../utils/showDeleteConfirm'
 
 export default () => {
     const [post, setPost] = useState(null)
@@ -44,15 +45,12 @@ export default () => {
 
     // Удаление поста
     const deleteSelectPost = () => {
-        const isDelete = window.confirm('Удалить пост?')
-
-        if (isDelete) {
+        const deleteCode = () => {
             API.deletePost(id)
-                .then(() => {
-                    history.goBack()
-                    updatePosts()
-                })
-        }
+              .then(() => updatePosts())
+          }
+      
+        showDeleteConfirm(deleteCode)     // аргументом передаем код удаления в модалку
     }
 
     

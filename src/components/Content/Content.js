@@ -8,6 +8,7 @@ import { API } from "../../utils/api"
 import OpenPost from "../../pages/OpenPost/OpenPost"
 import { useParams } from "react-router-dom"
 import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
+import { showDeleteConfirm } from "../../utils/showDeleteConfirm"
 
 
 export default () => {
@@ -27,12 +28,12 @@ export default () => {
 
   // Кнопка удалить пост
   const deletePost = (postID) => {
-    const isDelete = window.confirm('Удалить пост?')
-
-    if (isDelete){
+    const deleteCode = () => {
       API.deletePost(postID)
         .then(() => updatePosts())
     }
+
+    showDeleteConfirm(deleteCode)     // аргументом передаем код удаления в модалку
   }
 
   // Кнопка редактировать пост

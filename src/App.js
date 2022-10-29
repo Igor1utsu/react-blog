@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage/LoginPage"
 import MainLayout from "./layouts/MainLayout"
 import NoMatch from "./pages/NoMatch/NoMatch"
 import { URLS } from "./utils/constants"
+import 'antd/dist/antd.css'
 import "./components/body.scss"
 import "./components/btn.scss"
 import { useThemeStyle } from './utils/hooks'
