@@ -17,19 +17,20 @@ export const useFavourites = () => {
 }
 
 export const useThemeStyle = () => {
-    const [darkTheme, setDarkTheme] = useState(localStorage.getItem('darkTheme') || false)      // считываем статус в localStorege или устанавливаем значение в false
+    const [darkTheme, setDarkTheme] = useState(localStorage.getItem('darkTheme') === 'true' || false)      // считываем статус в localStorege или устанавливаем значение в false
+
+    const colorRed = "#ff0000"
+    const colorBlue = "#1E90FF"
+    const colorLight = "#f0f0f0"
+    const colorLightGray = "#e6e6e6"
+    const colorLightGray2 = "#b0b0b0"
+    const colorGray = "#636363"
+    const colorGray2 = "#262626"
+    const colorDarkGray = "#141414"
+    const colorDark = "#0a0a0a"
 
     useEffect(() => {
-        const colorRed = "#ff0000"
-        const colorBlue = "#1E90FF"
-        const colorLight = "#f0f0f0"
-        const colorLightGray = "#e6e6e6"
-        const colorLightGray2 = "#b0b0b0"
-        const colorGray = "#636363"
-        const colorGray2 = "#262626"
-        const colorDarkGray = "#141414"
-        const colorDark = "#0a0a0a"
-        
+        if (darkTheme) { localStorage.setItem('darkTheme', true) } else { localStorage.setItem('darkTheme', false) }
         const root = document.documentElement
         root?.style.setProperty( "--color1", darkTheme ? colorDarkGray : colorLightGray )      // Background
         root?.style.setProperty( "--color2", darkTheme ? colorGray2 : colorLight )      // Window
@@ -38,16 +39,9 @@ export const useThemeStyle = () => {
         root?.style.setProperty( "--text-color2", darkTheme ? colorLightGray2 : colorGray )
         root?.style.setProperty( "--btn-color", darkTheme ? colorGray : colorDark )      // Button)
         root?.style.setProperty( "--border-color", darkTheme ? colorGray : colorLightGray2 )    // border
-
         root?.style.setProperty( "--color-light", colorLight )
         root?.style.setProperty( "--color-blue", colorBlue )
         root?.style.setProperty( "--color-heard", colorRed )
-    
-        if (darkTheme) {
-          !localStorage.getItem('darkTheme') && localStorage.setItem('darkTheme', JSON.stringify(darkTheme))
-        } else {
-          localStorage.removeItem('darkTheme')
-        }   // записываем или удаляем темы в локальном хранилище
     }, [darkTheme])
     return { darkTheme, setDarkTheme }
 }
