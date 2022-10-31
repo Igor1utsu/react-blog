@@ -27,22 +27,18 @@ export default () => {
     const history = useHistory()
     const dispath = useDispatch()  
     
-    //   Данные для Инпутов
-    const onValuesChange = (fielData) => {
+    const onValuesChange = (fielData) => {          //   Данные для Инпутов
         setFormData({...formData, ...fielData})
     }
 
-    // функция изменения поста
-    const editPost = (event) => {
+    const saveChanges = (event) => {            // функция сохранения изменения в посте
         event.preventDefault()
-
         const dataPost = {
             ...post,
             title: formData?.title,
             description: formData?.description,
             thumbnail: formData?.imgSrc
         }
-
         dispath( savePost(dataPost) )
         setIsEditForm(false)
     }
@@ -59,6 +55,11 @@ export default () => {
             history.push(isFavourites ? '/favourites' : '/blog')
         }
         showDeleteConfirm(onOk)
+    }
+
+    const handleEditPost= (e) => {          // открытие формы редактирования поста
+        e.preventDefault()
+        setIsEditForm(true)
     }
     
     if (!post?.id) return <PostNotFound/>
@@ -83,7 +84,7 @@ export default () => {
                         isEditForm={isEditForm}
                         onValuesChange={onValuesChange}
                     />
-                    {isEditForm && <button className='btn' onClick={(e) => editPost(e)}>Сохранить</button>}     {/*  если редактируем пост, то показываем кнопку  */}  
+                    {isEditForm && <button className='btn' onClick={(e) => saveChanges(e)}>Сохранить</button>}     {/*  если редактируем пост, то показываем кнопку  */}  
                     {isLoggedIn && !isEditForm &&
                         <nav className="application">
                             <button className="btn--icon" onClick={(e) => handleLikePost(e)}>
@@ -92,7 +93,7 @@ export default () => {
                             <button className="btn--icon" onClick={(e) => handleDeletePost(e)} >
                                 <TrashIcon className="icon"/>
                             </button>
-                            <button className="btn--icon" onClick={() => setIsEditForm(true)}>
+                            <button className="btn--icon" onClick={(e) => handleEditPost(e)}>
                                 <EditIcon className="icon"/>
                             </button>
                         </nav>
