@@ -7,7 +7,7 @@ import "./Post.scss"
 import { useHistory, useLocation } from 'react-router-dom'
 import { selectIsLoggedin } from '../../../store/slices/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { likePost } from '../../../store/slices/posts'
+import { deletePost, likePost } from '../../../store/slices/posts'
 import { showDeleteConfirm } from '../../../utils/showDeleteConfirm'
 
 
@@ -21,6 +21,12 @@ export default ({ post, handleEditPost }) => {
         const handleLikePost = (e) => {         // лайк поста
           e.preventDefault()
           dispath( likePost(post) )
+        }
+
+        const handleDeletePost = (e) => {       // удаление поста
+          e.preventDefault()
+          const onOk = () => dispath( deletePost(id) )
+          showDeleteConfirm(onOk)
         }
         
         return (
@@ -36,7 +42,7 @@ export default ({ post, handleEditPost }) => {
                         <button className="btn--icon" onClick={(e) => handleLikePost(e)}>
                           <HeartIcon liked={liked} id={id}/>
                         </button>
-                        <button className="btn--icon" onClick={() => showDeleteConfirm(dispath, id)}>
+                        <button className="btn--icon" onClick={(e) => handleDeletePost(e)}>
                           <TrashIcon className="icon"/>
                         </button>
                         <button className="btn--icon" onClick={handleEditPost}>
