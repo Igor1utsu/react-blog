@@ -26,8 +26,8 @@ export default () => {
     dispath(loadPosts())      // загружаем посты
   }, [])
 
-  if (isLoading) return <h2>Loading... </h2>
-  if (error) return <h2>Error</h2>
+  if (isLoading) return <h2 className="content__message">Loading... </h2>
+  if (error) return <h2 className="content__message">Error</h2>
   
   return (
       <>
@@ -43,7 +43,7 @@ export default () => {
 
         <div className="content__wrapper">
           {
-            (postList.length === 0) && <h4>Постов нет</h4>
+            (postList.length === 0) && <h4 className="content__message">Постов нет</h4>
           }
           {
             postList.map((post, index) => {
