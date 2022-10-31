@@ -48,12 +48,12 @@ export const useThemeStyle = () => {
 
 // скрываем / показываем боковую панель
 export const useIsHiddeSideBar = () => {
-    const [isSidebar, setSidebar] = useState(localStorage.getItem('isHiddenSideBar') ? false : true)      // Sidebar-menu on / off
+    const [isSidebar, setSidebar] = useState(localStorage.getItem('isHiddenSideBar') === 'false')      // Sidebar-menu on / off
 
-    const handleToggleSideBar = () => {
+    const handleToggleSideBar = (e) => {
+        e.preventDefault()
         setSidebar(!isSidebar)      // меняем стейт
-        if (isSidebar) {localStorage.setItem('isHiddenSideBar', 'true')} 
-        else {localStorage.removeItem('isHiddenSideBar')}       // добавляем или удаляем из лок.хранилища
+        if (isSidebar) { localStorage.setItem('isHiddenSideBar', true) } else { localStorage.setItem('isHiddenSideBar', false) }
     }
 
     document.documentElement?.style.setProperty( "--display-sidebar", isSidebar ? 'flex' : 'none' )    // меняем CSS свойство

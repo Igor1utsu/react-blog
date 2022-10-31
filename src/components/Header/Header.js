@@ -28,7 +28,7 @@ export default ({ loginName }) => {
               {isLoggedIn ? (
                   <>
                     <button className="btn--toggle-sidebar">
-                      <ToggleSideBar className="header__icon" onClick={handleToggleSideBar}/>
+                      <ToggleSideBar className="header__icon" onClick={(e) => handleToggleSideBar(e)}/>
                     </button>
                     <div className="header__logo">
                       <Logo className="header__icon"/>
