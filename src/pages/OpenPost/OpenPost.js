@@ -12,7 +12,7 @@ import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
 import { useFavourites } from '../../utils/hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoggedin } from '../../store/slices/auth'
-import { likePost, savePost, selectPostsData } from '../../store/slices/posts'
+import { deletePost, likePost, savePost, selectPostsData } from '../../store/slices/posts'
 import { showDeleteConfirm } from '../../utils/showDeleteConfirm'
 
 export default () => {
@@ -51,6 +51,15 @@ export default () => {
         e.preventDefault()
         dispath( likePost(post) )
     }
+
+    const handleDeletePost = (e) => {       // удаление поста
+        e.preventDefault()
+        const onOk = async () => {
+            await dispath( deletePost(id) )
+            history.push(isFavourites ? '/favourites' : '/blog')
+        }
+        showDeleteConfirm(onOk)
+    }
     
     if (!post?.id) return <PostNotFound/>
     
@@ -80,7 +89,7 @@ export default () => {
                             <button className="btn--icon" onClick={(e) => handleLikePost(e)}>
                                 <HeartIcon liked={liked} id={id}/>
                             </button>
-                            <button className="btn--icon" onClick={() => showDeleteConfirm(dispath, id)} >
+                            <button className="btn--icon" onClick={(e) => handleDeletePost(e)} >
                                 <TrashIcon className="icon"/>
                             </button>
                             <button className="btn--icon" onClick={() => setIsEditForm(true)}>
