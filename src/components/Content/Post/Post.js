@@ -17,6 +17,11 @@ export default ({ post, handleEditPost }) => {
         const location = useLocation()
         const isLoggedIn = useSelector(selectIsLoggedin)    // загр. состояние авторизации из Redux
         const dispath = useDispatch()
+
+        const handleLikePost = (e) => {         // лайк поста
+          e.preventDefault()
+          dispath( likePost(post) )
+        }
         
         return (
                 <div className="post" onClick={() => history.push(`${location.pathname}/${id}`)}>
@@ -28,7 +33,7 @@ export default ({ post, handleEditPost }) => {
                     <div className="post__description">{description}</div>
                     {isLoggedIn && 
                       <nav className="application" onClick={(e) => {e.stopPropagation()}}>
-                        <button className="btn--icon" onClick={() => dispath( likePost(post) )}>
+                        <button className="btn--icon" onClick={(e) => handleLikePost(e)}>
                           <HeartIcon liked={liked} id={id}/>
                         </button>
                         <button className="btn--icon" onClick={() => showDeleteConfirm(dispath, id)}>
