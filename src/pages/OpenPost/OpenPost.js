@@ -31,7 +31,7 @@ export default () => {
     const onValuesChange = (fielData) => {
         setFormData({...formData, ...fielData})
     }
-    
+
     // функция изменения поста
     const editPost = (event) => {
         event.preventDefault()
@@ -45,6 +45,11 @@ export default () => {
 
         dispath( savePost(dataPost) )
         setIsEditForm(false)
+    }
+
+    const handleLikePost = (e) => {         // лайк поста
+        e.preventDefault()
+        dispath( likePost(post) )
     }
     
     if (!post?.id) return <PostNotFound/>
@@ -72,7 +77,7 @@ export default () => {
                     {isEditForm && <button className='btn' onClick={(e) => editPost(e)}>Сохранить</button>}     {/*  если редактируем пост, то показываем кнопку  */}  
                     {isLoggedIn && !isEditForm &&
                         <nav className="application">
-                            <button className="btn--icon" onClick={() => dispath( likePost(post) )}>
+                            <button className="btn--icon" onClick={(e) => handleLikePost(e)}>
                                 <HeartIcon liked={liked} id={id}/>
                             </button>
                             <button className="btn--icon" onClick={() => showDeleteConfirm(dispath, id)} >
