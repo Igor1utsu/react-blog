@@ -43,6 +43,9 @@ export default () => {
 
         <div className="content__wrapper">
           {
+            (postList.length === 0) && <h4>Постов нет</h4>
+          }
+          {
             postList.map((post, index) => {
               return (
                 <Post
