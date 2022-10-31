@@ -26,12 +26,6 @@ export default () => {
     dispath(loadPosts())      // загружаем посты
   }, [])
 
-  // открытие формы редактирование поста
-  const handleEditPost= (post) => {
-    setSelectPost(post)       // заносим текущий пост в стейт
-    setIsVisibleForm(true)      // открываем форму
-  }
-
   if (isLoading) return <h2>Loading... </h2>
   if (error) return <h2>Error</h2>
   
@@ -54,7 +48,8 @@ export default () => {
                 <Post
                   post={post}
                   key={post.id}
-                  handleEditPost={() => handleEditPost(post)}
+                  setSelectPost={setSelectPost}
+                  setIsVisibleForm={setIsVisibleForm}
                 />
               )
             })

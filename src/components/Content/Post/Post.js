@@ -11,7 +11,7 @@ import { deletePost, likePost } from '../../../store/slices/posts'
 import { showDeleteConfirm } from '../../../utils/showDeleteConfirm'
 
 
-export default ({ post, handleEditPost }) => {
+export default ({ post, setSelectPost, setIsVisibleForm }) => {
         const { id, title, description, thumbnail, liked } = post
         const history = useHistory()
         const location = useLocation()
@@ -27,6 +27,12 @@ export default ({ post, handleEditPost }) => {
           e.preventDefault()
           const onOk = () => dispath( deletePost(id) )
           showDeleteConfirm(onOk)
+        }
+
+        const handleEditPost= (e) => {          // редактирования поста
+          e.preventDefault()
+          setSelectPost(post)       // заносим текущий пост в стейт
+          setIsVisibleForm(true)      // открываем форму
         }
         
         return (
@@ -45,7 +51,7 @@ export default ({ post, handleEditPost }) => {
                         <button className="btn--icon" onClick={(e) => handleDeletePost(e)}>
                           <TrashIcon className="icon"/>
                         </button>
-                        <button className="btn--icon" onClick={handleEditPost}>
+                        <button className="btn--icon" onClick={(e) => handleEditPost(e)}>
                           <EditIcon className="icon"/>
                         </button>
                       </nav>
