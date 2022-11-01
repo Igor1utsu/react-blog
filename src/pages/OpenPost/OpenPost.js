@@ -23,6 +23,8 @@ export default () => {
     const [formData, setFormData] = useState({})
     const { postList } = useSelector(selectPostsData)               // извлекае массив из хранилища Redux    
     const post = postList.find(post => post.id === params.id)       // ищим в массиве текущий пост
+    const prevPost = postList.find(post => post.id == (parseInt(params.id) - 1))    // предыдущий пост в навигации
+    const nextPost = postList.find(post => post.id == (parseInt(params.id) + 1))    // следующий пост в навигации
     const { id, title, description, thumbnail, liked } = post || {}
     const [isEditForm, setIsEditForm] = useState(false)                 // форма редактирования
     const history = useHistory()
@@ -68,9 +70,11 @@ export default () => {
     return (
         <div className="overlay">
         <div className='box'>
-            <nav className="box__nav">
-                <LeftOutlined className='box__arrow'/>
-            </nav>
+            {prevPost && 
+                <nav className="box__nav" onClick={() => history.push(`/blog/${prevPost.id}`)}>
+                    <LeftOutlined className='box__arrow'/>
+                </nav>
+            }
             <div className="openpost">
                 <button className="btn--close" onClick={() => history.push(isFavourites ? '/favourites' : '/blog')}>
                     <CloseIcon className="icon"/>
@@ -105,9 +109,11 @@ export default () => {
                     }       {/* показываем application только при авториизации, и скрываем когда редактируем */}
                 </div>
             </div>
-            <nav className="box__nav">
-                <RightOutlined className='box__arrow'/>
-            </nav>
+            {nextPost &&
+                <nav className="box__nav">
+                    <RightOutlined className='box__arrow' onClick={() => history.push(`/blog/${nextPost.id}`)}/>
+                </nav>
+            }
         </div>
         </div>
     )
