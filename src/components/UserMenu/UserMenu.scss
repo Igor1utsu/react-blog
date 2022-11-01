@@ -7,8 +7,8 @@
 
 .user-menu {
     position: absolute;
-    top: 37px;
-    right: 20px;
+    top: 100%;
+    right: 15px;
     width: 160px;
     background-color: var(--color2);
     color: var(--text-color2);
@@ -16,12 +16,14 @@
     border-radius: 0 0 5px 5px;
     overflow: hidden;
     user-select: none;
-    transform: translateY(-120%);
-    transition: 0.2s;
+    transition: 0.1s;
     box-shadow: $shadow;
+    visibility: hidden;
+    opacity: 0;
 
     &-active {
-      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
     }
 
     &__avatar {
