@@ -6,12 +6,13 @@ import { ReactComponent as Logo } from "../../../src/assets/svg/logo.svg"
 import { ReactComponent as ToggleSideBar } from "../../../src/assets/svg/toogle-sidebar.svg"
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
 import UserMenu from "../UserMenu/UserMenu"
-import { useIsHiddeSideBar, useThemeStyle } from "../../utils/hooks"
+import { useIsHiddeSideBar, useOutsideAlerter, useThemeStyle } from "../../utils/hooks"
 import { useSelector } from "react-redux"
 import { selectIsLoggedin } from "../../store/slices/auth"
+import { useRef } from "react"
 
 
-export default ({ loginName }) => {
+export default ({ loginName }, props ) => {
     const location = useLocation()
     const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
     const islocationLogin = location.pathname === '/login'
@@ -19,6 +20,8 @@ export default ({ loginName }) => {
     const history = useHistory()
     const { darkTheme, setDarkTheme } = useThemeStyle()
     const { handleToggleSideBar } = useIsHiddeSideBar()   // скрываем / показываем боковую панель
+    const wrapperRef = useRef(null)
+    useOutsideAlerter(wrapperRef, () => setIsVisibleUserMenu(false))        // функция отслеживания клика
 
     return (
       <>
@@ -40,9 +43,11 @@ export default ({ loginName }) => {
                       <label className="switcher" htmlFor="switcher-id"></label>
                     </div>
 
-                    <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)}>
+                    <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)} ref={wrapperRef}>
                       <span className="header-login__name">{loginName}</span>
                       <ArrowDown className="header-login__arrow"/>
+                        <UserMenu isVisibleUserMenu={isVisibleUserMenu} />
+                      {props.children}
                     </div>
                   </>
                 ) : (
@@ -55,9 +60,6 @@ export default ({ loginName }) => {
             </div>
           </div>
         </header>
-        <UserMenu 
-          isVisibleUserMenu={isVisibleUserMenu} 
-        />
       </>
     )
   }
