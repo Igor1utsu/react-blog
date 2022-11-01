@@ -1,4 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import imgPlaceholder from '../../../src/assets/place-holder-img.png'
 import { ReactComponent as TrashIcon } from "../../../src/assets/svg/trash.svg"
 import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
@@ -66,6 +67,10 @@ export default () => {
     
     return (
         <div className="overlay">
+        <div className='box'>
+            <nav className="box__nav">
+                <LeftOutlined className='box__arrow'/>
+            </nav>
             <div className="openpost">
                 <button className="btn--close" onClick={() => history.push(isFavourites ? '/favourites' : '/blog')}>
                     <CloseIcon className="icon"/>
@@ -100,6 +105,10 @@ export default () => {
                     }       {/* показываем application только при авториизации, и скрываем когда редактируем */}
                 </div>
             </div>
+            <nav className="box__nav">
+                <RightOutlined className='box__arrow'/>
+            </nav>
+        </div>
         </div>
     )
 }

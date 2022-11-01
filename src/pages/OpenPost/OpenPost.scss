@@ -1,10 +1,35 @@
-.openpost {
+.box {
     position: fixed;
     top: 50px;
     bottom: 50px;
-    left: 100px;
-    right: 100px;
-    height: calc(100% - 100px);
+    left: 0;
+    right: 0;
+    height: min-content;
+    margin: auto;
+    display: flex;
+
+    &__nav {
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+        opacity: 0.4;
+        transition: 0.2s;
+        color: var(--color-light);
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &__arrow {
+        font-size: 32px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}
+
+.openpost {
+    flex: 1;
     padding: 20px 40px;
     display: flex;
     flex-direction: column;
