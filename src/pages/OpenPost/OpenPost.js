@@ -71,7 +71,7 @@ export default () => {
         <div className="overlay">
         <div className='box'>
             {prevPost && 
-                <nav className="box__nav" onClick={() => history.push(`/blog/${prevPost.id}`)}>
+                <nav className="box__nav box__nav-prev" onClick={() => history.push(`/blog/${prevPost.id}`)}>
                     <LeftOutlined className='box__arrow'/>
                 </nav>
             }
@@ -110,7 +110,7 @@ export default () => {
                 </div>
             </div>
             {nextPost &&
-                <nav className="box__nav">
+                <nav className="box__nav box__nav-next">
                     <RightOutlined className='box__arrow' onClick={() => history.push(`/blog/${nextPost.id}`)}/>
                 </nav>
             }

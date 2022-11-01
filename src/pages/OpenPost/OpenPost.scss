@@ -1,17 +1,21 @@
 .box {
     position: fixed;
-    top: 50px;
-    bottom: 50px;
+    top: 40px;
+    bottom: 40px;
     left: 0;
     right: 0;
     height: min-content;
+    width: max-content;
     margin: auto;
     display: flex;
 
     &__nav {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        padding: 0 15px;
         display: flex;
         flex-direction: column;
-        padding: 0 20px;
         opacity: 0.4;
         transition: 0.2s;
         color: var(--color-light);
@@ -19,17 +23,27 @@
         &:hover {
             opacity: 1;
         }
+
+        &-prev {
+            left: -60px;
+        }
+        
+        &-next {
+            right: -60px;
+        }
     }
 
     &__arrow {
-        font-size: 32px;
         margin-top: auto;
         margin-bottom: auto;
+        font-size: 30px;
     }
 }
 
 .openpost {
-    flex: 1;
+    width: calc(100vw - 120px);
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px 40px;
     display: flex;
     flex-direction: column;
@@ -69,13 +83,6 @@
 
 @media (max-width: 640px) {
     .openpost {
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 90%;
-        height: 90%;
-        margin: auto auto;
         padding: 20px 20px;
     }
 }
