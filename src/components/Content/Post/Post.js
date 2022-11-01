@@ -36,13 +36,13 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
         }
         
         return (
-                <div className="post" onClick={() => history.push(`${location.pathname}/${id}`)}>
+                <div className="post">
                   <div className="post__logo-wrapper">
                     <img src={thumbnail || imgPlaceholder} className="post__logo"/>
                   </div>
                   <div className="post__content">
                     <h3 className="post__title">{title}</h3>
-                    <div className="post__description">{description}</div>
+                    <div className="post__description" onClick={() => history.push(`${location.pathname}/${id}`)}>{description}</div>
                     {isLoggedIn && 
                       <nav className="application" onClick={(e) => {e.stopPropagation()}}>
                         <button className="btn--icon" onClick={(e) => handleLikePost(e)}>
