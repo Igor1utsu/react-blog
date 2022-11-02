@@ -33,10 +33,28 @@
         }
     }
 
-    &__arrow {
+    .box-nav__arrow {
         margin-top: auto;
         margin-bottom: auto;
         font-size: 30px;
+    }
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: -60px;
+        padding: 5px 15px 30px;
+        opacity: 0.4;
+        transition: 0.2s;
+        color: var(--color-light);
+
+        &:hover {
+            opacity: 1;
+        }
+
+        .box-close__icon {
+            font-size: 30px;
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
 import imgPlaceholder from '../../../src/assets/place-holder-img.png'
 import { ReactComponent as TrashIcon } from "../../../src/assets/svg/trash.svg"
 import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
@@ -72,13 +72,10 @@ export default () => {
         <div className='box'>
             {prevPost && 
                 <nav className="box__nav box__nav-prev" onClick={() => history.push(`/blog/${prevPost.id}`)}>
-                    <LeftOutlined className='box__arrow'/>
+                    <LeftOutlined className='box-nav__arrow'/>
                 </nav>
             }
             <div className="openpost">
-                <button className="btn--close" onClick={() => history.push(isFavourites ? '/favourites' : '/blog')}>
-                    <CloseIcon className="icon"/>
-                </button>
                 <div className="openpost__logo-wrapper">
                     <img src={thumbnail || imgPlaceholder} className="openpost__logo"/>
                 </div>
@@ -111,9 +108,12 @@ export default () => {
             </div>
             {nextPost &&
                 <nav className="box__nav box__nav-next">
-                    <RightOutlined className='box__arrow' onClick={() => history.push(`/blog/${nextPost.id}`)}/>
+                    <RightOutlined className='box-nav__arrow' onClick={() => history.push(`/blog/${nextPost.id}`)}/>
                 </nav>
             }
+            <nav className='box__close' onClick={() => history.push(isFavourites ? '/favourites' : '/blog')}>
+                <CloseOutlined className='box-close__icon'/>
+            </nav>
         </div>
         </div>
     )
