@@ -6,7 +6,8 @@ import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
 import { ReactComponent as EditIcon } from "../../../src/assets/svg/edit.svg"
 import './OpenPost.scss'
 import { useHistory, useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import { useEffect } from 'react';
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
 import { useFavourites } from '../../utils/hooks'
@@ -28,7 +29,23 @@ export default () => {
     const [isEditForm, setIsEditForm] = useState(false)                 // форма редактирования
     const history = useHistory()
     const dispath = useDispatch()  
-    
+
+    const onKeypress = useCallback((e) => {
+        if(e.key === 'ArrowLeft' && prevPost ){
+            e.preventDefault()
+            history.push(isFavourites ? `/favourites/${prevPost.id}` : `/blog/${prevPost.id}`)
+        }
+        if(e.key === 'ArrowRight' && nextPost){
+            e.preventDefault()
+            history.push(isFavourites ? `/favourites/${nextPost.id}` : `/blog/${nextPost.id}`)
+        }
+    }, [history, isFavourites, nextPost, prevPost])
+
+    useEffect(() => {
+        document.addEventListener("keydown", onKeypress)                    // добавление обработки события при нажатия клавиш
+        return () => document.removeEventListener("keydown", onKeypress)    // удаление прослушивателя событий
+    }, [onKeypress])
+
     const onValuesChange = (fielData) => {          //   Данные для Инпутов
         setFormData({...formData, ...fielData})
     }
@@ -106,8 +123,8 @@ export default () => {
                 </div>
             </div>
             {nextPost &&
-                <nav className="box__nav box__nav-next">
-                    <RightOutlined className='box-nav__arrow' onClick={() => history.push(isFavourites ? `/favourites/${nextPost.id}` : `/blog/${nextPost.id}`)}/>
+                <nav className="box__nav box__nav-next" onClick={() => history.push(isFavourites ? `/favourites/${nextPost.id}` : `/blog/${nextPost.id}`)}>
+                    <RightOutlined className='box-nav__arrow'/>
                 </nav>
             }
             <nav className='box__close' onClick={() => history.push(isFavourites ? '/favourites' : '/blog')}>
