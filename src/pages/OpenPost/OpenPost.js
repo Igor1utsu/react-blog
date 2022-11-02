@@ -4,7 +4,6 @@ import imgPlaceholder from '../../../src/assets/place-holder-img.png'
 import { ReactComponent as TrashIcon } from "../../../src/assets/svg/trash.svg"
 import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
 import { ReactComponent as EditIcon } from "../../../src/assets/svg/edit.svg"
-import { ReactComponent as CloseIcon } from "../../../src/assets/svg/close-button.svg"
 import './OpenPost.scss'
 import { useHistory, useParams } from 'react-router-dom'
 import { useState } from 'react'
@@ -71,7 +70,7 @@ export default () => {
         <div className="overlay">
         <div className='box'>
             {prevPost && 
-                <nav className="box__nav box__nav-prev" onClick={() => history.push(`/blog/${prevPost.id}`)}>
+                <nav className="box__nav box__nav-prev" onClick={() => history.push(isFavourites ? `/favourites/${prevPost.id}` : `/blog/${prevPost.id}`)}>
                     <LeftOutlined className='box-nav__arrow'/>
                 </nav>
             }
@@ -108,7 +107,7 @@ export default () => {
             </div>
             {nextPost &&
                 <nav className="box__nav box__nav-next">
-                    <RightOutlined className='box-nav__arrow' onClick={() => history.push(`/blog/${nextPost.id}`)}/>
+                    <RightOutlined className='box-nav__arrow' onClick={() => history.push(isFavourites ? `/favourites/${nextPost.id}` : `/blog/${nextPost.id}`)}/>
                 </nav>
             }
             <nav className='box__close' onClick={() => history.push(isFavourites ? '/favourites' : '/blog')}>
