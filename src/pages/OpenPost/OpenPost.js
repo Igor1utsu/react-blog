@@ -7,6 +7,7 @@ import { ReactComponent as EditIcon } from "../../../src/assets/svg/edit.svg"
 import './OpenPost.scss'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
+import { useMemo } from 'react';
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
 import { useFavourites, useNavigationPost } from '../../utils/hooks'
@@ -21,7 +22,7 @@ export default () => {
     const params = useParams()
     const [formData, setFormData] = useState({})
     const { postList } = useSelector(selectPostsData)               // извлекае массив из хранилища Redux    
-    const post = postList.find(post => post.id === params.id)       // ищим в массиве текущий пост
+    const post = useMemo(() => postList.find(post => post.id === params.id), [params.id, postList])       // ищим в массиве текущий пост
     const { prevPost, nextPost, prevPostHistory, nextPostHistory, blogHistory } = useNavigationPost(postList, isFavourites)    // загружаем функционал навигации
     const { id, title, description, thumbnail, liked } = post || {}
     const [isEditForm, setIsEditForm] = useState(false)                 // форма редактирования
