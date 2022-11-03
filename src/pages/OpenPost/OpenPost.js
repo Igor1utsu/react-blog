@@ -23,8 +23,8 @@ export default () => {
     const [formData, setFormData] = useState({})
     const { postList } = useSelector(selectPostsData)               // извлекае массив из хранилища Redux    
     const post = postList.find(post => post.id === params.id)       // ищим в массиве текущий пост
-    const prevPost = postList.find(post => post.id == (parseInt(params.id) - 1))    // предыдущий пост в навигации
-    const nextPost = postList.find(post => post.id == (parseInt(params.id) + 1))    // следующий пост в навигации
+    const prevPost = postList[(postList.findIndex(post => post.id === params.id)) - 1]    // предыдущий пост в навигации
+    const nextPost = postList[(postList.findIndex(post => post.id === params.id)) + 1]    // следующий пост в навигации
     const { id, title, description, thumbnail, liked } = post || {}
     const [isEditForm, setIsEditForm] = useState(false)                 // форма редактирования
     const history = useHistory()
