@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { useDispatch } from "react-redux"
-import { useLocation } from "react-router-dom"
+import { useHistory, useLocation, useParams } from "react-router-dom"
 import { setFavourites, unsetFavourites } from "../store/slices/posts"
 
 
@@ -60,6 +60,36 @@ export const useIsHiddeSideBar = () => {
     document.documentElement?.style.setProperty( "--display-content", isSidebar ? 'none' : 'block' )    // оптимизация для мобильных устройств
 
     return { isSidebar, handleToggleSideBar }
+}
+
+export const useNavigationPost = (postList, isFavourites ) => {
+    const params = useParams()
+    const history = useHistory()
+    
+    const prevPost = useMemo(() => postList[(postList.findIndex(post => post.id === params.id)) - 1], [params.id, postList])    // предыдущий пост в навигации
+    const nextPost = useMemo(() => postList[(postList.findIndex(post => post.id === params.id)) + 1], [params.id, postList])    // следующий пост в навигации
+
+    // ссылки prevPost, nexPost, Blog
+    const prevPostHistory = useCallback(() => history.push(isFavourites ? `/favourites/${prevPost.id}` : `/blog/${prevPost.id}`), [isFavourites, prevPost])
+    const nextPostHistory = useCallback(() => history.push(isFavourites ? `/favourites/${nextPost.id}` : `/blog/${nextPost.id}`), [isFavourites, nextPost])
+    const blogHistory = useCallback(() => history.push(isFavourites ? '/favourites' : '/blog'), [isFavourites])
+    
+    // обработчик событий клавиатуры
+    const onKeypress = useCallback((e) => {        
+        if(e.key === 'ArrowLeft' && prevPost ){
+            prevPostHistory()
+        }
+        if(e.key === 'ArrowRight' && nextPost){
+            nextPostHistory()
+        }
+    }, [nextPost, nextPostHistory, prevPost, prevPostHistory])
+
+    useEffect(() => {
+        document.addEventListener("keydown", onKeypress)                    // добавление обработки события при нажатия клавиш
+        return () => document.removeEventListener("keydown", onKeypress)    // удаление прослушивателя событий
+    }, [onKeypress])
+
+    return { prevPost, nextPost, prevPostHistory, nextPostHistory, blogHistory }
 }
 
 export const useOutsideAlerter = (ref, action) => {

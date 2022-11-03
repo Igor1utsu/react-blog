@@ -5,12 +5,11 @@ import { ReactComponent as TrashIcon } from "../../../src/assets/svg/trash.svg"
 import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
 import { ReactComponent as EditIcon } from "../../../src/assets/svg/edit.svg"
 import './OpenPost.scss'
-import { useHistory, useParams } from 'react-router-dom'
-import { useCallback, useState } from 'react'
-import { useEffect } from 'react';
+import { useParams } from 'react-router-dom'
+import { useState } from 'react'
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
-import { useFavourites } from '../../utils/hooks'
+import { useFavourites, useNavigationPost } from '../../utils/hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoggedin } from '../../store/slices/auth'
 import { deletePost, likePost, savePost, selectPostsData } from '../../store/slices/posts'
@@ -23,28 +22,10 @@ export default () => {
     const [formData, setFormData] = useState({})
     const { postList } = useSelector(selectPostsData)               // извлекае массив из хранилища Redux    
     const post = postList.find(post => post.id === params.id)       // ищим в массиве текущий пост
-    const prevPost = postList[(postList.findIndex(post => post.id === params.id)) - 1]    // предыдущий пост в навигации
-    const nextPost = postList[(postList.findIndex(post => post.id === params.id)) + 1]    // следующий пост в навигации
+    const { prevPost, nextPost, prevPostHistory, nextPostHistory, blogHistory } = useNavigationPost(postList, isFavourites)    // загружаем функционал навигации
     const { id, title, description, thumbnail, liked } = post || {}
     const [isEditForm, setIsEditForm] = useState(false)                 // форма редактирования
-    const history = useHistory()
     const dispath = useDispatch()  
-
-    const onKeypress = useCallback((e) => {
-        if(e.key === 'ArrowLeft' && prevPost ){
-            e.preventDefault()
-            history.push(isFavourites ? `/favourites/${prevPost.id}` : `/blog/${prevPost.id}`)
-        }
-        if(e.key === 'ArrowRight' && nextPost){
-            e.preventDefault()
-            history.push(isFavourites ? `/favourites/${nextPost.id}` : `/blog/${nextPost.id}`)
-        }
-    }, [history, isFavourites, nextPost, prevPost])
-
-    useEffect(() => {
-        document.addEventListener("keydown", onKeypress)                    // добавление обработки события при нажатия клавиш
-        return () => document.removeEventListener("keydown", onKeypress)    // удаление прослушивателя событий
-    }, [onKeypress])
 
     const onValuesChange = (fielData) => {          //   Данные для Инпутов
         setFormData({...formData, ...fielData})
@@ -71,7 +52,7 @@ export default () => {
         e.preventDefault()
         const onOk = async () => {
             await dispath( deletePost(id) )
-            history.push(isFavourites ? '/favourites' : '/blog')
+            blogHistory()
         }
         showDeleteConfirm(onOk)
     }
@@ -87,7 +68,7 @@ export default () => {
         <div className="overlay">
         <div className='box'>
             {prevPost && 
-                <nav className="box__nav box__nav-prev" onClick={() => history.push(isFavourites ? `/favourites/${prevPost.id}` : `/blog/${prevPost.id}`)}>
+                <nav className="box__nav box__nav-prev" onClick={() => prevPostHistory()}>
                     <LeftOutlined className='box-nav__arrow'/>
                 </nav>
             }
@@ -123,11 +104,11 @@ export default () => {
                 </div>
             </div>
             {nextPost &&
-                <nav className="box__nav box__nav-next" onClick={() => history.push(isFavourites ? `/favourites/${nextPost.id}` : `/blog/${nextPost.id}`)}>
+                <nav className="box__nav box__nav-next" onClick={() => nextPostHistory()}>
                     <RightOutlined className='box-nav__arrow'/>
                 </nav>
             }
-            <nav className='box__close' onClick={() => history.push(isFavourites ? '/favourites' : '/blog')}>
+            <nav className='box__close' onClick={() => blogHistory()}>
                 <CloseOutlined className='box-close__icon'/>
             </nav>
         </div>
