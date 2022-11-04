@@ -111,6 +111,20 @@ export const useOutsideAlerter = (ref, action) => {
     }, [ref])
 }
 
+export const useSearch = ( postList ) => {
+    const [searchData, setSearchData] = useState('')
+
+    const handleSearch = (e) => {
+        setSearchData(e.target.value)   // изменяем данные для поиска
+    }
+    
+    // если есть данные для поиска фильтруем массив на совпадение в title и description
+    const searchResult = useMemo(() => 
+    searchData ? postList.filter(post => post.title.toUpperCase().includes(searchData.toUpperCase()) || post.description.toUpperCase().includes(searchData.toUpperCase())) : null, [postList, searchData])
+
+    return { handleSearch, searchResult }
+}
+
 // старый функционал получения постов
 //
 // export const useLoadPosts = () => {
