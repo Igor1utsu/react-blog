@@ -33,9 +33,9 @@ export default () => {
       <>
         <div className="content__header">
           <h2 className="title">{isFavourites ? 'Favourites' : 'My blog :)'}</h2>
-          <div className="search-wrapper">
-            <input className="search-input" type="text" placeholder="поиск" onChange={handleSearch}></input>
-            <SearchIcon className="icon"/>
+          <div className="search">
+            <SearchIcon className="search__icon"/>
+            <input className="search__input" type="text" placeholder="поиск" onChange={handleSearch}></input>
           </div>
         </div>
 

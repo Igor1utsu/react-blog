@@ -13,11 +13,12 @@
     &__header {
         display: flex;
         justify-content: space-between;
-        padding-top: 15px;
+        padding-top: 20px;
+        padding-bottom: 40px;
     }
 
     &__wrapper {
-        padding: 20px 0 40px;
+        padding-bottom: 40px;
         display: flex;
         flex-direction: column;
     }
@@ -28,16 +29,30 @@
     }
 }
 
-.search-wrapper {
+.search {
     display: flex;
     align-items: center;
+    position: relative;
 
-    .search-input {
-        margin-right: 10px;
+    &__input {
+        width: 130px;
+        padding: 2px 5px 2px 40px;
+        border-radius: 14px;
         background-color: var(--color2);
-        border-radius: 8px;
-        width: 120px;
-        padding: 0 5px;
+        transition: 0.2s;
+
+        &:focus {
+            width: 250px;
+        }
+    }
+
+    &__icon {
+        width: 20px;
+        position: absolute;
+        top: 50%;
+        left: 13px;
+        transform: translateY(-50%);
+        fill: var(--text-color1);
     }
 }
 

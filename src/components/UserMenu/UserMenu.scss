@@ -20,6 +20,7 @@
     box-shadow: $shadow;
     visibility: hidden;
     opacity: 0;
+    z-index: 1;
 
     &-active {
       opacity: 1;
