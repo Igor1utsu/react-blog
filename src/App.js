@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import LoginPage from "./pages/LoginPage/LoginPage"
 import MainLayout from "./layouts/MainLayout"
 import NoMatch from "./pages/NoMatch/NoMatch"
+import Registration from './pages/Registration/Registration'
 import { URLS } from "./utils/constants"
 import 'antd/dist/antd.css'
 import "./components/body.scss"
@@ -41,6 +42,10 @@ function App() {
 
       <Route exact path="/login">
         {isLoggedIn ? <Redirect to="/blog"/> : <Login/>}
+      </Route>
+
+      <Route exact path="/registration">
+        <Registration/>
       </Route>
       
       {URLS.map((url, index) => {
