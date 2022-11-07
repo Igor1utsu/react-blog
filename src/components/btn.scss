@@ -1,5 +1,12 @@
 @import '../styles/imports/variables';
 
+.container {    
+    // Ant Design
+    .ant-btn {
+        border-radius: 10px;
+    }
+}
+
 .btn {
     width: max-content;
     padding: 5px 30px;
