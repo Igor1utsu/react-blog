@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { useState } from "react"
 import "./Header.scss"
-import { useHistory, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { ReactComponent as Logo } from "../../../src/assets/svg/logo.svg"
 import { ReactComponent as ToggleSideBar } from "../../../src/assets/svg/toogle-sidebar.svg"
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
@@ -13,11 +13,8 @@ import { useRef } from "react"
 
 
 export default ({ loginName }, props ) => {
-    const location = useLocation()
     const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
-    const islocationLogin = location.pathname === '/login'
     const [isVisibleUserMenu, setIsVisibleUserMenu] = useState(false) // Открытие меню Пользователя
-    const history = useHistory()
     const { darkTheme, setDarkTheme } = useThemeStyle()
     const { handleToggleSideBar } = useIsHiddeSideBar()   // скрываем / показываем боковую панель
     const wrapperRef = useRef(null)
@@ -28,7 +25,6 @@ export default ({ loginName }, props ) => {
         <header className="header">
           <div className="container">
             <div className="header__row">
-              {isLoggedIn ? (
                   <>
                     <button className="btn--toggle-sidebar">
                       <ToggleSideBar className="header__icon" onClick={(e) => handleToggleSideBar(e)}/>
@@ -37,26 +33,26 @@ export default ({ loginName }, props ) => {
                       <Logo className="header__icon"/>
                       <span className="header-logo__title">React</span>
                     </div>
-
-                    <div className="form-switcher">
-                      <input type="checkbox" name="switcher-name" id="switcher-id" checked={darkTheme} onChange={() => setDarkTheme(!darkTheme)}/>
-                      <label className="switcher" htmlFor="switcher-id"></label>
-                    </div>
-
-                    <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)} ref={wrapperRef}>
-                      <span className="header-login__name">{loginName}</span>
-                      <ArrowDown className="header-login__arrow"/>
-                        <UserMenu isVisibleUserMenu={isVisibleUserMenu} />
-                      {props.children}
-                    </div>
+                    {isLoggedIn ? (
+                      <>
+                        <div className="form-switcher">
+                          <input type="checkbox" name="switcher-name" id="switcher-id" checked={darkTheme} onChange={() => setDarkTheme(!darkTheme)}/>
+                          <label className="switcher" htmlFor="switcher-id"></label>
+                        </div>
+                        <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)} ref={wrapperRef}>
+                          <span className="header-login__name">{loginName}</span>
+                          <ArrowDown className="header-login__arrow"/>
+                            <UserMenu isVisibleUserMenu={isVisibleUserMenu} />
+                          {props.children}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="./login" className="header__link">Войти</Link>
+                        <Link to="./register" className="header__link">Регистрация</Link>
+                      </>
+                    )}
                   </>
-                ) : (
-                  <>
-                    <div className="header__greeting">Добро пожаловать, гость!</div>
-                    {!islocationLogin && <button className="btn--login" onClick={() => history.push('/login')}>Войти</button>}
-                  </>
-                )
-              }
             </div>
           </div>
         </header>

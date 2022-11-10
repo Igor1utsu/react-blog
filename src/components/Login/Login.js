@@ -4,6 +4,7 @@ import "./Login.scss"
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
 import { useDispatch } from "react-redux"
 import { logIn } from "../../store/slices/auth"
+import { Link } from "react-router-dom"
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -31,12 +32,11 @@ export default ({loginName, setLoginName }) => {
 
 
     return (
-        <div className="login__window">
+        <>
             <form className="form" onSubmit={submit}>
                 <div className="logo">
                     <Logo className="logo__icon"/>
                 </div>
-                <h3 className="login__title">Вход</h3>
                 <input 
                     className="input" 
                     type="text" ref={loginRef} 
@@ -52,8 +52,9 @@ export default ({loginName, setLoginName }) => {
                     placeholder="password"
                     required
                 ></input>
-                <button className="btn" type="submit" value="Submit">login</button>
+                <button className="btn" type="submit" value="Submit">Войти</button>
+                <Link to="./register" className="login__register">Регистрация</Link>
             </form>
-        </div>
+        </>
     )
 }
