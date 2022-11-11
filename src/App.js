@@ -10,8 +10,11 @@ import 'antd/dist/antd.css'
 import "./components/body.scss"
 import "./components/btn.scss"
 import { useThemeStyle } from './utils/hooks'
-import { useSelector } from 'react-redux'
-import { selectIsLoggedin } from './store/slices/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeUser, selectIsLoggedin, setUser } from './store/slices/auth'
+import { getAuth } from "firebase/auth"
+import { useEffect } from 'react'
+
 
 
 function App() {
@@ -19,6 +22,19 @@ function App() {
   const [loginName, setLoginName] = useState(localStorage.getItem('login'))   // Логин
   const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
   const { pathname } = useLocation()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    getAuth().onAuthStateChanged(user => {
+      if (user) {
+        dispatch(setUser(user.providerData[0]))
+      } 
+      else { 
+        console.log("Выход из системы")
+        dispatch(removeUser())
+      } 
+    })
+  },[])
 
   const Page = () => {
     return (

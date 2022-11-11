@@ -3,9 +3,9 @@ import { useState } from "react"
 import "./Login.scss"
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
 import { useDispatch } from "react-redux"
-import { logIn } from "../../store/slices/auth"
 import { Link, useHistory } from "react-router-dom"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { setUser } from "../../store/slices/auth"
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -18,12 +18,12 @@ export default ({loginName, setLoginName }) => {
     const submit = (e) => {
         e.preventDefault()
 
-        const auth = getAuth();
+        const auth = getAuth()
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
-                dispatch(logIn())                       // вызываем функцию авторизации из хранилища Redux
+                // const user = userCredential.user;
+                // dispatch(setUser(user))                 // добавляем пользователя в Redux
                 history.push('./blog')                  // переходим на главную страницу
             })
             .catch((error) => {

@@ -1,17 +1,16 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { useDispatch } from "react-redux"
+import { getAuth, signOut } from "firebase/auth"
 import { useHistory } from "react-router-dom"
-import { logOut } from "../../store/slices/auth"
 import "./UserMenu.scss"
 
 export default ({ isVisibleUserMenu }) => {
     const history = useHistory()
-    const dispatch = useDispatch()
 
     const clickLogOut = (e) => {
         e.preventDefault()
-        history.push('/login')      // переход на страницу авторизации
-        dispatch(logOut())      // вызываем функцию выхода из хранилища Redux
+        const auth = getAuth()
+        signOut(auth)               // вызываем функцию выхода из Firebase
+        history.push('/login')
     }
 
     return (

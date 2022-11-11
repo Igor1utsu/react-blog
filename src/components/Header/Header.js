@@ -42,15 +42,12 @@ export default ({ loginName }, props ) => {
                         <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)} ref={wrapperRef}>
                           <span className="header-login__name">{loginName}</span>
                           <ArrowDown className="header-login__arrow"/>
-                            <UserMenu isVisibleUserMenu={isVisibleUserMenu} />
+                          <UserMenu isVisibleUserMenu={isVisibleUserMenu} />
                           {props.children}
                         </div>
                       </>
                     ) : (
-                      <>
-                        <Link to="./login" className="header__link">Войти</Link>
-                        <Link to="./register" className="header__link">Регистрация</Link>
-                      </>
+                      <Link to="./login" className="header__link">Войти</Link>
                     )}
                   </>
             </div>
