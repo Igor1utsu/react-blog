@@ -1,28 +1,28 @@
-.login {
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--color1);
+// .login {
+//     width: 100vw;
+//     height: 100vh;
+//     background-color: var(--color1);
 
-    .logo {
-        display: flex;
-        align-items: center;
-        margin: 0 auto;
-        padding-bottom: 10px;
+//     .logo {
+//         display: flex;
+//         align-items: center;
+//         margin: 0 auto;
+//         padding-bottom: 10px;
 
-        &__icon {
-            width: 48px;
-            height: 48px;
-        }
-    }
+//         &__icon {
+//             width: 48px;
+//             height: 48px;
+//         }
+//     }
 
-    .btn {
-        margin-bottom: 30px;
-    }
+//     .btn {
+//         margin-bottom: 30px;
+//     }
 
-    &__register {
-        text-align: center;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-}
+//     &__register {
+//         text-align: center;
+//         &:hover {
+//             text-decoration: underline;
+//         }
+//     }
+// }
