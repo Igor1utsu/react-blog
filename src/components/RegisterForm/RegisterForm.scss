@@ -1,0 +1,23 @@
+.register {
+    margin: auto;
+
+     // Ant Design
+    .ant-form {
+        width: 95vw;
+        max-width: 640px;
+
+        .ant-form-item-label {
+            min-width: 170px;
+        }
+
+        .title {
+            text-align: center;
+            padding-bottom: 15px;
+        }
+
+        .span {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+}
