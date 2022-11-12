@@ -1,3 +1,21 @@
+body {
+    // Ant Design
+    .ant-form {
+        width: max-content;
+        margin: auto auto;
+        padding: 20px 20px;
+        border: 1px var(--border-color) solid;
+        border-radius: 15px;
+        background-color: var(--color2);
+    }
+
+    .ant-input,
+    .ant-input-affix-wrapper,
+    .ant-select-selector {
+        border-radius: 10px;
+    }
+}
+
 #root {
     display: flex;
     flex-direction: column;
@@ -9,27 +27,6 @@
 .container {
     width: 100%;
     margin: 0 auto;
-
-    // Ant Design
-    .ant-form {
-        margin: 0 auto;
-        padding: 20px 20px;
-        border: 1px var(--border-color) solid;
-        border-radius: 15px;
-        background-color: var(--color2);
-    }
-
-    .ant-input {
-        border-radius: 10px;
-    }
-
-    .ant-input-affix-wrapper {
-        border-radius: 10px;
-    }
-    
-    .ant-select-selector {
-        border-radius: 10px;
-    }
 }
 
 .wrapper {
