@@ -2,7 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory, useLocation, useParams } from "react-router-dom"
 import { setFavourites, unsetFavourites } from "../store/slices/posts"
+import { getAuth } from "firebase/auth";
 
+export const useUserInfo = () => {
+    const auth = getAuth()
+    const user = auth.currentUser?.providerData[0] || 'no loggedIn'      // загружаем данные из Firebase
+    // console.log('USER:', user)
+    return user
+}
 
 export const useFavourites = () => {
     const { pathname } = useLocation()

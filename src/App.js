@@ -19,7 +19,6 @@ import { useEffect } from 'react'
 
 function App() {
   useThemeStyle()   // загружаем тему оформления
-  const [loginName, setLoginName] = useState(localStorage.getItem('login'))   // Логин
   const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
   const { pathname } = useLocation()
   const dispatch = useDispatch()
@@ -38,18 +37,13 @@ function App() {
 
   const Page = () => {
     return (
-      <MainLayout
-        loginName={loginName} 
-      />
+      <MainLayout/>
     )
   }
 
   const Login = () => {
     return (
-      <LoginPage 
-        loginName={loginName} 
-        setLoginName={setLoginName}
-      />
+      <LoginPage/>
     )
   }
 

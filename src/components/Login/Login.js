@@ -9,7 +9,7 @@ import { setUser } from "../../store/slices/auth"
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({loginName, setLoginName }) => {
+export default () => {
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
     const dispatch = useDispatch()

@@ -8,12 +8,10 @@ import { Route, Switch } from "react-router-dom";
 import Favourites from "../pages/Favourites/Favourites";
 import Blog from "../pages/Blog/Blog";
 
-export default ({ loginName }) => {
+export default () => {
     return (
         <>
-            <Header
-                loginName={loginName}
-            />
+            <Header/>
             
             <main className="main">
                 <div className="container">

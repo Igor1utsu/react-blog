@@ -6,13 +6,14 @@ import { ReactComponent as Logo } from "../../../src/assets/svg/logo.svg"
 import { ReactComponent as ToggleSideBar } from "../../../src/assets/svg/toogle-sidebar.svg"
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
 import UserMenu from "../UserMenu/UserMenu"
-import { useIsHiddeSideBar, useOutsideAlerter, useThemeStyle } from "../../utils/hooks"
+import { useIsHiddeSideBar, useOutsideAlerter, useThemeStyle, useUserInfo } from "../../utils/hooks"
 import { useSelector } from "react-redux"
 import { selectIsLoggedin } from "../../store/slices/auth"
 import { useRef } from "react"
 
 
-export default ({ loginName }, props ) => {
+export default ( props ) => {
+    const { displayName } = useUserInfo()             // загружаем данные о пользователе из Firebase
     const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
     const [isVisibleUserMenu, setIsVisibleUserMenu] = useState(false) // Открытие меню Пользователя
     const { darkTheme, setDarkTheme } = useThemeStyle()
@@ -40,7 +41,7 @@ export default ({ loginName }, props ) => {
                           <label className="switcher" htmlFor="switcher-id"></label>
                         </div>
                         <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)} ref={wrapperRef}>
-                          <span className="header-login__name">{loginName}</span>
+                          <span className="header-login__name">{displayName}</span>
                           <ArrowDown className="header-login__arrow"/>
                           <UserMenu isVisibleUserMenu={isVisibleUserMenu} />
                           {props.children}
