@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd"
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth"
 import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { modalErrorAuth } from "../../utils/modals/errorAuth"
@@ -46,18 +46,24 @@ const RegisterForm = () => {
       const auth = getAuth()
       
       createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-          // const user = userCredential.user
-          history.push('./blog')
-      })
-      .catch((error) => {
-          // const errorCode = error.code
-          const errorMessage = error.message
-          console.error(errorMessage)
-          if (errorMessage.includes("email-already-in-use")) {
-            modalErrorAuth("Этот E-mail уже зарегистрирован")
-          }
-      })
+        .then((userCredential) => {
+            const user = userCredential.user
+            history.push('./blog')
+            return user
+        })
+        .then((user) => {
+          updateProfile(auth.currentUser, {
+            displayName: user.email.split('@')[0]       // устнавливаем имя пользователя из E-mail
+          })
+        })
+        .catch((error) => {
+            // const errorCode = error.code
+            const errorMessage = error.message
+            console.error(errorMessage)
+            if (errorMessage.includes("email-already-in-use")) {
+              modalErrorAuth("Этот E-mail уже зарегистрирован")
+            }
+        })
   }
 
   return (
