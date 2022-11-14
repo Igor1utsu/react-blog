@@ -5,10 +5,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons"
 import { Button, Checkbox, Form, Input } from "antd"
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { browserLocalPersistence, browserSessionPersistence, getAuth, setPersistence, signInWithEmailAndPassword } from "firebase/auth"
 import React from "react"
 import { useState } from "react"
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { modalErrorAuth } from "../../utils/modals/errorAuth"
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
 import "./LoginForm.scss"
@@ -16,18 +16,20 @@ import "./LoginForm.scss"
 const LoginForm = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const history = useHistory()
+  const [saveUser, setSaveUser] = useState(true)
 
-  const submit = () => {
+  const handleSubmit = () => {
     const auth = getAuth()
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // const user = userCredential.user;
-        history.push("./blog") // переходим на главную страницу
+    const authPersistenceTypes = saveUser ? browserLocalPersistence : browserSessionPersistence   // выбираем метод аутентификации
+
+    setPersistence(auth, authPersistenceTypes)
+      .then(() => {
+        return signInWithEmailAndPassword(auth, email, password)    // вызываем запрос авторизации
       })
       .catch((error) => {
-        const errorCode = error.code
+        // const errorCode = error.code
         const errorMessage = error.message
+        console.error(errorMessage)
         console.error("Ошибка входа")
         if (errorMessage.includes("user-not-found")) {
           modalErrorAuth("Пользователь не найден")
@@ -45,7 +47,7 @@ const LoginForm = () => {
       initialValues={{
         remember: true,
       }}
-      onFinish={submit}
+      onFinish={handleSubmit}
     >
       <div className="logo">
         <Logo className="logo__icon" />
@@ -101,7 +103,7 @@ const LoginForm = () => {
       </Form.Item>
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Сохранить вход</Checkbox>
+          <Checkbox onChange={() => setSaveUser(!saveUser)}>Сохранить вход</Checkbox>
         </Form.Item>
 
         {/* <a className="login-form-forgot" href="">
