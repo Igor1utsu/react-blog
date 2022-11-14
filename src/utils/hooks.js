@@ -1,7 +1,25 @@
+import { getAuth } from "firebase/auth"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory, useLocation, useParams } from "react-router-dom"
+import { removeUser, setUser } from "../store/slices/auth"
 import { setFavourites, unsetFavourites } from "../store/slices/posts"
+
+export const useLoadAuth = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        getAuth().onAuthStateChanged(user => {
+          if (user) {
+            dispatch(setUser(user.providerData[0]))     // добавляем данные пользовалеля из Firebase в Redux
+          } 
+          else { 
+            console.log("Выход из системы")
+            dispatch(removeUser())
+          } 
+        })
+      },[])
+}
 
 export const useFavourites = () => {
     const { pathname } = useLocation()

@@ -7,31 +7,16 @@ import { URLS } from "./utils/constants"
 import 'antd/dist/antd.css'
 import "./components/body.scss"
 import "./components/btn.scss"
-import { useThemeStyle } from './utils/hooks'
-import { useDispatch, useSelector } from 'react-redux'
-import { removeUser, getIsLoggedIn, setUser } from './store/slices/auth'
-import { getAuth } from "firebase/auth"
-import { useEffect } from 'react'
-
+import { useLoadAuth, useThemeStyle } from './utils/hooks'
+import { useSelector } from 'react-redux'
+import { getIsLoggedIn } from './store/slices/auth'
 
 
 function App() {
   useThemeStyle()   // загружаем тему оформления
+  useLoadAuth()     // загружаем данные авторизации Firebase
   const isLoggedIn = useSelector(getIsLoggedIn)    // извлекаем состояние авторизации из Redux
   const { pathname } = useLocation()
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    getAuth().onAuthStateChanged(user => {
-      if (user) {
-        dispatch(setUser(user.providerData[0]))
-      } 
-      else { 
-        console.log("Выход из системы")
-        dispatch(removeUser())
-      } 
-    })
-  },[])
 
   const Page = () => {
     return (
