@@ -2,8 +2,7 @@ import { Button, Form, Input } from "antd"
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth"
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import { showSuccessModal } from "../../utils/modals.utils"
-import { modalErrorAuth } from "../../utils/modals/errorAuth"
+import { showErrorModal, showSuccessModal } from "../../utils/modals.utils"
 import "./RegisterForm.scss"
 
 const formItemLayout = {
@@ -54,15 +53,14 @@ const RegisterForm = () => {
           updateProfile(auth.currentUser, {
             displayName: user.email.split('@')[0]       // устнавливаем имя пользователя из E-mail
           })
-          const message = 'Регистрация прошла успешно'
-          showSuccessModal(message)                   // открываем модалку
+          showSuccessModal("Регистрация прошла успешно")                   // открываем модалку
         })
         .catch((error) => {
             // const errorCode = error.code
             const errorMessage = error.message
             console.error(errorMessage)
             if (errorMessage.includes("email-already-in-use")) {
-              modalErrorAuth("Этот E-mail уже зарегистрирован")
+              showErrorModal("Этот E-mail уже зарегистрирован")
             }
         })
   }

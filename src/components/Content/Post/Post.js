@@ -8,7 +8,8 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { getIsLoggedIn } from '../../../store/slices/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { deletePost, likePost } from '../../../store/slices/posts'
-import { showDeleteConfirm } from '../../../utils/showDeleteConfirm'
+import { showDeleteConfirm } from '../../../utils/modals.utils'
+
 
 
 export default ({ post, setSelectPost, setIsVisibleForm }) => {

@@ -9,7 +9,7 @@ import { browserLocalPersistence, browserSessionPersistence, getAuth, setPersist
 import React from "react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { modalErrorAuth } from "../../utils/modals/errorAuth"
+import { showErrorModal } from "../../utils/modals.utils"
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
 import "./LoginForm.scss"
 
@@ -24,7 +24,7 @@ const LoginForm = () => {
 
     setPersistence(auth, authPersistenceTypes)
       .then(() => {
-        return signInWithEmailAndPassword(auth, email, password)    // вызываем запрос авторизации
+        return signInWithEmailAndPassword(auth, email, password)    // вызываем запрос аутентификация
       })
       .catch((error) => {
         // const errorCode = error.code
@@ -32,10 +32,10 @@ const LoginForm = () => {
         console.error(errorMessage)
         console.error("Ошибка входа")
         if (errorMessage.includes("user-not-found")) {
-          modalErrorAuth("Пользователь не найден")
+          showErrorModal("Пользователь не найден")
         }
         if (errorMessage.includes("wrong-password")) {
-          modalErrorAuth("Пароль неверный")
+          showErrorModal("Пароль неверный")
         }
       })
   }

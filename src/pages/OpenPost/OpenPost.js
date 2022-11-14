@@ -14,7 +14,7 @@ import { useFavourites, useNavigationPost } from '../../utils/hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsLoggedIn } from '../../store/slices/auth'
 import { deletePost, likePost, savePost, selectPostsData } from '../../store/slices/posts'
-import { showDeleteConfirm } from '../../utils/showDeleteConfirm'
+import { showDeleteConfirm } from '../../utils/modals.utils';
 
 export default () => {
     const isLoggedIn = useSelector(getIsLoggedIn)        // извлекаем состояние авторизации из Redux
