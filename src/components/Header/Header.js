@@ -6,14 +6,14 @@ import { ReactComponent as Logo } from "../../../src/assets/svg/logo.svg"
 import { ReactComponent as ToggleSideBar } from "../../../src/assets/svg/toogle-sidebar.svg"
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
 import UserMenu from "../UserMenu/UserMenu"
-import { useIsHiddeSideBar, useOutsideAlerter, useThemeStyle, useUserInfo } from "../../utils/hooks"
+import { useIsHiddeSideBar, useOutsideAlerter, useThemeStyle } from "../../utils/hooks"
 import { useSelector } from "react-redux"
-import { selectIsLoggedin } from "../../store/slices/auth"
+import { getUser, selectIsLoggedin } from "../../store/slices/auth"
 import { useRef } from "react"
 
 
 export default ( props ) => {
-    const { displayName } = useUserInfo()             // загружаем данные о пользователе из Firebase
+    const { displayName } = useSelector(getUser)             // загружаем данные о пользователе из Redux
     const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
     const [isVisibleUserMenu, setIsVisibleUserMenu] = useState(false) // Открытие меню Пользователя
     const { darkTheme, setDarkTheme } = useThemeStyle()

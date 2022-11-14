@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    user: null,
+    user: {},
     isLoggedIn: false,
 }
 
@@ -14,7 +14,7 @@ const userSlice = createSlice({
             state.isLoggedIn = true
         },
         removeUser(state) {
-            state.user =  null
+            state.user = {}
             state.isLoggedIn = false
         },
     },
@@ -23,6 +23,7 @@ const userSlice = createSlice({
 export const { setUser, removeUser } = userSlice.actions
 export default userSlice.reducer
 export const selectIsLoggedin = (state => state.auth.isLoggedIn)        // достаем состояние(isLoggedIn) из хранилища(state)
+export const getUser = (state => state.auth.user)
 
 // const initialState = {
 //     isLoggedIn: localStorage.getItem('isLoggedIn') === 'true'       // инициализируем начальное состояние
