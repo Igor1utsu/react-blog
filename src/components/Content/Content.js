@@ -8,7 +8,7 @@ import OpenPost from "../../pages/OpenPost/OpenPost"
 import { useParams } from "react-router-dom"
 import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
 import { useDispatch, useSelector } from "react-redux"
-import { selectIsLoggedin } from "../../store/slices/auth"
+import { getIsLoggedIn } from "../../store/slices/auth"
 import { loadPosts, selectPostsData } from "../../store/slices/posts"
 
 
@@ -19,7 +19,7 @@ export default () => {
   const [selectPost, setSelectPost] = useState(null)
   const { handleSearch, searchResult } = useSearch( postList )   // функционал для поиска
   const params = useParams()
-  const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
+  const isLoggedIn = useSelector(getIsLoggedIn)    // извлекаем состояние авторизации из Redux
   const dispath = useDispatch()
 
   useEffect(() => {

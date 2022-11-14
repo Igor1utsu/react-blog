@@ -9,7 +9,7 @@ import "./components/body.scss"
 import "./components/btn.scss"
 import { useThemeStyle } from './utils/hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeUser, selectIsLoggedin, setUser } from './store/slices/auth'
+import { removeUser, getIsLoggedIn, setUser } from './store/slices/auth'
 import { getAuth } from "firebase/auth"
 import { useEffect } from 'react'
 
@@ -17,7 +17,7 @@ import { useEffect } from 'react'
 
 function App() {
   useThemeStyle()   // загружаем тему оформления
-  const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
+  const isLoggedIn = useSelector(getIsLoggedIn)    // извлекаем состояние авторизации из Redux
   const { pathname } = useLocation()
   const dispatch = useDispatch()
 

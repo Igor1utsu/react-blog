@@ -8,13 +8,13 @@ import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down
 import UserMenu from "../UserMenu/UserMenu"
 import { useIsHiddeSideBar, useOutsideAlerter, useThemeStyle } from "../../utils/hooks"
 import { useSelector } from "react-redux"
-import { getUser, selectIsLoggedin } from "../../store/slices/auth"
+import { getUser, getIsLoggedIn } from "../../store/slices/auth"
 import { useRef } from "react"
 
 
 export default ( props ) => {
     const { displayName } = useSelector(getUser)             // загружаем данные о пользователе из Redux
-    const isLoggedIn = useSelector(selectIsLoggedin)    // извлекаем состояние авторизации из Redux
+    const isLoggedIn = useSelector(getIsLoggedIn)    // извлекаем состояние авторизации из Redux
     const [isVisibleUserMenu, setIsVisibleUserMenu] = useState(false) // Открытие меню Пользователя
     const { darkTheme, setDarkTheme } = useThemeStyle()
     const { handleToggleSideBar } = useIsHiddeSideBar()   // скрываем / показываем боковую панель

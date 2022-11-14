@@ -22,7 +22,7 @@ const userSlice = createSlice({
 
 export const { setUser, removeUser } = userSlice.actions
 export default userSlice.reducer
-export const selectIsLoggedin = (state => state.auth.isLoggedIn)        // достаем состояние(isLoggedIn) из хранилища(state)
+export const getIsLoggedIn = (state => state.auth.isLoggedIn)        // достаем состояние(isLoggedIn) из хранилища(state)
 export const getUser = (state => state.auth.user)
 
 // const initialState = {

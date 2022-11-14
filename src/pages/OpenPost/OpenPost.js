@@ -12,12 +12,12 @@ import { PostDesc, PostTitle } from '../../components/PostData/PostData'
 import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
 import { useFavourites, useNavigationPost } from '../../utils/hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectIsLoggedin } from '../../store/slices/auth'
+import { getIsLoggedIn } from '../../store/slices/auth'
 import { deletePost, likePost, savePost, selectPostsData } from '../../store/slices/posts'
 import { showDeleteConfirm } from '../../utils/showDeleteConfirm'
 
 export default () => {
-    const isLoggedIn = useSelector(selectIsLoggedin)        // извлекаем состояние авторизации из Redux
+    const isLoggedIn = useSelector(getIsLoggedIn)        // извлекаем состояние авторизации из Redux
     const isFavourites = useFavourites()                    // загружаем функционал для избранного
     const params = useParams()
     const [formData, setFormData] = useState({})

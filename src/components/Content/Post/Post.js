@@ -5,7 +5,7 @@ import { ReactComponent as TrashIcon } from "../../../assets/svg/trash.svg"
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg"
 import "./Post.scss"
 import { useHistory, useLocation } from 'react-router-dom'
-import { selectIsLoggedin } from '../../../store/slices/auth'
+import { getIsLoggedIn } from '../../../store/slices/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { deletePost, likePost } from '../../../store/slices/posts'
 import { showDeleteConfirm } from '../../../utils/showDeleteConfirm'
@@ -15,7 +15,7 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
         const { id, title, description, thumbnail, liked } = post
         const history = useHistory()
         const location = useLocation()
-        const isLoggedIn = useSelector(selectIsLoggedin)    // загр. состояние авторизации из Redux
+        const isLoggedIn = useSelector(getIsLoggedIn)    // загр. состояние авторизации из Redux
         const dispath = useDispatch()
 
         const handleLikePost = (e) => {         // лайк поста
