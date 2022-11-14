@@ -1,9 +1,7 @@
-import { useState } from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import LoginPage from "./pages/LoginPage/LoginPage"
 import MainLayout from "./layouts/MainLayout"
 import NoMatch from "./pages/NoMatch/NoMatch"
-import Registration from './pages/Registration/Registration'
 import Register from './pages/Register/Register'
 import { URLS } from "./utils/constants"
 import 'antd/dist/antd.css'
@@ -53,10 +51,6 @@ function App() {
 
       <Route exact path="/login">
         {isLoggedIn ? <Redirect to="/blog"/> : <Login/>}
-      </Route>
-
-      <Route exact path="/registration">
-        <Registration/>
       </Route>
 
       <Route exact path="/register">
