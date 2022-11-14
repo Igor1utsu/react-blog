@@ -1,7 +1,8 @@
 import { Button, Form, Input } from "antd"
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth"
 import React, { useState } from "react"
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { showSuccessModal } from "../../utils/modals.utils"
 import { modalErrorAuth } from "../../utils/modals/errorAuth"
 import "./RegisterForm.scss"
 
@@ -40,21 +41,21 @@ const RegisterForm = () => {
   const [form] = Form.useForm()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const history = useHistory()
       
-  const submit = () => {
+  const handleSubmit = () => {
       const auth = getAuth()
       
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user
-            history.push('./blog')
             return user
         })
         .then((user) => {
           updateProfile(auth.currentUser, {
             displayName: user.email.split('@')[0]       // устнавливаем имя пользователя из E-mail
           })
+          const message = 'Регистрация прошла успешно'
+          showSuccessModal(message)                   // открываем модалку
         })
         .catch((error) => {
             // const errorCode = error.code
@@ -71,7 +72,7 @@ const RegisterForm = () => {
       {...formItemLayout}
       form={form}
       name="register"
-      onFinish={submit}
+      onFinish={handleSubmit}
     >
       <h3 className="title">Регистрация:</h3>
       <Form.Item
