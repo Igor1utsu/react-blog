@@ -118,6 +118,9 @@ const LoginForm = () => {
         <span className="span">или</span>
         <Link to="./register">Зарегистрироваться!</Link>
       </Form.Item>
+      <div className="login-form__nav">
+        <Link to="./phone-auth">Войти по номеру телефона</Link>
+      </div>
     </Form>
   )
 }

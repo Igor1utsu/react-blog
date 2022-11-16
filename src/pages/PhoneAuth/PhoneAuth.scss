@@ -1,0 +1,18 @@
+.phone-auth {
+    margin: auto;
+
+    .title {
+        padding-bottom: 15px;
+        text-align: center;
+    }
+
+    &__confirm {
+        padding-top: 30px;
+    }
+    
+    // Ant Design
+    .ant-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}

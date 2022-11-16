@@ -20,4 +20,12 @@
             margin-right: 5px;
         }
     }
+
+    .login-form {
+        &__nav {
+            border-top: 1px var(--border-color) solid;
+            padding-top: 15px;
+            text-align: center;
+        }
+    }
 }
