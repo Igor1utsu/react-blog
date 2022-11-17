@@ -24,18 +24,17 @@ body {
     }
 
     &--toggle-sidebar {
-        padding: 3px;
+        width: 38px;
+        height: 38px;
         margin: auto 20px;
         background-color: transparent;
         border: 0;
-        border: 1px transparent solid;
         display: flex;
         justify-content: center;
         align-items: center;
         
         &:hover {
-            border-color: var(--color-light);
-            border-radius: 50%;
+            background-color: var(--hover-nav-color);
         }
     }
 
