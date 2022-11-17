@@ -91,13 +91,14 @@ export default () => {
                     {isEditForm && <button className='btn' onClick={(e) => saveChanges(e)}>Сохранить</button>}     {/*  если редактируем пост, то показываем кнопку  */}  
                     {isLoggedIn && !isEditForm &&
                         <nav className="application">
-                            <button className="btn--icon" onClick={(e) => handleLikePost(e)}>
+                            <button className="btn--application btn--application-liks" onClick={(e) => handleLikePost(e)}>
                                 <HeartIcon liked={liked} id={id}/>
+                                <div className="liks__num" style={liked ? {visibility: "visible"} : {visibility: "hidden"}}>{liked ? "1" : "0"}</div>
                             </button>
-                            <button className="btn--icon" onClick={(e) => handleDeletePost(e)} >
+                            <button className="btn--application" onClick={(e) => handleDeletePost(e)} >
                                 <TrashIcon className="icon"/>
                             </button>
-                            <button className="btn--icon" onClick={(e) => handleEditPost(e)}>
+                            <button className="btn--application" onClick={(e) => handleEditPost(e)}>
                                 <EditIcon className="icon"/>
                             </button>
                         </nav>

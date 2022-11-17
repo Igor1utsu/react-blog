@@ -40,8 +40,10 @@ export const useThemeStyle = () => {
     const colorBlue = "#1E90FF"
     const colorLight = "#f0f0f0"
     const colorLightGray = "#e6e6e6"
+    const colorLightGray1 = "#dedede"
     const colorLightGray2 = "#b0b0b0"
     const colorGray = "#636363"
+    const colorGray1 = "#2f2f2f"
     const colorGray2 = "#262626"
     const colorDarkGray = "#141414"
     const colorDark = "#0a0a0a"
@@ -56,6 +58,7 @@ export const useThemeStyle = () => {
         root?.style.setProperty( "--text-color2", darkTheme ? colorLightGray2 : colorGray )
         root?.style.setProperty( "--btn-color", darkTheme ? colorGray : colorDark )      // Button)
         root?.style.setProperty( "--border-color", darkTheme ? colorGray : colorLightGray2 )    // border
+        root?.style.setProperty( "--app-color", darkTheme ? colorGray1 : colorLightGray1 )    // Application
         root?.style.setProperty( "--color-light", colorLight )
         root?.style.setProperty( "--color-blue", colorBlue )
         root?.style.setProperty( "--color-heard", colorRed )

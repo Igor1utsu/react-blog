@@ -57,6 +57,29 @@ body {
     }
 }
 
+.btn--application {
+    width: max-content;
+    height: 32px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    background-color: var(--app-color);
+    border-radius: 16px;
+    border: 0;
+
+    &-liks {
+        svg {
+            display: flex;
+            margin-right: 4px;
+        }
+    }
+    
+    .liks__num {
+        font-size: 14px;
+        line-height: 1rem;
+        color: var(--text-color2);
+    }
+}
 
 
 
