@@ -37,6 +37,7 @@ export const useThemeStyle = () => {
     const [darkTheme, setDarkTheme] = useState(localStorage.getItem('darkTheme') === 'true' || false)      // считываем статус в localStorege или устанавливаем значение в false
 
     const colorRed = "#ff0000"
+    const colorLightBlue = "#3d9eff"
     const colorBlue = "#1E90FF"
     const colorLight = "#f0f0f0"
     const colorLightGray = "#e6e6e6"
@@ -59,6 +60,7 @@ export const useThemeStyle = () => {
         root?.style.setProperty( "--btn-color", darkTheme ? colorGray : colorDark )      // Button)
         root?.style.setProperty( "--border-color", darkTheme ? colorGray : colorLightGray2 )    // border
         root?.style.setProperty( "--app-color", darkTheme ? colorGray1 : colorLightGray1 )    // Application
+        root?.style.setProperty( "--hover-nav-color", darkTheme ? colorGray2 : colorLightBlue )    // :hover ( Header & Footer )
         root?.style.setProperty( "--color-light", colorLight )
         root?.style.setProperty( "--color-blue", colorBlue )
         root?.style.setProperty( "--color-heard", colorRed )
