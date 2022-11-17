@@ -52,10 +52,10 @@ export const useThemeStyle = () => {
     useEffect(() => {
         if (darkTheme) { localStorage.setItem('darkTheme', true) } else { localStorage.setItem('darkTheme', false) }
         const root = document.documentElement
-        root?.style.setProperty( "--color1", darkTheme ? colorDarkGray : colorLightGray )      // Background
+        root?.style.setProperty( "--color1", darkTheme ? colorDarkGray : colorLight )      // Background
         root?.style.setProperty( "--color2", darkTheme ? colorGray2 : colorLight )      // Window
         root?.style.setProperty( "--color3", darkTheme ? colorDark : colorBlue )      // Header)
-        root?.style.setProperty( "--text-color1", darkTheme ? colorLight : colorDark )
+        root?.style.setProperty( "--text-color1", darkTheme ? colorLight : colorGray1 )
         root?.style.setProperty( "--text-color2", darkTheme ? colorLightGray2 : colorGray )
         root?.style.setProperty( "--btn-color", darkTheme ? colorGray : colorDark )      // Button)
         root?.style.setProperty( "--border-color", darkTheme ? colorGray : colorLightGray2 )    // border
