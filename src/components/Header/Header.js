@@ -13,7 +13,7 @@ import { useRef } from "react"
 
 
 export default ( props ) => {
-    const { displayName } = useSelector(getUser)             // загружаем данные о пользователе из Redux
+    const { displayName, uid } = useSelector(getUser)             // загружаем данные о пользователе из Redux
     const isLoggedIn = useSelector(getIsLoggedIn)    // извлекаем состояние авторизации из Redux
     const [isVisibleUserMenu, setIsVisibleUserMenu] = useState(false) // Открытие меню Пользователя
     const { darkTheme, setDarkTheme } = useThemeStyle()
@@ -41,7 +41,7 @@ export default ( props ) => {
                           <label className="switcher" htmlFor="switcher-id"></label>
                         </div>
                         <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)} ref={wrapperRef}>
-                          <span className="header-login__name">{displayName}</span>
+                          <span className="header-login__name">{displayName || uid}</span>
                           <ArrowDown className="header-login__arrow"/>
                           <UserMenu isVisibleUserMenu={isVisibleUserMenu} />
                           {props.children}
