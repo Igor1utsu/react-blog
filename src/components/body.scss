@@ -8,15 +8,17 @@ body {
         border-radius: 15px;
         background-color: var(--color2);
     }
-
+    
     .ant-input,
     .ant-input-affix-wrapper,
     .ant-select-selector {
-        border-radius: 10px;
+        color: var(--text-color2);
+        border-radius: 15px;
+        background-color: var(--color2);
     }
     
     .ant-input-group-addon:first-child {
-        border-radius: 10px 0 0 10px;
+        border-radius: 15px 0 0 15px;
     }
 }
 

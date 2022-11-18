@@ -39,6 +39,7 @@ export const useThemeStyle = () => {
     const colorRed = "#ff0000"
     const colorLightBlue = "#3d9eff"
     const colorBlue = "#1E90FF"
+    const colorWhite = "#fff"
     const colorLight = "#f0f0f0"
     const colorLightGray = "#e6e6e6"
     const colorLightGray1 = "#dedede"
@@ -53,7 +54,7 @@ export const useThemeStyle = () => {
         if (darkTheme) { localStorage.setItem('darkTheme', true) } else { localStorage.setItem('darkTheme', false) }
         const root = document.documentElement
         root?.style.setProperty( "--color1", darkTheme ? colorDarkGray : colorLight )      // Background
-        root?.style.setProperty( "--color2", darkTheme ? colorGray2 : colorLight )      // Window
+        root?.style.setProperty( "--color2", darkTheme ? colorGray2 : colorWhite )      // Window
         root?.style.setProperty( "--color3", darkTheme ? colorDark : colorBlue )      // Header)
         root?.style.setProperty( "--text-color1", darkTheme ? colorLight : colorGray1 )
         root?.style.setProperty( "--text-color2", darkTheme ? colorLightGray2 : colorGray )

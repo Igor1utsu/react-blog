@@ -5,8 +5,8 @@ import Post from "./Post/Post"
 import PostForm from "./PostForm/PostForm"
 import { useFavourites, useSearch } from "../../utils/hooks"
 import OpenPost from "../../pages/OpenPost/OpenPost"
+import Search from "antd/lib/input/Search"
 import { useParams } from "react-router-dom"
-import { ReactComponent as SearchIcon } from "../../../src/assets/svg/search.svg"
 import { useDispatch, useSelector } from "react-redux"
 import { getIsLoggedIn } from "../../store/slices/auth"
 import { loadPosts, selectPostsData } from "../../store/slices/posts"
@@ -34,9 +34,8 @@ export default () => {
         <div className="content__header">
           {isFavourites && <h2 className="title">Favourites</h2>}
           {isLoggedIn && !isFavourites && !searchResult && <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить пост</button>}      {/* если авторизованны и не в избранном: показываем кнопку */}
-          <div className="search">
-            <SearchIcon className="search__icon"/>
-            <input className="search__input" type="text" placeholder="поиск" onChange={handleSearch}></input>
+          <div id="search">
+            <Search placeholder="поиск" onChange={handleSearch}/>
           </div>
         </div>
 

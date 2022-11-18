@@ -35,31 +35,20 @@
     }
 }
 
-.search {
+#search {
     margin-left: auto;
-    display: flex;
-    align-items: center;
-    position: relative;
 
-    &__input {
-        width: 130px;
-        padding: 2px 5px 2px 40px;
-        border-radius: 14px;
-        background-color: var(--color2);
-        transition: 0.2s;
-
-        &:focus {
-            width: 250px;
-        }
+    .ant-input {
+        border: 1px var(--border-color) solid;
     }
-
-    &__icon {
-        width: 20px;
-        position: absolute;
-        top: 50%;
-        left: 13px;
-        transform: translateY(-50%);
-        fill: var(--text-color1);
+    .ant-input-group-addon {
+        border-radius: 0 15px 15px 0;
+    }
+    .ant-input-search-button {
+        color: var(--text-color2);
+        background-color: var(--color2);
+        border: 1px var(--border-color) solid;
+        border-radius: 0 15px 15px 0;
     }
 }
 
