@@ -32,7 +32,8 @@ export default () => {
   return (
       <>
         <div className="content__header">
-          <h2 className="title">{isFavourites ? 'Favourites' : 'My blog :)'}</h2>
+          {isFavourites && <h2 className="title">Favourites</h2>}
+          {isLoggedIn && !isFavourites && !searchResult && <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить пост</button>}      {/* если авторизованны и не в избранном: показываем кнопку */}
           <div className="search">
             <SearchIcon className="search__icon"/>
             <input className="search__input" type="text" placeholder="поиск" onChange={handleSearch}></input>
@@ -70,7 +71,6 @@ export default () => {
               )
             })
           }
-        {isLoggedIn && !isFavourites && !searchResult && <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить пост</button>}      {/* если авторизованны и не в избранном: показываем кнопку */}
         </div>
         
         

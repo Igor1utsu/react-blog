@@ -13,8 +13,14 @@
     &__header {
         display: flex;
         justify-content: space-between;
-        padding-top: 20px;
-        padding-bottom: 40px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        .btn {
+            color: inherit;
+            background-color: var(--color2);
+            border: 1px var(--border-color) solid;
+        }
     }
 
     &__wrapper {
@@ -30,6 +36,7 @@
 }
 
 .search {
+    margin-left: auto;
     display: flex;
     align-items: center;
     position: relative;
