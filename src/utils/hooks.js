@@ -60,7 +60,7 @@ export const useThemeStyle = () => {
         root?.style.setProperty( "--text-color2", darkTheme ? colorLightGray2 : colorGray )
         root?.style.setProperty( "--btn-color", darkTheme ? colorGray : colorDark )      // Button)
         root?.style.setProperty( "--border-color", darkTheme ? colorGray : colorLightGray2 )    // border
-        root?.style.setProperty( "--app-color", darkTheme ? colorGray1 : colorLightGray1 )    // Application
+        root?.style.setProperty( "--app-color", darkTheme ? colorGray1 : colorLight )    // Application
         root?.style.setProperty( "--hover-nav-color", darkTheme ? colorGray2 : colorLightBlue )    // :hover ( Header & Footer )
         root?.style.setProperty( "--color-light", colorLight )
         root?.style.setProperty( "--color-blue", colorBlue )
