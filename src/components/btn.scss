@@ -23,11 +23,11 @@ body {
         color: var(--color-light);
     }
 
-    &--toggle-sidebar {
-        width: 38px;
+    &--toggle {
         height: 38px;
-        margin: auto 20px;
+        padding: 0 8px;
         background-color: transparent;
+        color: var(--color-light);
         border: 0;
         display: flex;
         justify-content: center;

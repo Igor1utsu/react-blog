@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { useState } from "react"
 import "./Header.scss"
-import { Link } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { ReactComponent as Logo } from "../../../src/assets/svg/logo.svg"
 import { ReactComponent as ToggleSideBar } from "../../../src/assets/svg/toogle-sidebar.svg"
 import { ReactComponent as ArrowDown } from "../../../src/assets/svg/arrow--down.svg"
@@ -20,6 +20,12 @@ export default ( props ) => {
     const { handleToggleSideBar } = useIsHiddeSideBar()   // скрываем / показываем боковую панель
     const wrapperRef = useRef(null)
     useOutsideAlerter(wrapperRef, () => setIsVisibleUserMenu(false))        // функция отслеживания клика
+    const history = useHistory()
+
+    const handleSideBar = (e) => {
+      e.preventDefault()
+      setIsVisibleUserMenu(!isVisibleUserMenu)
+    }
 
     return (
       <>
@@ -27,12 +33,12 @@ export default ( props ) => {
           <div className="container">
             <div className="header__row">
                   <>
-                    <button className="btn--toggle-sidebar">
+                    <button className="btn--toggle">
                       <ToggleSideBar className="header__icon" onClick={(e) => handleToggleSideBar(e)}/>
                     </button>
                     <div className="header__logo">
                       <Logo className="header__icon"/>
-                      <span className="header-logo__title">React</span>
+                      <span className="header__title">React</span>
                     </div>
                     {isLoggedIn ? (
                       <>
@@ -40,15 +46,15 @@ export default ( props ) => {
                           <input type="checkbox" name="switcher-name" id="switcher-id" checked={darkTheme} onChange={() => setDarkTheme(!darkTheme)}/>
                           <label className="switcher" htmlFor="switcher-id"></label>
                         </div>
-                        <div className="header-login__wrapper" onClick={() => setIsVisibleUserMenu(!isVisibleUserMenu)} ref={wrapperRef}>
-                          <span className="header-login__name">{displayName || uid}</span>
-                          <ArrowDown className="header-login__arrow"/>
+                        <button className="btn--toggle" onClick={handleSideBar} ref={wrapperRef}>
+                          <span>{displayName || uid}</span>
+                          <ArrowDown className="header__login-arrow"/>
                           <UserMenu isVisibleUserMenu={isVisibleUserMenu} />
                           {props.children}
-                        </div>
+                        </button>
                       </>
                     ) : (
-                      <Link to="./login" className="header__link">Войти</Link>
+                      <button to="./login" className="btn--toggle" onClick={() => history.push("./login")}>Войти</button>
                     )}
                   </>
             </div>
