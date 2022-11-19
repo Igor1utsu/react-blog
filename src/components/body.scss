@@ -7,14 +7,27 @@ body {
         border: 1px var(--border-color) solid;
         border-radius: 15px;
         background-color: var(--color2);
+        
+        & * {
+            color: var(--text-color1);
+        }
+        
+        .ant-input-group-addon {
+            background-color: var(--color2);
+            border-radius: 15px;
+            overflow: hidden;
+        }
     }
-    
+
     .ant-input,
     .ant-input-affix-wrapper,
     .ant-select-selector {
         color: var(--text-color2);
         border-radius: 15px;
         background-color: var(--color2);
+        & * {
+            background-color: var(--color2);
+        }
     }
     
     .ant-input-group-addon:first-child {
