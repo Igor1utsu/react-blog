@@ -9,8 +9,8 @@ export default ({ id, bookmark }) => {
     
     const menu = (
         <Menu>
-            {bookmark && <Menu.Item onClick={() => dispath( deleteBookmark(bookmark.id) )}>Удалить из закладок</Menu.Item>}
-            {!bookmark && <Menu.Item onClick={() => dispath( addBookmark(id) )}>Сохранить в закладках</Menu.Item>}
+            {bookmark && <Menu.Item key={0} onClick={() => dispath( deleteBookmark(bookmark.id) )}>Удалить из закладок</Menu.Item>}
+            {!bookmark && <Menu.Item key={1} onClick={() => dispath( addBookmark(id) )}>Сохранить в закладках</Menu.Item>}
         </Menu>
     )
 
