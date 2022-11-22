@@ -9,7 +9,7 @@ import { getIsLoggedIn } from '../../../store/slices/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { deletePost, likePost } from '../../../store/slices/posts'
 import { showDeleteConfirm } from '../../../utils/modals.utils'
-import { addBookmark, deleteBookmark } from '../../../store/actions/bookmarks'
+import DropDownPost from '../../DropdownPost/DropDownPost'
 import { getBookmarks } from '../../../store/reducers/bookmarksReducer'
 
 
@@ -17,7 +17,7 @@ import { getBookmarks } from '../../../store/reducers/bookmarksReducer'
 export default ({ post, setSelectPost, setIsVisibleForm }) => {
         const { id, title, description, thumbnail, liked } = post
         const bookmarkList = useSelector(getBookmarks)                        // извлекаем список закладок из Redux
-        const bookmarkEl = bookmarkList.find(bookmark => bookmark.postID === post.id)
+        const bookmark = bookmarkList.find(bookmark => bookmark.postID === post.id)
         const history = useHistory()
         const location = useLocation()
         const isLoggedIn = useSelector(getIsLoggedIn)    // загр. состояние авторизации из Redux
@@ -46,7 +46,10 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                     <img src={thumbnail || imgPlaceholder} className="post__logo"/>
                   </div>
                   <div className="post__content">
-                    <h3 className="post__title">{title}</h3>
+                    <div className="post__header">
+                      <h3 className="post__title">{title}</h3>
+                      <DropDownPost id={id} bookmark={bookmark}/>
+                    </div>
                     <div className="post__description" onClick={() => history.push(`${location.pathname}/${id}`)}>{description}</div>
                     {isLoggedIn && 
                       <nav className="application" onClick={(e) => {e.stopPropagation()}}>
@@ -61,12 +64,6 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                         <button className="btn--application" onClick={(e) => handleEditPost(e)}>
                           <EditIcon className="icon"/>
                         </button>
-                        {
-                          bookmarkEl ? 
-                            <button className='btn' onClick={() => dispath( deleteBookmark(bookmarkEl.id) )}>Удалить закладку</button>
-                             : 
-                            <button className='btn' onClick={() => dispath( addBookmark(id) )}>Добавить закладку</button>
-                        }
                       </nav>
                     }
                   </div>

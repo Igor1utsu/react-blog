@@ -19,7 +19,12 @@
         object-fit: contain;
     }
 
+    &__header {
+        display: flex;
+    }
+    
     &__title {
+        flex: 1;
         font-size: 22px;
         color: var(--text-color1);
     }

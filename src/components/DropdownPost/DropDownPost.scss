@@ -1,0 +1,22 @@
+.drop-down {
+    justify-items: flex-end;
+    .ant-btn {
+        background: transparent;
+        color: var(--text-color2);
+        border: 0;
+        &:hover {
+            background: transparent;
+            color: var(--text-color2) !important; 
+        }
+        &:focus {
+            background: transparent;
+            color: var(--text-color2) !important; 
+        }
+
+        svg {
+            margin-top: -5px;
+            height: 34px;
+            width: 48px;
+        }
+    }
+}

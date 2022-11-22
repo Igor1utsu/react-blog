@@ -33,6 +33,18 @@ body {
     .ant-input-group-addon:first-child {
         border-radius: 15px 0 0 15px;
     }
+
+    .ant-dropdown-menu {
+        background-color: var(--color2);
+        border: 1px var(--border-color) solid;
+        border-radius: 5px;
+        &-item {
+            color: var(--text-color2);
+        }
+        &-item:hover {
+            background-color: var(--app-color);
+        }
+    }
 }
 
 #root {
