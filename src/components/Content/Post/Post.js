@@ -28,8 +28,7 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
           dispath( likePost(post) )
         }
 
-        const handleDeletePost = (e) => {       // удаление поста
-          e.preventDefault()
+        const handleDeletePost = () => {       // удаление поста
           const onOk = () => dispath( deletePost(id) )
           showDeleteConfirm(onOk)
         }
@@ -47,7 +46,7 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                   <div className="post__content">
                     <div className="post__header">
                       <h3 className="post__title">{title}</h3>
-                      <DropDownPost id={id} bookmark={bookmark} handleEditPost={handleEditPost}/>
+                      <DropDownPost id={id} bookmark={bookmark} handleEditPost={handleEditPost} handleDeletePost={handleDeletePost}/>
                     </div>
                     <div className="post__description" onClick={() => history.push(`${location.pathname}/${id}`)}>{description}</div>
                     {isLoggedIn && 
@@ -57,9 +56,6 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                             <div className="liks__num" style={liked ? {visibility: "visible"} : {visibility: "hidden"}}>{liked ? "1" : "0"}</div>
                           {/* <div className="like__num" style={liked.length ? {visibility: "visible"} : {visibility: "hidden"}}>{liked.length}</div> */}
                           </button>
-                        <button className="btn--application" onClick={(e) => handleDeletePost(e)}>
-                          <TrashIcon className="icon"/>
-                        </button>
                       </nav>
                     }
                   </div>
