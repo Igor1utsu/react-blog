@@ -1,4 +1,4 @@
-import { POSTS_URL } from "../data/data"
+import { BOOKMARKS_URL, POSTS_URL } from "../data/data"
 
 
 export const API = {
@@ -41,5 +41,26 @@ export const API = {
         return fetch(POSTS_URL + postID)
             .then(response => response.json())
             .then(data => resolve(data))
-    })
+    }),
+
+    loadBookmarks: async () => {
+        const response  = await fetch(BOOKMARKS_URL)
+        return response.json()
+    },
+
+    addBookmark: async (id) => {
+        const response = await fetch(BOOKMARKS_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({postID: id})
+        })
+        return response.json()
+    },
+
+    deteteBookmark: async (id) => {
+        const response = await fetch(BOOKMARKS_URL + id, {
+            method: 'DELETE',
+        })
+        return response.json()
+    }
 }
