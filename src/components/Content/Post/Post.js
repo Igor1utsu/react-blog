@@ -11,13 +11,14 @@ import { deletePost, likePost } from '../../../store/slices/posts'
 import { showDeleteConfirm } from '../../../utils/modals.utils'
 import DropDownPost from '../../DropdownPost/DropDownPost'
 import { getBookmarks } from '../../../store/reducers/bookmarksReducer'
+import { useMemo } from 'react'
 
 
 
 export default ({ post, setSelectPost, setIsVisibleForm }) => {
         const { id, title, description, thumbnail, liked } = post
         const bookmarkList = useSelector(getBookmarks)                        // извлекаем список закладок из Redux
-        const bookmark = bookmarkList.find(bookmark => bookmark.postID === post.id)
+        const bookmark = useMemo(() => bookmarkList.find(bookmark => bookmark.postID === post.id), [bookmarkList, post.id])   // есть пост в закладках?
         const history = useHistory()
         const location = useLocation()
         const isLoggedIn = useSelector(getIsLoggedIn)    // загр. состояние авторизации из Redux
