@@ -2,7 +2,6 @@
 import imgPlaceholder from '../../../assets/place-holder-img.png'
 import { HeartIcon } from '../../HeartIcon/HeartIcon'
 import { ReactComponent as TrashIcon } from "../../../assets/svg/trash.svg"
-import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg"
 import "./Post.scss"
 import { useHistory, useLocation } from 'react-router-dom'
 import { getIsLoggedIn } from '../../../store/slices/auth'
@@ -35,8 +34,7 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
           showDeleteConfirm(onOk)
         }
 
-        const handleEditPost= (e) => {          // редактирования поста
-          e.preventDefault()
+        const handleEditPost= () => {          // редактирования поста
           setSelectPost(post)       // заносим текущий пост в стейт
           setIsVisibleForm(true)      // открываем форму
         }
@@ -49,7 +47,7 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                   <div className="post__content">
                     <div className="post__header">
                       <h3 className="post__title">{title}</h3>
-                      <DropDownPost id={id} bookmark={bookmark}/>
+                      <DropDownPost id={id} bookmark={bookmark} handleEditPost={handleEditPost}/>
                     </div>
                     <div className="post__description" onClick={() => history.push(`${location.pathname}/${id}`)}>{description}</div>
                     {isLoggedIn && 
@@ -61,9 +59,6 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                           </button>
                         <button className="btn--application" onClick={(e) => handleDeletePost(e)}>
                           <TrashIcon className="icon"/>
-                        </button>
-                        <button className="btn--application" onClick={(e) => handleEditPost(e)}>
-                          <EditIcon className="icon"/>
                         </button>
                       </nav>
                     }
