@@ -57,7 +57,7 @@ export const API = {
         return response.json()
     },
 
-    deteteBookmark: async (id) => {
+    deleteBookmark: async (id) => {
         const response = await fetch(BOOKMARKS_URL + id, {
             method: 'DELETE',
         })

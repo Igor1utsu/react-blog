@@ -10,11 +10,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deletePost, likePost } from '../../../store/slices/posts'
 import { showDeleteConfirm } from '../../../utils/modals.utils'
 import { addBookmark, deleteBookmark } from '../../../store/actions/bookmarks'
+import { getBookmarks } from '../../../store/reducers/bookmarksReducer'
 
 
 
 export default ({ post, setSelectPost, setIsVisibleForm }) => {
         const { id, title, description, thumbnail, liked } = post
+        const bookmarkList = useSelector(getBookmarks)                        // извлекаем список закладок из Redux
+        const bookmarkEl = bookmarkList.find(bookmark => bookmark.postID === post.id)
         const history = useHistory()
         const location = useLocation()
         const isLoggedIn = useSelector(getIsLoggedIn)    // загр. состояние авторизации из Redux
@@ -58,8 +61,12 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                         <button className="btn--application" onClick={(e) => handleEditPost(e)}>
                           <EditIcon className="icon"/>
                         </button>
-                        <button className='btn' onClick={() => dispath( addBookmark(id) )}>Добавить закладку</button>
-                        <button className='btn' onClick={() => dispath( deleteBookmark(id) )}>Удалить закладку</button>
+                        {
+                          bookmarkEl ? 
+                            <button className='btn' onClick={() => dispath( deleteBookmark(bookmarkEl.id) )}>Удалить закладку</button>
+                             : 
+                            <button className='btn' onClick={() => dispath( addBookmark(id) )}>Добавить закладку</button>
+                        }
                       </nav>
                     }
                   </div>
