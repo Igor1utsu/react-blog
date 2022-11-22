@@ -1,5 +1,5 @@
 .drop-down {
-    justify-items: flex-end;
+    align-self: flex-end;
     .ant-btn {
         background: transparent;
         color: var(--text-color2);
@@ -14,7 +14,7 @@
         }
 
         svg {
-            margin-top: -5px;
+            margin-top: -25px;
             height: 34px;
             width: 48px;
         }

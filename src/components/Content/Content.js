@@ -5,6 +5,7 @@ import Post from "./Post/Post"
 import PostForm from "./PostForm/PostForm"
 import { useFavourites, useSearch } from "../../utils/hooks"
 import OpenPost from "../../pages/OpenPost/OpenPost"
+import NoBookmark from "./NoBookmark/NoBookmark"
 import Search from "antd/lib/input/Search"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
@@ -71,7 +72,7 @@ export default () => {
             })
           }
           {
-            isBookmarks && bookmarkList.map((post, index) => {
+            isBookmarks && bookmarkList.map((record, index) => {
               const bookmark = postList.find(post => post.id === bookmarkList[index].postID)
 
               if (bookmark) {
@@ -82,7 +83,11 @@ export default () => {
                   />
                 )
               } else {
-                return <div className="post no-bookmark">Закладка удалена</div>
+                return (
+                <NoBookmark
+                  record={record}
+                  key={index}
+                />)
               }
             })
           }
