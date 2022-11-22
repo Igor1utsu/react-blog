@@ -9,6 +9,7 @@ import { getIsLoggedIn } from '../../../store/slices/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { deletePost, likePost } from '../../../store/slices/posts'
 import { showDeleteConfirm } from '../../../utils/modals.utils'
+import { addBookmark, deleteBookmark } from '../../../store/actions/bookmarks'
 
 
 
@@ -57,6 +58,8 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                         <button className="btn--application" onClick={(e) => handleEditPost(e)}>
                           <EditIcon className="icon"/>
                         </button>
+                        <button className='btn' onClick={() => dispath( addBookmark(id) )}>Добавить закладку</button>
+                        <button className='btn' onClick={() => dispath( deleteBookmark(id) )}>Удалить закладку</button>
                       </nav>
                     }
                   </div>

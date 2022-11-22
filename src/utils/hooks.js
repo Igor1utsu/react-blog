@@ -24,13 +24,14 @@ export const useLoadAuth = () => {
 export const useFavourites = () => {
     const { pathname } = useLocation()
     const isFavourites = pathname.includes('favourites')        // проверям наличие favourites в адресной строке
+    const isBookmarks = pathname.includes('bookmarks')
     const dispath = useDispatch()
 
     useEffect(() => {
         isFavourites ? dispath( setFavourites() ) : dispath( unsetFavourites() )    // изменяем isFavourites в глобальном хранилище
     }, [isFavourites])
 
-    return isFavourites
+    return { isFavourites, isBookmarks }
 }
 
 export const useThemeStyle = () => {

@@ -10,11 +10,14 @@ import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { getIsLoggedIn } from "../../store/slices/auth"
 import { loadPosts, selectPostsData } from "../../store/slices/posts"
+import { loadBookmarks } from "../../store/actions/bookmarks"
+import { getBookmarks } from "../../store/reducers/bookmarksReducer"
 
 
 export default () => {
   const { postList, isLoading, error } = useSelector(selectPostsData)      // извлекаем информацию о постах из Redux 
-  const isFavourites = useFavourites()                            // загружаем функционал для избранного
+  const bookmarkList = useSelector(getBookmarks)                        // извлекаем список закладок из Redux
+  const { isFavourites, isBookmarks } = useFavourites()                            // загружаем функционал для избранного
   const [isVisibleForm, setIsVisibleForm] = useState(false)       // форма создания / редактрования поста
   const [selectPost, setSelectPost] = useState(null)
   const { handleSearch, searchResult } = useSearch( postList )   // функционал для поиска
@@ -24,6 +27,7 @@ export default () => {
 
   useEffect(() => {
     dispath(loadPosts())      // загружаем посты
+    dispath(loadBookmarks())    // загружаем список закладок
   }, [])
 
   if (isLoading) return <h2 className="content__message">Loading... </h2>
@@ -33,21 +37,29 @@ export default () => {
       <>
         <div className="content__header">
           {isFavourites && <h2 className="title">Favourites</h2>}
-          {isLoggedIn && !isFavourites && !searchResult && <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить пост</button>}      {/* если авторизованны и не в избранном: показываем кнопку */}
-          <div id="search">
-            <Search placeholder="поиск" onChange={handleSearch}/>
-          </div>
+          {isBookmarks && <h2 className="title">Bookmarks</h2>}
+          {isLoggedIn && !isFavourites && !isBookmarks && !searchResult && 
+            <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить пост</button>
+          }
+          {!isBookmarks && 
+            <div id="search">
+              <Search placeholder="поиск" onChange={handleSearch}/>
+            </div>
+          }
         </div>
 
         <div className="content__wrapper">
           {
-            (postList.length === 0) && <h4 className="content__message">Постов нет</h4>
+            !isBookmarks && (postList.length === 0) && <h4 className="content__message">Постов нет</h4>
+          }
+          {
+            isBookmarks && (bookmarkList.length === 0) && <h4 className="content__message">Нет закладок</h4>
           }
           {
             searchResult && <h4 className="content__message">Найдено: {searchResult.length}</h4>
           }
           {
-            !searchResult && postList.map((post, index) => {
+            !searchResult && !isBookmarks && postList.map((post, index) => {
               return (
                 <Post
                   post={post}
@@ -56,6 +68,22 @@ export default () => {
                   setIsVisibleForm={setIsVisibleForm}
                 />
               )
+            })
+          }
+          {
+            isBookmarks && bookmarkList.map((post, index) => {
+              const bookmark = postList.find(post => post.id === bookmarkList[index].postID)
+
+              if (bookmark) {
+                return (
+                  <Post
+                    post={bookmark}
+                    key={index}
+                  />
+                )
+              } else {
+                return <div className="post no-bookmark">Закладка удалена</div>
+              }
             })
           }
           {
