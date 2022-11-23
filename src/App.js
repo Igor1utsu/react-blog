@@ -1,4 +1,5 @@
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
+import Loading from './pages/Loading/Loading'
 import LoginPage from "./pages/LoginPage/LoginPage"
 import MainLayout from "./layouts/MainLayout"
 import NoMatch from "./pages/NoMatch/NoMatch"
@@ -15,7 +16,7 @@ import { getIsLoggedIn } from './store/slices/auth'
 
 function App() {
   useThemeStyle()   // загружаем тему оформления
-  useLoadAuth()     // загружаем данные авторизации Firebase
+  const loadingAuth = useLoadAuth()     // загружаем данные авторизации Firebase
   const isLoggedIn = useSelector(getIsLoggedIn)    // извлекаем состояние авторизации из Redux
   const { pathname } = useLocation()
 
@@ -30,6 +31,8 @@ function App() {
       <LoginPage/>
     )
   }
+
+  if (loadingAuth) return <Loading/>
 
   return (
     <Switch>

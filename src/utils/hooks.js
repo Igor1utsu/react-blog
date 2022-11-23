@@ -6,19 +6,24 @@ import { removeUser, setUser } from "../store/slices/auth"
 import { setFavourites, unsetFavourites } from "../store/slices/posts"
 
 export const useLoadAuth = () => {
+    const [loadingAuth, setLoadingAuth] = useState(true)
     const dispatch = useDispatch()
 
     useEffect(() => {
         getAuth().onAuthStateChanged(user => {
           if (user) {
             dispatch(setUser(user.providerData[0]))     // добавляем данные пользовалеля из Firebase в Redux
+            setLoadingAuth(false)
           } 
           else { 
             console.log("Выход из системы")
             dispatch(removeUser())
+            setLoadingAuth(false)
           } 
         })
       },[])
+    
+    return loadingAuth
 }
 
 export const useFavourites = () => {

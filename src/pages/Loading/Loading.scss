@@ -1,0 +1,8 @@
+.loading {
+    margin: auto;
+    &__icon svg {
+        width: 64px;
+        height: 64px;
+        color: var(--color-blue);
+    }
+}
