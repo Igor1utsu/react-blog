@@ -31,8 +31,8 @@ export default () => {
     dispath(loadBookmarks())    // загружаем список закладок
   }, [])
 
-  if (isLoading) return <h2 className="content__message">Loading... </h2>
-  if (error) return <h2 className="content__message">Error</h2>
+  if (isLoading) return <h3 className="content__message">Loading... </h3>
+  if (error) return <h3 className="content__message">Error</h3>
   
   return (
       <>
@@ -57,7 +57,7 @@ export default () => {
             isBookmarks && (bookmarkList.length === 0) && <h4 className="content__message">Нет закладок</h4>
           }
           {
-            searchResult && <h4 className="content__message">Найдено: {searchResult.length}</h4>
+            searchResult && <h4 className="content__message content__message-search">Найдено: {searchResult.length}</h4>
           }
           {
             !searchResult && !isBookmarks && postList.map((post, index) => {
