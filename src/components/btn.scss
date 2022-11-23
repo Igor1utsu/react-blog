@@ -65,6 +65,9 @@ body {
     background-color: var(--app-color);
     border-radius: 16px;
     border: 0;
+    &:hover {
+        background-color: var(--app-color-hover);
+    }
 
     &-liks {
         svg {

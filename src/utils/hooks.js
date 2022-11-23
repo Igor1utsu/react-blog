@@ -51,6 +51,7 @@ export const useThemeStyle = () => {
     const colorLightGray1 = "#dedede"
     const colorLightGray2 = "#b0b0b0"
     const colorGray = "#636363"
+    const colorGray0 = "#353535"        // 0 - 9 (светлее - темнее)
     const colorGray1 = "#2f2f2f"
     const colorGray2 = "#262626"
     const colorDarkGray = "#141414"
@@ -67,6 +68,7 @@ export const useThemeStyle = () => {
         root?.style.setProperty( "--btn-color", darkTheme ? colorGray : colorDark )      // Button)
         root?.style.setProperty( "--border-color", darkTheme ? colorGray : colorLightGray2 )    // border
         root?.style.setProperty( "--app-color", darkTheme ? colorGray1 : colorLight )    // Application
+        root?.style.setProperty( "--app-color-hover", darkTheme ? colorGray0 : colorLightGray )    // Application:hover
         root?.style.setProperty( "--hover-nav-color", darkTheme ? colorGray2 : colorLightBlue )    // :hover ( Header & Footer )
         root?.style.setProperty( "--color-light", colorLight )
         root?.style.setProperty( "--color-blue", colorBlue )
