@@ -3,7 +3,7 @@ import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
 import imgPlaceholder from '../../../src/assets/place-holder-img.png'
 import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
 import './OpenPost.scss'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { useMemo } from 'react';
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
@@ -29,6 +29,7 @@ export default () => {
     const bookmarkList = useSelector(getBookmarks)                        // извлекаем список закладок из Redux
     const bookmark = useMemo(() => bookmarkList.find(bookmark => bookmark.postID === post?.id), [bookmarkList, post?.id])   // есть пост в закладках?
     const dispath = useDispatch()  
+    const history = useHistory()
 
     const onValuesChange = (fielData) => {          //   Данные для Инпутов
         setFormData({...formData, ...fielData})
@@ -91,9 +92,9 @@ export default () => {
                         onValuesChange={onValuesChange}
                     />
                     {isEditForm && <button className='btn' onClick={(e) => saveChanges(e)}>Сохранить</button>}     {/*  если редактируем пост, то показываем кнопку  */}  
-                    {isLoggedIn && !isEditForm &&
+                    {!isEditForm &&
                         <nav className="application">
-                            <button className="btn--application btn--application-liks" onClick={(e) => handleLikePost(e)}>
+                            <button className="btn--application btn--application-liks" onClick={isLoggedIn ? (e) => handleLikePost(e) : () => history.push('/login')}>
                                 <HeartIcon liked={liked} id={id}/>
                                 <div className="liks__num" style={liked ? {visibility: "visible"} : {visibility: "hidden"}}>{liked ? "1" : "0"}</div>
                             </button>

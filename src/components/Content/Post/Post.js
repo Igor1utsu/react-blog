@@ -49,15 +49,13 @@ export default ({ post, setSelectPost, setIsVisibleForm }) => {
                       <DropDownPost id={id} bookmark={bookmark} handleEditPost={handleEditPost} handleDeletePost={handleDeletePost}/>
                     </div>
                     <div className="post__description" onClick={() => history.push(`${location.pathname}/${id}`)}>{description}</div>
-                    {isLoggedIn && 
-                      <nav className="application" onClick={(e) => {e.stopPropagation()}}>
-                          <button className="btn--application btn--application-liks" onClick={(e) => handleLikePost(e)}>
-                            <HeartIcon liked={liked} id={id}/>
-                            <div className="liks__num" style={liked ? {visibility: "visible"} : {visibility: "hidden"}}>{liked ? "1" : "0"}</div>
-                          {/* <div className="like__num" style={liked.length ? {visibility: "visible"} : {visibility: "hidden"}}>{liked.length}</div> */}
-                          </button>
-                      </nav>
-                    }
+                    <nav className="application" onClick={(e) => {e.stopPropagation()}}>
+                        <button className="btn--application btn--application-liks" onClick={isLoggedIn ? (e) => handleLikePost(e) : () => history.push('/login')}>
+                          <HeartIcon liked={liked} id={id}/>
+                          <div className="liks__num" style={liked ? {visibility: "visible"} : {visibility: "hidden"}}>{liked ? "1" : "0"}</div>
+                        {/* <div className="like__num" style={liked.length ? {visibility: "visible"} : {visibility: "hidden"}}>{liked.length}</div> */}
+                        </button>
+                    </nav>
                   </div>
                 </div>
         )
