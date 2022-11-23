@@ -62,7 +62,7 @@ export default ({ setIsVisibleForm, selectPost, setSelectPost }) => {
 
   // Форма: Радактировать / Создать
   const formInfo = {
-    title: selectPost ? 'Редактировать пост' : 'Создать пост',
+    title: selectPost ? 'Редактирование записи' : 'Добавление записи',
     textBtn: selectPost ? 'Сохранить' : 'Создать',
     btnClick: selectPost ? editPost : createPost
   }

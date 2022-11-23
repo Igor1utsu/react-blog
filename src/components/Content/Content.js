@@ -37,10 +37,10 @@ export default () => {
   return (
       <>
         <div className="content__header">
-          {isFavourites && <h2 className="title">Favourites</h2>}
-          {isBookmarks && <h2 className="title">Bookmarks</h2>}
+          {isFavourites && <h2 className="title">Избранное</h2>}
+          {isBookmarks && <h2 className="title">Закладки</h2>}
           {isLoggedIn && !isFavourites && !isBookmarks && !searchResult && 
-            <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить пост</button>
+            <button className="btn" onClick={() => setIsVisibleForm(true)}>Добавить запись</button>
           }
           {!isBookmarks && 
             <div id="search">
