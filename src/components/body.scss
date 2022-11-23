@@ -74,8 +74,8 @@ body {
     right: 0;
     top: 0;
     bottom: 0;
-    width: max-content;
-    height: min-content;
+    max-width: 300px;
+    max-height: 380px;
     margin: auto auto;
     padding: 10px 10px;
     display: flex;
@@ -103,6 +103,7 @@ body {
     padding: 3px 15px;
     border-radius: 10px;
     background-color: var(--color1);
+    height: 100%;
 }
 
 .icon {
