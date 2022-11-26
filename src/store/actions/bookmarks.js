@@ -4,6 +4,7 @@ import { addBookmarkAction, deleteBookmarkAction, loadBookmarksAction } from "..
 export const loadBookmarks = () => {
     return (dispatch, getState) => {
         API.loadBookmarks()
+            // .then((bookmarks) => dispatch({ type: "LOAD_BOOKMARKS", payload: bookmarks }))   // альтернативный способ вызова action
             .then((bookmarks) => dispatch( loadBookmarksAction(bookmarks) ))
     }
 }

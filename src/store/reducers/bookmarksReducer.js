@@ -20,7 +20,7 @@ export const bookmarksReducer = (state = initialState, action) => {
     }
 }
 
-export const loadBookmarksAction = (payload) => ({type: LOAD_BOOKMARKS, payload})
+export const loadBookmarksAction = (payload) => ({type: LOAD_BOOKMARKS, payload})   // создаем функцию Action creators / dispatch({ type: "LOAD_BOOKMARKS", payload: bookmarks})
 export const addBookmarkAction = (payload) => ({type: ADD_BOOKMARK, payload})
 export const deleteBookmarkAction = (payload) => ({type: DELETE_BOOKMARK, payload})
 export const getBookmarks = (state => state.bookmarks.bookmarkList)

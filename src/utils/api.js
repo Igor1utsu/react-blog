@@ -1,3 +1,4 @@
+import axios from "axios"
 import { BOOKMARKS_URL, POSTS_URL } from "../data/data"
 
 
@@ -17,7 +18,7 @@ export const API = {
 
     },
 
-    createPost: (newPost) => {
+    createPost: async (newPost) => {
         return fetch(POSTS_URL, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -44,23 +45,29 @@ export const API = {
     }),
 
     loadBookmarks: async () => {
-        const response  = await fetch(BOOKMARKS_URL)
-        return response.json()
+        const response = await axios.get(BOOKMARKS_URL)
+        return response.data
+        // const response  = await fetch(BOOKMARKS_URL)
+        // return response.json()
     },
 
     addBookmark: async (id) => {
-        const response = await fetch(BOOKMARKS_URL, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({postID: id})
-        })
-        return response.json()
+        const response = await axios.post(BOOKMARKS_URL, { postID: id })
+        return response.data
+        // const response = await fetch(BOOKMARKS_URL, {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify({postID: id})
+        // })
+        // return response.json()
     },
 
     deleteBookmark: async (id) => {
-        const response = await fetch(BOOKMARKS_URL + id, {
-            method: 'DELETE',
-        })
-        return response.json()
+        const response = await axios.delete(BOOKMARKS_URL + id)
+        return response.data
+        // const response = await fetch(BOOKMARKS_URL + id, {
+        //     method: 'DELETE',
+        // })
+        // return response.json()
     }
 }
