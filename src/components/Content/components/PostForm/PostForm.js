@@ -1,9 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { useState } from "react"
 import "./PostForm.scss"
-import { ReactComponent as CloseIcon } from "../../../assets/svg/close-button.svg"
+import { ReactComponent as CloseIcon } from "../../../../assets/svg/close-button.svg"
 import { useDispatch } from "react-redux"
-import { addPost, savePost } from "../../../store/slices/posts"
+import { addPost, savePost } from "../../../../store/slices/posts"
 
 
 export default ({ setIsVisibleForm, selectPost, setSelectPost }) => {

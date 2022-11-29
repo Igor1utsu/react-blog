@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
-import { ReactComponent as HeartLike } from "../../assets/svg/heart-like.svg"
-import { ReactComponent as Heart } from "../../assets/svg/heart.svg"
-import { getIsLoggedIn } from "../../store/slices/auth"
-import { selectPostsData } from "../../store/slices/posts"
+import { ReactComponent as HeartLike } from "../../../../assets/svg/heart-like.svg"
+import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg"
+import { getIsLoggedIn } from "../../../../store/slices/auth"
+import { selectPostsData } from "../../../../store/slices/posts"
 
 export const HeartIcon = ({ liked, id }) => {
     const isLoggedIn = useSelector(getIsLoggedIn)    // извлекаем состояние авторизации из Redux

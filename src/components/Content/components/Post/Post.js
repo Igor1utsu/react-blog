@@ -1,16 +1,16 @@
 /* eslint-disable import/no-anonymous-default-export */
-import imgPlaceholder from '../../../assets/place-holder-img.png'
-import { HeartIcon } from '../../HeartIcon/HeartIcon'
+import imgPlaceholder from '../../../../assets/place-holder-img.png'
+import { HeartIcon } from '../HeartIcon/HeartIcon'
 import "./Post.scss"
 import { useHistory, useLocation } from 'react-router-dom'
-import { getIsLoggedIn } from '../../../store/slices/auth'
+import { getIsLoggedIn } from '../../../../store/slices/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { deletePost, likePost } from '../../../store/slices/posts'
-import { showDeleteConfirm } from '../../../utils/modals.utils'
-import DropDownPost from '../../DropdownPost/DropDownPost'
-import { getBookmarks } from '../../../store/reducers/bookmarksReducer'
+import { deletePost, likePost } from '../../../../store/slices/posts'
+import { showDeleteConfirm } from '../../../../utils/modals.utils'
+import DropDownPost from '../DropdownPost/DropDownPost'
+import { getBookmarks } from '../../../../store/reducers/bookmarksReducer'
 import { useMemo } from 'react'
-import { useFavourites } from '../../../utils/hooks'
+import { useFavourites } from '../../../../utils/hooks'
 
 
 

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from "react";
 import Header from "../components/Header/Header";
-import SideBar from "../components/Content/SideBar/SideBar";
+import SideBar from "../components/Content/components/SideBar/SideBar";
 import Footer from "../components/Footer/Footer"
 import Settings from "../../src/pages/Settings/Settings";
 import { Route, Switch } from "react-router-dom";

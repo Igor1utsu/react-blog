@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import "./PostData.css"
 
 export const PostTitle = ({ title, isEditForm, onValuesChange }) => {
-    const [titleInput, setTitleInput] = useState(title)     // загружаем данные из OpenPost
+    const [titleInput, setTitleInput] = useState(title)     // загружаем данные из PostDetail
 
     useEffect(() => {
-        onValuesChange({title: titleInput})    // передаем дынные из импута в OpenPost
+        onValuesChange({title: titleInput})    // передаем дынные из импута в PostDetail
     }, [titleInput])
     
     const handleChangeTitle = (event) => {
@@ -24,10 +24,10 @@ export const PostTitle = ({ title, isEditForm, onValuesChange }) => {
 }
 
 export const PostDesc = ({ description, isEditForm, onValuesChange }) => {
-    const [descInput, setDescInput] = useState(description)     // загружаем данные из OpenPost
+    const [descInput, setDescInput] = useState(description)     // загружаем данные из PostDetail
 
     useEffect(() => {
-        onValuesChange({description: descInput})    // передаем дынные из импута в OpenPost
+        onValuesChange({description: descInput})    // передаем дынные из импута в PostDetail
     }, [descInput])
     
     const handleChangeDesc = (event) => {

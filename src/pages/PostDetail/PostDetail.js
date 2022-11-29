@@ -1,14 +1,14 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
 import imgPlaceholder from '../../../src/assets/place-holder-img.png'
-import { HeartIcon } from '../../components/HeartIcon/HeartIcon'
-import './OpenPost.scss'
+import { HeartIcon } from '../../components/Content/components/HeartIcon/HeartIcon'
+import './PostDetail.scss'
 import { useHistory, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { useMemo } from 'react';
 import { PostDesc, PostTitle } from '../../components/PostData/PostData'
-import  PostNotFound from '../../pages/PostNotFound/PostNotFound'
-import DropDownPost from '../../components/DropdownPost/DropDownPost';
+import  PostNotFound from '../PostNotFound/PostNotFound'
+import DropDownPost from '../../components/Content/components/DropdownPost/DropDownPost';
 import { useFavourites, useNavigationPost } from '../../utils/hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsLoggedIn } from '../../store/slices/auth'

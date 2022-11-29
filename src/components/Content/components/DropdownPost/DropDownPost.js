@@ -1,9 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { Dropdown, Menu } from "antd"
 import { useDispatch, useSelector } from "react-redux"
-import { addBookmark, deleteBookmark } from '../../store/actions/bookmarks'
-import { getIsLoggedIn } from "../../store/slices/auth"
-import { useFavourites } from "../../utils/hooks"
+import { addBookmark, deleteBookmark } from '../../../../store/actions/bookmarks'
+import { getIsLoggedIn } from "../../../../store/slices/auth"
+import { useFavourites } from "../../../../utils/hooks"
 import "./DropDownPost.scss"
 
 export default ({ id, bookmark, handleEditPost, handleDeletePost }) => {

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { StopOutlined } from "@ant-design/icons"
-import DropDownPost from "../../DropdownPost/DropDownPost"
+import DropDownPost from "../DropdownPost/DropDownPost"
 import "./NoBookmark.scss"
 
 export default ({ record }) => {

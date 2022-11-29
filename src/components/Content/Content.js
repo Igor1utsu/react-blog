@@ -1,11 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { useEffect, useState } from "react"
 import "./Content.scss"
-import Post from "./Post/Post"
-import PostForm from "./PostForm/PostForm"
+import Post from "./components/Post/Post"
+import PostForm from "./components/PostForm/PostForm"
 import { useFavourites, useSearch } from "../../utils/hooks"
-import OpenPost from "../../pages/OpenPost/OpenPost"
-import NoBookmark from "./NoBookmark/NoBookmark"
+import PostDetail from "../../pages/PostDetail/PostDetail"
+import NoBookmark from "./components/NoBookmark/NoBookmark"
 import Search from "antd/lib/input/Search"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
@@ -112,7 +112,7 @@ export default () => {
           setSelectPost={setSelectPost}
         />}
 
-        {params.id && !isLoading && <OpenPost/>}
+        {params.id && !isLoading && <PostDetail/>}
       </>
     )
 }

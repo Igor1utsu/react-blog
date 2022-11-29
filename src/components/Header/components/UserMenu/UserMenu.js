@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { getAuth, signOut } from "firebase/auth"
 import { useHistory } from "react-router-dom"
-import imgContacts from '../../assets/contacts.png'
+import imgContacts from '../../../../assets/contacts.png'
 import "./UserMenu.scss"
 
 export default ({ isVisibleUserMenu }) => {

@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
-import Loading from './pages/Loading/Loading'
+import Loading from './components/Loading/Loading'
 import LoginPage from "./pages/LoginPage/LoginPage"
 import MainLayout from "./layouts/MainLayout"
 import NoMatch from "./pages/NoMatch/NoMatch"
