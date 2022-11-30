@@ -1,11 +1,9 @@
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import Loading from './components/Loading/Loading'
-import LoginPage from "./pages/LoginPage/LoginPage"
 import MainLayout from "./layouts/MainLayout"
+import { AuthLayout } from './layouts/AuthLayout'
 import NoMatch from "./pages/NoMatch/NoMatch"
-import PhoneAuth from './pages/PhoneAuth/PhoneAuth'
-import Register from './pages/Register/Register'
-import { URLS } from "./utils/constants"
+import { URLS} from "./utils/constants"
 import 'antd/dist/antd.css'
 import "./components/body.scss"
 import "./components/btn.scss"
@@ -20,47 +18,28 @@ function App() {
   const isLoggedIn = useSelector(getIsLoggedIn)    // извлекаем состояние авторизации из Redux
   const { pathname } = useLocation()
 
-  const Page = () => {
-    return (
-      <MainLayout/>
-    )
-  }
-
-  const Login = () => {
-    return (
-      <LoginPage/>
-    )
-  }
-
   if (loadingAuth) return <Loading/>
 
   return (
     <Switch>
       <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />     {/*  убираем слеш в конце адрессной строки  */}
 
-      <Route exact path="/login">
-        {isLoggedIn ? <Redirect to="/blog"/> : <Login/>}
-      </Route>
-
-      <Route exact path="/phone-auth">
-        {isLoggedIn ? <Redirect to="/blog"/> : <PhoneAuth/>}
-      </Route>
-
-      <Route exact path="/register">
-        {isLoggedIn ? <Redirect to="/blog"/> : <Register/>}
-      </Route>
-      
-      {URLS.map((url, index) => {
-        return  <Route 
-                  key={index}
-                  path={url.path}
-                  render={() => {
-                    if (isLoggedIn || !url.requiredLogin) return Page() // если авторизированны или не требует авторизации выводим контент
-                    return <Redirect to='/login'/>
-                  }}
-                />
+      {URLS.AuthLayout.map((url, index) => {
+        return (
+          <Route exact path={url.path} key={index}>
+            {isLoggedIn ? <Redirect to="/blog"/> : <AuthLayout/>}
+          </Route>
+        )
       })}
 
+      {URLS.MainLayout.map((url, index) => {
+        return (
+          <Route exact path={url.path} key={index}>
+            {isLoggedIn || !url.requiredLogin ? <MainLayout/> : <Redirect to='/login'/>}
+          </Route>
+        )
+      })}
+      
       <Route exact path="/">
         <Redirect to="/blog"/>
       </Route>
